@@ -7,7 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import type {Node} from 'react';
+// import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,14 +25,15 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Navbar from './src/components/sections/Navbar';
 
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): Node {
-  const isDarkMode = useColorScheme() === 'dark';
+function Section({children, title}: SectionProps): React.JSX.Element {
+  // const isDarkMode = useColorScheme() === 'dark';
   return (
     // <View style={styles.sectionContainer}>
     <View className="mt-8 px-2">
@@ -43,7 +44,7 @@ function Section({children, title}: SectionProps): Node {
             color: isDarkMode ? Colors.white : Colors.black,
           },
         ]}> */}
-      <Text className="text-2xl text-black dark:text-white">
+      <Text className="text-2xl font-bold text-black">
         {title}
       </Text>
       {/* <Text
@@ -53,38 +54,39 @@ function Section({children, title}: SectionProps): Node {
             color: isDarkMode ? Colors.light : Colors.dark,
           },
         ]}> */}
-      <Text className="text-lg text-black dark:text-white">
+      <Text className="text-lg text-black">
         {children}
       </Text>
     </View>
   );
 }
 
-function App(): Node {
+function App(): React.JSX.Element  {
   const isDarkMode = useColorScheme() === 'dark';
 
   // const backgroundStyle = {
   //   backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   // };
 
-  const backgroundStyle = "bg-neutral-300 dark:bg-slate-900"
+  const backgroundStyle = "bg-neutral-300";
   return (
     // <SafeAreaView style={backgroundStyle}>
     <SafeAreaView className={backgroundStyle}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        barStyle='light-content'
       />
+      <Navbar title='example'></Navbar>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         // style={backgroundStyle}>
         className={backgroundStyle}>
         <Header />
+        
         {/* <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}> */}
-        <View className="bg-white dark:bg-black">
+        <View className="bg-white">
           <Section title="Step One">
             {/* Edit <Text style={styles.highlight}>App.tsx</Text> to change this */}
             Edit <Text className="font-bold">App.js</Text> to change this
