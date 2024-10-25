@@ -11,6 +11,7 @@
     "windows": "react-native run-windows"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.18",
     "nativewind": "^2.0.11",
     "react": "18.3.1",
     "react-native": "0.75.3",
@@ -29,11 +30,11 @@
     "babel-jest": "^29.6.3",
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
+    "metro-config": "^0.80.12",
     "prettier": "2.8.8",
     "react-test-renderer": "18.3.1",
     "tailwindcss": "^3.3.2",
-    "typescript": "5.0.4",
-    "metro-config": "^0.80.12"
+    "typescript": "5.0.4"
   },
   "engines": {
     "node": ">=18"

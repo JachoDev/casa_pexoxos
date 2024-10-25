@@ -26,6 +26,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Navbar from './src/components/sections/Navbar';
+import Home from './src/views/Home';
+import AppRouter from './src/router/RouterNavigator';
 
 
 type SectionProps = PropsWithChildren<{
@@ -70,41 +72,9 @@ function App(): React.JSX.Element  {
 
   const backgroundStyle = "bg-neutral-300";
   return (
-    // <SafeAreaView style={backgroundStyle}>
-    <SafeAreaView className={backgroundStyle}>
-      <StatusBar
-        barStyle='light-content'
-      />
-      <Navbar title='example'></Navbar>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        // style={backgroundStyle}>
-        className={backgroundStyle}>
-        <Header />
-        
-        {/* <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}> */}
-        <View className="bg-white">
-          <Section title="Step One">
-            {/* Edit <Text style={styles.highlight}>App.tsx</Text> to change this */}
-            Edit <Text className="font-bold">App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Home/>
+    </>
   );
 }
 
