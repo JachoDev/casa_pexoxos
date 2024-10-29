@@ -29,40 +29,6 @@ import Navbar from './src/components/sections/Navbar';
 import Home from './src/views/Home';
 import AppRouter from './src/router/RouterNavigator';
 
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  // const isDarkMode = useColorScheme() === 'dark';
-  return (
-    // <View style={styles.sectionContainer}>
-    <View className="mt-8 px-2">
-      {/* <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}> */}
-      <Text className="text-2xl font-bold text-black">
-        {title}
-      </Text>
-      {/* <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}> */}
-      <Text className="text-lg text-black">
-        {children}
-      </Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element  {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -73,7 +39,7 @@ function App(): React.JSX.Element  {
   const backgroundStyle = "bg-neutral-300";
   return (
     <>
-      <Home/>
+      <AppRouter/>
     </>
   );
 }
