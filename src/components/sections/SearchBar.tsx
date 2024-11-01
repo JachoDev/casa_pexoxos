@@ -11,21 +11,14 @@ import {
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: 36,
-      alignSelf: 'center',
-      width: '70%',
-      height: '10%',
+      marginTop: 20,
+      alignSelf: 'stretch',
+      width: 300,
+      height: 30,
       alignContent: 'flex-start',
       justifyContent: 'center',
-      backgroundColor: '#fff',
-      borderRadius: 40,
-      shadowColor:'#000000',
-      shadowRadius: 5,
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 10, height: -10 },
-      elevation: 10,
-      borderWidth: 2,
-      borderColor: '#959595'
+      backgroundColor: '#cbc5c5',
+      borderRadius: 30,
     },
     scrollView: {
       paddingRight: 20,
@@ -53,10 +46,9 @@ const createStyles = () =>
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
       // TitleLargeTextBlockStyle
-      fontSize: 20,
-      fontWeight: '600', // SemiBold
+      fontSize: 14,
+      fontWeight: '400', // SemiBold
       paddingLeft: 36,
-      color: '#000000'
     },
   });
 
@@ -64,7 +56,7 @@ type NavbarProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Navbar({children, title}: NavbarProps): React.JSX.Element {
+function Searchbar({children, title}: NavbarProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
 
@@ -73,7 +65,7 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
 			<View style={styles.container}>
         <View >
           <Text style={styles.pageTitle}>
-            Componente en construccion
+            Buscar
           </Text>
           {children}
         </View>
@@ -82,4 +74,4 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
   );
 }
 
-export default Navbar;
+export default Searchbar;

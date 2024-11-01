@@ -4,11 +4,16 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  useColorScheme,
+  Button,
   View,
+  Image,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import { useTheme } from '@react-navigation/native';
+import SearchBar from '../components/sections/SearchBar';
+import PetButton from '../components/ui/buttons/PetButton';
+import logo from '../assets/images/image_logo.png';
+import animals from '../assets/images/animals.png';
 
 type HomeProps = PropsWithChildren<{
   title: string;
@@ -23,6 +28,7 @@ const createStyles = () =>
       alignSelf: 'stretch',
       height: '100%',
       alignContent: 'flex-start',
+      backgroundColor: 'white',
     },
     scrollView: {
       paddingRight: 20,
@@ -47,6 +53,9 @@ const createStyles = () =>
       height: 204,
       justifyContent: 'center',
     },
+    homeSection: {
+      flexDirection: 'row',
+    },
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
       // TitleLargeTextBlockStyle
@@ -55,24 +64,113 @@ const createStyles = () =>
       paddingLeft: 36,
       color: '#000000'
     },
+    imageLogo: {
+			width: 250,
+			height: 300,
+      marginHorizontal: 50,
+      marginLeft: 100,
+		},
+    imageAnimals: {
+      width: 300,
+			height: 150,
+    },
+    carouselSection: {
+			width: 800,
+			height: 300,
+      marginHorizontal: 50,
+      backgroundColor: 'gray',
+      alignItems: 'center',
+      justifyContent: 'center',
+		},
+    homeView: {
+      flexDirection: 'row',
+    },
+    scheduleSection: {
+      width: 280,
+      height: 500,
+      alignSelf: 'flex-end',
+      alignItems: 'center',
+    },
+    scheduleSectionTitle: {
+      paddingTop: 30,
+      color: 'black',
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    scheduleSectionText: {
+      paddingTop: 30,
+      color: 'black',
+      fontSize: 16,
+      justifyContent: 'center',
+      textAlign: 'center',
+    },
+    scheduleDropdown: {
+      marginTop: 30,
+      height: 30,
+      width: 175,
+      borderRadius: 5,
+      borderColor: 'gray',
+      borderWidth: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    dropdownText: {
+      alignSelf: 'center',
+      justifyContent: 'center',
+      color: 'gray',
+      fontSize: 10,
+    },
+    scheduleButton: {
+      paddingTop: 30,
+      width: 150,
+    },
   });
 
 function Home({children, title}: HomeProps): React.JSX.Element {
   const {colors} = useTheme();
-  const colorScheme = useColorScheme();
   const styles = createStyles(colors);
   
   return (
     <>
       <SafeAreaView style={styles.container}>
         <Navbar title='' />
-        <View >
-          <Text style={styles.pageTitle} >
-            Home
-          </Text>
+        <View style={styles.homeView}>
+          <View>
+            <View style={styles.homeSection}>
+              <View>
+                <SearchBar title='' />
+                <View>
+                  <Text style={styles.pageTitle}>
+                    Pexoxos
+                  </Text>
+                  <PetButton title={''} />
+                </View>
+              </View>
+              <View>
+                <Image style={styles.imageLogo} source={logo}/>
+              </View>
+            </View>
+            <View style={styles.carouselSection}>
+              <Text>
+                Componente en construccion
+              </Text>
+            </View>
+          </View>
+          <View style={styles.scheduleSection}>
+            <Image source={animals} style={styles.imageAnimals}/>
+            <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+            <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
+            <View style={styles.scheduleDropdown}>
+              <Text style={styles.dropdownText}>
+                Seleccionar hora
+              </Text>
+            </View>
+            <View style={styles.scheduleButton}>
+              <Button  color='#03bdbf' title='Agendar Cita'/>
+            </View>
+          </View>
         </View>
       </SafeAreaView>
-			
 		</>
   );
 }

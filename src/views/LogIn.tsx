@@ -1,6 +1,6 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-//import CheckBox from '@react-native-community/checkbox';
+import CheckBox from '@react-native-community/checkbox';
 import {
   SafeAreaView,
   Text,
@@ -10,6 +10,7 @@ import {
 	TextInput,
 	useColorScheme,
 	StyleSheet,
+  Button,
 } from 'react-native';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import Navbar from '../components/sections/Navbar';
@@ -28,7 +29,14 @@ const createStyles = () =>
       paddingLeft: 36,
       alignSelf: 'center',
       height: '100%',
+      width: '100%',
       alignContent: 'space-around',
+      backgroundColor: '#ffffff'
+    },
+    presentation: {
+      alignSelf: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
     },
 		columnContainer: {
 			alignContent: 'space-around',
@@ -38,6 +46,7 @@ const createStyles = () =>
 			flexWrap: 'wrap',
 			alignItems: 'center',
 			alignContent: 'center',
+      alignSelf: 'center',
 		},
     scrollView: {
       paddingRight: 20,
@@ -79,10 +88,12 @@ const createStyles = () =>
 			color: '#000000'
 		},
 		textInput: {
-			borderColor: '#762776',
-			borderRadius: 4,
+            borderColor: '#762776',
+            borderRadius: 4,
+            color: '#000000',
 
-		},
+
+        },
 		imageBanner: {
 			width: 500,
 			height: 500,
@@ -91,7 +102,10 @@ const createStyles = () =>
 		imageLogo: {
 			width: 40,
 			height: 40,
-		}
+		},
+    button: {
+      width: 120,
+    },
   });
 
 function LogIn({children, title}: LogInProps): React.JSX.Element {
@@ -102,7 +116,7 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
     <>
       <SafeAreaView style={styles.container}>
         <View style={styles.rowContainer}>
-					<View style={styles.container} >
+					<View style={styles.presentation}>
 						<View style={styles.columnContainer}>
 							<View style={styles.rowContainer}>
 								<View >
@@ -121,19 +135,28 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
 								<Text style={styles.textInputTitle}>
 									Usuario
 								</Text>
-								<TextInput style={styles.textInput}/>
+								<TextInput style={styles.textInput} 
+                                  placeholder='Nombre de Usuario'
+                                  placeholderTextColor='gray'/>
 							</View>
 							<View >
 								<Text style={styles.textInputTitle}>
-									Usuario
+									Contraseña
 								</Text>
-								<TextInput style={styles.textInput}/>
+								<TextInput style={styles.textInput}
+                                placeholder='Contraseña'
+                                placeholderTextColor='gray'/>
 							</View>
 						</View>
-						<View style={styles.rowContainer}>
-
+            <View style={styles.rowContainer}>
+              <CheckBox onTintColor='#ffa0b5' onCheckColor='#ffffff' onFillColor='#ffa0b5'/>
+              <Text style={styles.textInputTitle}>
+                Recordar Usuario
+              </Text>
 						</View>
-						
+						<View style={styles.button}>
+              <Button title='Entrar' color='#ffa0b5' />
+						</View>
 					</View>
 					<View >
 						<View >
