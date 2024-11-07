@@ -7,13 +7,15 @@ import {
   Button,
   View,
   Image,
+  ImageBackground,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import { useTheme } from '@react-navigation/native';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
-import logo from '../assets/images/image_logo.png';
+import logo from '../assets/images/image_banner.png';
 import animals from '../assets/images/animals.png';
+import background from '../assets/images/background.png';
 
 type HomeProps = PropsWithChildren<{
   title: string;
@@ -22,13 +24,17 @@ type HomeProps = PropsWithChildren<{
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      padding: 10,
-      paddingBottom: 40,
-      paddingLeft: 36,
-      alignSelf: 'stretch',
-      height: '100%',
-      alignContent: 'flex-start',
+      alignSelf: 'auto',
+
+      width: '100%',
+      alignContent: 'stretch',
+      justifyContent: 'center',
+      flex: 1,
       backgroundColor: 'white',
+    },
+    imageBackgorund: {
+      justifyContent: 'center',
+      height: '100%',
     },
     scrollView: {
       paddingRight: 20,
@@ -84,6 +90,10 @@ const createStyles = () =>
 		},
     homeView: {
       flexDirection: 'row',
+      marginTop: 10,
+      alignSelf: 'center',
+      alignContent: 'center',
+      justifyContent: 'center',
     },
     scheduleSection: {
       width: 280,
@@ -133,43 +143,41 @@ function Home({children, title}: HomeProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Navbar title='' />
-        <View style={styles.homeView}>
-          <View>
-            <View style={styles.homeSection}>
-              <View>
-                <SearchBar title='' />
+        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
+          <Navbar title='' />
+          <View style={styles.homeView}>
+            <View>
+              <View style={styles.homeSection}>
                 <View>
-                  <Text style={styles.pageTitle}>
-                    Pexoxos
-                  </Text>
-                  <PetButton title={''} />
+                  <SearchBar title='' />
+                  <View>
+                    <Text style={styles.pageTitle}>
+                      Pexoxos
+                    </Text>
+                    <PetButton title={''} />
+                  </View>
+                </View>
+                <View>
+                  <Image style={styles.imageLogo} source={animals} resizeMode='contain'/>
                 </View>
               </View>
-              <View>
-                <Image style={styles.imageLogo} source={logo}/>
+              <View style={styles.carouselSection}>
+                <Text>
+                  Componente en construccion
+                </Text>
               </View>
             </View>
-            <View style={styles.carouselSection}>
-              <Text>
-                Componente en construccion
-              </Text>
+            <View style={styles.scheduleSection}>
+              <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
+              <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+              <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
+      
+              <View style={styles.scheduleButton}>
+                <Button  color='#03bdbf' title='Agendar Cita'/>
+              </View>
             </View>
           </View>
-          <View style={styles.scheduleSection}>
-            <Image source={animals} style={styles.imageAnimals}/>
-            <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
-            <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
-            <View style={styles.scheduleDropdown}>
-              <Text style={styles.dropdownText}>
-                Seleccionar hora
-              </Text>
-            </View>
-            <View style={styles.scheduleButton}>
-              <Button  color='#03bdbf' title='Agendar Cita'/>
-            </View>
-          </View>
-        </View>
+        </ImageBackground>
       </SafeAreaView>
 		</>
   );

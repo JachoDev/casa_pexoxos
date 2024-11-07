@@ -1,0 +1,68 @@
+I1106 18:48:53.769333    1232 load.go:37] Reloading schema and connectors...
+I1106 18:48:53.784469    1232 control.go:45] [engine.Service /emulator/casa_pexoxos edbe] UpdateSchema(): done sources: schema\schema.gql [1384B] 
+I1106 18:48:53.791210    1232 control.go:73] [engine.Service /emulator/casa_pexoxos edbe] UpdateConnector(default): done sources: connector\mutations.gql [1163B] connector\queries.gql [1855B] 
+I1106 18:48:53.817754    1232 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+I1106 18:48:53.819947    1232 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [61293B] 
+I1106 18:48:53.820984    1232 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.d.ts [264B] esm\index.esm.js [185B] esm\package.json [17B] index.cjs.js [226B] package.json [623B] 
+I1106 18:48:53.851237    1232 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+I1106 18:48:59.123761    1232 load.go:115] Finished reloading
+I1106 18:48:59.124276    1232 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I1106 18:48:59.124829    1232 dev.go:95] Listening on address (HTTP + gRPC): [::1]:9399
+I1106 18:48:59.432913    1232 control.go:45] [engine.Service /emulator/casa_pexoxos 42e5] UpdateSchema(): done sources: schema\schema.gql [1384B] 
+I1106 18:48:59.432913    1232 control.go:73] [engine.Service /emulator/casa_pexoxos 42e5] UpdateConnector(default): done sources: connector\mutations.gql [1163B] connector\queries.gql [1855B] 
+I1106 18:59:00.735479    1232 load.go:37] Reloading schema and connectors...
+I1106 18:59:00.764948    1232 migrate.go:28] Running migration SQL:
+Step 1: CREATE TABLE "public"."user" ("user_auth" text NOT NULL, "username" character varying(50) NOT NULL, PRIMARY KEY ("user_auth"))
+I1106 18:59:00.844033    1232 control.go:45] [engine.Service /emulator/casa_pexoxos 42e5] UpdateSchema(): done sources: schema\schema.gql [1370B] 
+I1106 18:59:00.844117    1232 control.go:73] [engine.Service /emulator/casa_pexoxos 42e5] UpdateConnector(default): done sources: connector\mutations.gql [1163B] connector\queries.gql [1855B] 
+I1106 18:59:00.862788    1232 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+I1106 18:59:00.864912    1232 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\mutation.gql [3401B] prelude.gql [61293B] main\input.gql [2963B] main\query.gql [1134B] 
+I1106 18:59:00.867591    1232 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.cjs.js [226B] package.json [623B] index.d.ts [336B] esm\index.esm.js [185B] esm\package.json [17B] 
+I1106 18:59:00.888551    1232 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+I1106 18:59:06.013793    1232 load.go:115] Finished reloading
+I1106 19:02:13.799552    1232 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1106 19:02:13.799552    1232 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:02:13.801481    1232 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:02:13.801481    1232 engine.go:148] [engine.Service /emulator/casa_pexoxos 42e5] ExecuteGraphql : succeeded. 
+I1106 19:02:59.831886    1232 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1106 19:02:59.831886    1232 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:02:59.834476    1232 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:02:59.834476    1232 engine.go:148] [engine.Service /emulator/casa_pexoxos 42e5] ExecuteGraphql : succeeded. 
+I1106 19:03:23.630253    1232 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1106 19:03:23.630253    1232 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:03:23.632675    1232 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+W1106 19:03:23.632675    1232 engine.go:152] [engine.Service /emulator/casa_pexoxos 42e5] ExecuteGraphql : failed. 
+Auth: admin
+Errors: input: user_insert SQL query error: pq: duplicate key value violates unique constraint "user_pkey"
+WITH  "user_insert_temp"  AS (INSERT INTO  "public"."user"  ( "user_auth" , "username" ) VALUES ('qa0sedf0qwe','Tenedor') RETURNING jsonb_build_object('id',  "user_auth" ) AS j) SELECT * FROM  "user_insert_temp" 
+Params: []
+
+Data:
+[123 10 32 32 32 34 117 115 101 114 95 105 110 115 101 114 116 34 58 32 110 117 108 108 10 32 125]
+sources: input [185B] 
+I1106 19:03:52.303888    1232 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1106 19:03:52.304060    1232 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:03:52.305240    1232 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1106 19:03:52.305240    1232 engine.go:148] [engine.Service /emulator/casa_pexoxos 42e5] ExecuteGraphql : succeeded. 
+I1106 19:10:57.552482    1232 load.go:37] Reloading schema and connectors...
+I1106 19:10:57.673312    1232 control.go:45] [engine.Service /emulator/casa_pexoxos 42e5] UpdateSchema(): done sources: schema\schema.gql [1370B] 
+I1106 19:10:57.673976    1232 control.go:73] [engine.Service /emulator/casa_pexoxos 42e5] UpdateConnector(default): done sources: connector\mutations.gql [1163B] connector\queries.gql [1847B] 
+I1106 19:10:57.690765    1232 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+I1106 19:10:57.692857    1232 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [61293B] main\input.gql [2963B] main\query.gql [1134B] main\mutation.gql [3401B] 
+I1106 19:10:57.693890    1232 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.d.ts [891B] esm\index.esm.js [667B] esm\package.json [17B] index.cjs.js [753B] package.json [623B] 
+I1106 19:10:57.715403    1232 installsdk.go:76] Running command: C:\Program Files\nodejs\npm.cmd install file:dataconnect-generated\js\default-connector
+I1106 19:11:02.921578    1232 load.go:115] Finished reloading
+I1106 19:52:05.914504    1232 load.go:37] Reloading schema and connectors...
+I1106 19:52:05.927661    1232 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1106 19:52:05.930875    1232 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\input.gql [2963B] main\query.gql [1134B] main\mutation.gql [3401B] prelude.gql [61293B] 
+I1106 19:52:05.932973    1232 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.cjs.js [753B] package.json [623B] index.d.ts [891B] esm\index.esm.js [667B] esm\package.json [17B] 
+I1106 19:52:05.932973    1232 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1106 19:52:05.932973    1232 load.go:115] Finished reloading

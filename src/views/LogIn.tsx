@@ -11,11 +11,13 @@ import {
 	useColorScheme,
 	StyleSheet,
   Button,
+  ImageBackground,
 } from 'react-native';
 import {useTheme, useIsFocused} from '@react-navigation/native';
 import Navbar from '../components/sections/Navbar';
-import loginImage from '../assets/images/imagen_banner.jpeg';
+import loginImage from '../assets/images/image_banner.png';
 import logo from '../assets/images/image_logo.png';
+import background from '../assets/images/background.png';
 
 type LogInProps = PropsWithChildren<{
   title: string;
@@ -24,29 +26,38 @@ type LogInProps = PropsWithChildren<{
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      padding: 10,
-      paddingBottom: 40,
-      paddingLeft: 36,
       alignSelf: 'center',
-      height: '100%',
+
       width: '100%',
-      alignContent: 'space-around',
-      backgroundColor: '#ffffff'
+      flex: 1,
     },
     presentation: {
       alignSelf: 'center',
-      alignContent: 'center',
+      alignContent: 'space-between',
       alignItems: 'center',
+      justifyContent: 'space-between'
     },
 		columnContainer: {
 			alignContent: 'space-around',
+      alignSelf: 'center',
+      justifyContent: 'center',
 		},
 		rowContainer: {
+			flexDirection: 'row',
+      height: '100%',
+			flexWrap: 'wrap',
+			alignItems: 'center',
+			alignContent: 'center',
+      alignSelf: 'auto', 
+      justifyContent: 'space-evenly'
+		},
+    rowContainerSmall: {
 			flexDirection: 'row',
 			flexWrap: 'wrap',
 			alignItems: 'center',
 			alignContent: 'center',
       alignSelf: 'center',
+      
 		},
     scrollView: {
       paddingRight: 20,
@@ -80,7 +91,6 @@ const createStyles = () =>
     },
 		text: {
 			fontSize: 30,
-			padding: 15,
 			color: '#000000'
 		},
 		textInputTitle: {
@@ -88,12 +98,11 @@ const createStyles = () =>
 			color: '#000000'
 		},
 		textInput: {
-            borderColor: '#762776',
-            borderRadius: 4,
-            color: '#000000',
-
-
-        },
+      borderColor: '#762776',
+      borderRadius: 4,
+      color: '#000000',
+      backgroundColor: 'white',
+    },
 		imageBanner: {
 			width: 500,
 			height: 500,
@@ -102,6 +111,7 @@ const createStyles = () =>
 		imageLogo: {
 			width: 40,
 			height: 40,
+      borderRadius: 10,
 		},
     button: {
       width: 120,
@@ -115,57 +125,58 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={styles.rowContainer}>
-					<View style={styles.presentation}>
-						<View style={styles.columnContainer}>
-							<View style={styles.rowContainer}>
-								<View >
-									<Image style={styles.imageLogo} source={logo}/>
-								</View>
-								<View>
-									<Text style={styles.text}>Casa Pexoxos</Text>
-								</View>
-							</View>
-							<View >
-								<Text style={styles.text}>
-									Iniciar sesión
-								</Text>
-							</View>
-							<View >
-								<Text style={styles.textInputTitle}>
-									Usuario
-								</Text>
-								<TextInput style={styles.textInput} 
-                                  placeholder='Nombre de Usuario'
+        <ImageBackground source={background} resizeMode='cover'>
+          <View style={styles.rowContainer} >
+            <View style={styles.presentation}>
+              <View style={styles.columnContainer}>
+                <View style={styles.rowContainerSmall}>
+                  <View >
+                    <Image style={styles.imageLogo} source={logo}/>
+                  </View>
+                  <View>
+                    <Text style={styles.text}>Casa Pexoxos</Text>
+                  </View>
+                </View>
+                <View >
+                  <Text style={styles.text}>
+                    Iniciar sesión
+                  </Text>
+                </View>
+                <View >
+                  <Text style={styles.textInputTitle}>
+                    Usuario
+                  </Text>
+                  <TextInput style={styles.textInput} 
+                                    placeholder='Nombre de Usuario'
+                                    placeholderTextColor='gray'/>
+                </View>
+                <View >
+                  <Text style={styles.textInputTitle}>
+                    Contraseña
+                  </Text>
+                  <TextInput style={styles.textInput}
+                                  placeholder='Contraseña'
                                   placeholderTextColor='gray'/>
-							</View>
-							<View >
-								<Text style={styles.textInputTitle}>
-									Contraseña
-								</Text>
-								<TextInput style={styles.textInput}
-                                placeholder='Contraseña'
-                                placeholderTextColor='gray'/>
-							</View>
-						</View>
-            <View style={styles.rowContainer}>
-              <CheckBox onTintColor='#ffa0b5' onCheckColor='#ffffff' onFillColor='#ffa0b5'/>
-              <Text style={styles.textInputTitle}>
-                Recordar Usuario
-              </Text>
-						</View>
-						<View style={styles.button}>
-              <Button title='Entrar' color='#ffa0b5' />
-						</View>
-					</View>
-					<View >
-						<View >
-							<Image style={styles.imageBanner} source={loginImage}/>
-						</View>
-					</View>
-        </View>
-      </SafeAreaView>
-			
+                </View>
+              </View>
+              <View style={styles.rowContainerSmall}>
+                <CheckBox onTintColor='#ffa0b5' onCheckColor='#ffffff' onFillColor='#ffa0b5'/>
+                <Text style={styles.textInputTitle}>
+                  Recordar Usuario
+                </Text>
+              </View>
+              <View style={styles.button}>
+                <Button title='Entrar' color='#ffa0b5' />
+              </View>
+            </View>
+            <View >
+              <View >
+                <Image style={styles.imageBanner} source={loginImage} resizeMode='contain'/>
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
+      </SafeAreaView>			
 		</>
   );
 }
