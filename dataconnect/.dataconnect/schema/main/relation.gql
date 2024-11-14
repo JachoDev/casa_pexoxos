@@ -1,0 +1,256 @@
+extend type Client {
+  """
+  ✨ List `Pet` objects in a one-to-many relationship (where `Pet`.`client` is this object).
+  """
+  pets_on_client(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Pet_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Pet_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Pet!]! @fdc_generated(from: "Pet.client", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Sale` objects in a one-to-many relationship (where `Sale`.`client` is this object).
+  """
+  sales_on_client(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Sale_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Sale_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Sale!]! @fdc_generated(from: "Sale.client", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+}
+extend type Employee {
+  """
+  ✨ List `Sale` objects in a one-to-many relationship (where `Sale`.`employee` is this object).
+  """
+  sales_on_employee(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Sale_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Sale_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Sale!]! @fdc_generated(from: "Sale.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Schedule` objects in a one-to-many relationship (where `Schedule`.`employee` is this object).
+  """
+  schedules_on_employee(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Schedule_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Schedule_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Schedule!]! @fdc_generated(from: "Schedule.employee", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+}
+extend type Pet {
+  """
+  ✨ List `Schedule` objects in a one-to-many relationship (where `Schedule`.`pet` is this object).
+  """
+  schedules_on_pet(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Schedule_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Schedule_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Schedule!]! @fdc_generated(from: "Schedule.pet", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+}
+extend type Sale {
+  """
+  ✨ List `SaleServices` objects in a one-to-many relationship (where `SaleServices`.`sale` is this object).
+  """
+  saleServicess_on_sale(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SaleServices_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SaleServices_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [SaleServices!]! @fdc_generated(from: "SaleServices.sale", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Service` objects using `SaleServices` as the join table (a `SaleServices` object exists where its `sale` is this and its `service` is that).
+  """
+  services_via_SaleServices(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SaleServices_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SaleServices_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Service!]! @fdc_generated(from: "SaleServices", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
+}
+extend type Service {
+  """
+  ✨ List `SaleServices` objects in a one-to-many relationship (where `SaleServices`.`service` is this object).
+  """
+  saleServicess_on_service(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SaleServices_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SaleServices_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [SaleServices!]! @fdc_generated(from: "SaleServices.service", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  """
+  ✨ List `Schedule` objects in a one-to-one relationship (where `Schedule`.`service` is this object).
+  """
+  schedule_on_service: Schedule @fdc_generated(from: "Schedule.service", purpose: QUERY_SINGLE_ONE_TO_ONE)
+  """
+  ✨ List `Sale` objects using `SaleServices` as the join table (a `SaleServices` object exists where its `service` is this and its `sale` is that).
+  """
+  sales_via_SaleServices(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: SaleServices_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [SaleServices_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Sale!]! @fdc_generated(from: "SaleServices", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
+}
+extend type User {
+  """
+  ✨ List `Employee` objects in a one-to-many relationship (where `Employee`.`user` is this object).
+  """
+  employes_on_user(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Employee_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Employee_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+  ): [Employee!]! @fdc_generated(from: "Employee.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+}

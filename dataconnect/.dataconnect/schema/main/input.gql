@@ -1,0 +1,1828 @@
+"""
+✨ `Client_KeyOutput` returns the primary key fields of table type `Client`.
+
+It has the same format as `Client_Key`, but is only used as mutation return value.
+"""
+scalar Client_KeyOutput
+"""
+✨ `Employee_KeyOutput` returns the primary key fields of table type `Employee`.
+
+It has the same format as `Employee_Key`, but is only used as mutation return value.
+"""
+scalar Employee_KeyOutput
+"""
+✨ `Pet_KeyOutput` returns the primary key fields of table type `Pet`.
+
+It has the same format as `Pet_Key`, but is only used as mutation return value.
+"""
+scalar Pet_KeyOutput
+"""
+✨ `Sale_KeyOutput` returns the primary key fields of table type `Sale`.
+
+It has the same format as `Sale_Key`, but is only used as mutation return value.
+"""
+scalar Sale_KeyOutput
+"""
+✨ `SaleServices_KeyOutput` returns the primary key fields of table type `SaleServices`.
+
+It has the same format as `SaleServices_Key`, but is only used as mutation return value.
+"""
+scalar SaleServices_KeyOutput
+"""
+✨ `Schedule_KeyOutput` returns the primary key fields of table type `Schedule`.
+
+It has the same format as `Schedule_Key`, but is only used as mutation return value.
+"""
+scalar Schedule_KeyOutput
+"""
+✨ `Service_KeyOutput` returns the primary key fields of table type `Service`.
+
+It has the same format as `Service_Key`, but is only used as mutation return value.
+"""
+scalar Service_KeyOutput
+"""
+✨ `Stock_KeyOutput` returns the primary key fields of table type `Stock`.
+
+It has the same format as `Stock_Key`, but is only used as mutation return value.
+"""
+scalar Stock_KeyOutput
+"""
+✨ `User_KeyOutput` returns the primary key fields of table type `User`.
+
+It has the same format as `User_Key`, but is only used as mutation return value.
+"""
+scalar User_KeyOutput
+"""
+✨ Generated data input type for table 'Client'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Client_Data {
+  """
+  ✨ Generated from Field `Client`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Client`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Client`.`FirstName` of type `String!`
+  """
+  FirstName: String
+  """
+  ✨ `_expr` server value variant of `FirstName` (✨ Generated from Field `Client`.`FirstName` of type `String!`)
+  """
+  FirstName_expr: String_Expr
+  """
+  ✨ Generated from Field `Client`.`address` of type `String`
+  """
+  address: String
+  """
+  ✨ `_expr` server value variant of `address` (✨ Generated from Field `Client`.`address` of type `String`)
+  """
+  address_expr: String_Expr
+  """
+  ✨ Generated from Field `Client`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Client`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Client`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Client`.`email` of type `String`
+  """
+  email: String
+  """
+  ✨ `_expr` server value variant of `email` (✨ Generated from Field `Client`.`email` of type `String`)
+  """
+  email_expr: String_Expr
+  """
+  ✨ Generated from Field `Client`.`lastName` of type `String!`
+  """
+  lastName: String
+  """
+  ✨ `_expr` server value variant of `lastName` (✨ Generated from Field `Client`.`lastName` of type `String!`)
+  """
+  lastName_expr: String_Expr
+  """
+  ✨ Generated from Field `Client`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String
+  """
+  ✨ `_expr` server value variant of `phoneNumber` (✨ Generated from Field `Client`.`phoneNumber` of type `String`)
+  """
+  phoneNumber_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Client'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Client_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Client_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Client_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Client_Filter!]
+  """
+  ✨ Generated from Field `Client`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Client`.`FirstName` of type `String!`
+  """
+  FirstName: String_Filter
+  """
+  ✨ Generated from Field `Client`.`address` of type `String`
+  """
+  address: String_Filter
+  """
+  ✨ Generated from Field `Client`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Client`.`email` of type `String`
+  """
+  email: String_Filter
+  """
+  ✨ Generated from Field `Client`.`lastName` of type `String!`
+  """
+  lastName: String_Filter
+  """
+  ✨ Generated from Field `Client`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String_Filter
+  """
+  ✨ Generated from Field `Client`.`pets_on_client` of type `[Pet!]!`
+  """
+  pets_on_client: Pet_ListFilter
+  """
+  ✨ Generated from Field `Client`.`sales_on_client` of type `[Sale!]!`
+  """
+  sales_on_client: Sale_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Client'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Client_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Client_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Client_Filter
+}
+"""
+✨ Generated key input type for table 'Client'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Client_Key {
+  """
+  ✨ Generated from Field `Client`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Client`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Client'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Client_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Client_Filter
+}
+"""
+✨ Generated order input type for table 'Client'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Client_Order {
+  """
+  ✨ Generated from Field `Client`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`FirstName` of type `String!`
+  """
+  FirstName: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`address` of type `String`
+  """
+  address: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`email` of type `String`
+  """
+  email: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`lastName` of type `String!`
+  """
+  lastName: OrderDirection
+  """
+  ✨ Generated from Field `Client`.`phoneNumber` of type `String`
+  """
+  phoneNumber: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Employee'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Employee_Data {
+  """
+  ✨ Generated from Field `Employee`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Employee`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Employee`.`userId` of type `UUID`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `Employee`.`userId` of type `UUID`)
+  """
+  userId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Employee`.`userUsername` of type `String`
+  """
+  userUsername: String
+  """
+  ✨ `_expr` server value variant of `userUsername` (✨ Generated from Field `Employee`.`userUsername` of type `String`)
+  """
+  userUsername_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`user` of type `User`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `Employee`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Employee`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Employee`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Employee`.`email` of type `String`
+  """
+  email: String
+  """
+  ✨ `_expr` server value variant of `email` (✨ Generated from Field `Employee`.`email` of type `String`)
+  """
+  email_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`firstName` of type `String!`
+  """
+  firstName: String
+  """
+  ✨ `_expr` server value variant of `firstName` (✨ Generated from Field `Employee`.`firstName` of type `String!`)
+  """
+  firstName_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`hireDate` of type `Date!`
+  """
+  hireDate: Date
+  """
+  ✨ `_date` server value variant of `hireDate` (✨ Generated from Field `Employee`.`hireDate` of type `Date!`)
+  """
+  hireDate_date: Date_Relative
+  """
+  ✨ `_expr` server value variant of `hireDate` (✨ Generated from Field `Employee`.`hireDate` of type `Date!`)
+  """
+  hireDate_expr: Date_Expr
+  """
+  ✨ Generated from Field `Employee`.`jobTitle` of type `String!`
+  """
+  jobTitle: String
+  """
+  ✨ `_expr` server value variant of `jobTitle` (✨ Generated from Field `Employee`.`jobTitle` of type `String!`)
+  """
+  jobTitle_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`lastName` of type `String!`
+  """
+  lastName: String
+  """
+  ✨ `_expr` server value variant of `lastName` (✨ Generated from Field `Employee`.`lastName` of type `String!`)
+  """
+  lastName_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String
+  """
+  ✨ `_expr` server value variant of `phoneNumber` (✨ Generated from Field `Employee`.`phoneNumber` of type `String`)
+  """
+  phoneNumber_expr: String_Expr
+  """
+  ✨ Generated from Field `Employee`.`salary` of type `Float`
+  """
+  salary: Float
+}
+"""
+✨ Generated filter input type for table 'Employee'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Employee_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Employee_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Employee_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Employee_Filter!]
+  """
+  ✨ Generated from Field `Employee`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Employee`.`userId` of type `UUID`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `Employee`.`userUsername` of type `String`
+  """
+  userUsername: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`user` of type `User`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `Employee`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Employee`.`email` of type `String`
+  """
+  email: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`firstName` of type `String!`
+  """
+  firstName: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`hireDate` of type `Date!`
+  """
+  hireDate: Date_Filter
+  """
+  ✨ Generated from Field `Employee`.`jobTitle` of type `String!`
+  """
+  jobTitle: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`lastName` of type `String!`
+  """
+  lastName: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`phoneNumber` of type `String`
+  """
+  phoneNumber: String_Filter
+  """
+  ✨ Generated from Field `Employee`.`salary` of type `Float`
+  """
+  salary: Float_Filter
+  """
+  ✨ Generated from Field `Employee`.`sales_on_employee` of type `[Sale!]!`
+  """
+  sales_on_employee: Sale_ListFilter
+  """
+  ✨ Generated from Field `Employee`.`schedules_on_employee` of type `[Schedule!]!`
+  """
+  schedules_on_employee: Schedule_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Employee'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Employee_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Employee_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Employee_Filter
+}
+"""
+✨ Generated key input type for table 'Employee'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Employee_Key {
+  """
+  ✨ Generated from Field `Employee`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Employee`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Employee'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Employee_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Employee_Filter
+}
+"""
+✨ Generated order input type for table 'Employee'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Employee_Order {
+  """
+  ✨ Generated from Field `Employee`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`userId` of type `UUID`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`userUsername` of type `String`
+  """
+  userUsername: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`user` of type `User`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `Employee`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`email` of type `String`
+  """
+  email: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`firstName` of type `String!`
+  """
+  firstName: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`hireDate` of type `Date!`
+  """
+  hireDate: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`jobTitle` of type `String!`
+  """
+  jobTitle: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`lastName` of type `String!`
+  """
+  lastName: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`phoneNumber` of type `String`
+  """
+  phoneNumber: OrderDirection
+  """
+  ✨ Generated from Field `Employee`.`salary` of type `Float`
+  """
+  salary: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Pet'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Pet_Data {
+  """
+  ✨ Generated from Field `Pet`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pet`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Pet`.`clientId` of type `UUID!`
+  """
+  clientId: UUID
+  """
+  ✨ `_expr` server value variant of `clientId` (✨ Generated from Field `Pet`.`clientId` of type `UUID!`)
+  """
+  clientId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Pet`.`client` of type `Client!`
+  """
+  client: Client_Key
+  """
+  ✨ Generated from Field `Pet`.`breed` of type `String`
+  """
+  breed: String
+  """
+  ✨ `_expr` server value variant of `breed` (✨ Generated from Field `Pet`.`breed` of type `String`)
+  """
+  breed_expr: String_Expr
+  """
+  ✨ Generated from Field `Pet`.`commentaries` of type `String`
+  """
+  commentaries: String
+  """
+  ✨ `_expr` server value variant of `commentaries` (✨ Generated from Field `Pet`.`commentaries` of type `String`)
+  """
+  commentaries_expr: String_Expr
+  """
+  ✨ Generated from Field `Pet`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Pet`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Pet`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Pet`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Pet`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Pet`.`species` of type `String`
+  """
+  species: String
+  """
+  ✨ `_expr` server value variant of `species` (✨ Generated from Field `Pet`.`species` of type `String`)
+  """
+  species_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Pet'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Pet_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Pet_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Pet_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Pet_Filter!]
+  """
+  ✨ Generated from Field `Pet`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Pet`.`clientId` of type `UUID!`
+  """
+  clientId: UUID_Filter
+  """
+  ✨ Generated from Field `Pet`.`client` of type `Client!`
+  """
+  client: Client_Filter
+  """
+  ✨ Generated from Field `Pet`.`breed` of type `String`
+  """
+  breed: String_Filter
+  """
+  ✨ Generated from Field `Pet`.`commentaries` of type `String`
+  """
+  commentaries: String_Filter
+  """
+  ✨ Generated from Field `Pet`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Pet`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Pet`.`species` of type `String`
+  """
+  species: String_Filter
+  """
+  ✨ Generated from Field `Pet`.`schedules_on_pet` of type `[Schedule!]!`
+  """
+  schedules_on_pet: Schedule_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Pet'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Pet_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Pet_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Pet_Filter
+}
+"""
+✨ Generated key input type for table 'Pet'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Pet_Key {
+  """
+  ✨ Generated from Field `Pet`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Pet`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Pet`.`clientId` of type `UUID!`
+  """
+  clientId: UUID
+  """
+  ✨ `_expr` server value variant of `clientId` (✨ Generated from Field `Pet`.`clientId` of type `UUID!`)
+  """
+  clientId_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Pet'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Pet_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Pet_Filter
+}
+"""
+✨ Generated order input type for table 'Pet'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Pet_Order {
+  """
+  ✨ Generated from Field `Pet`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`clientId` of type `UUID!`
+  """
+  clientId: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`client` of type `Client!`
+  """
+  client: Client_Order
+  """
+  ✨ Generated from Field `Pet`.`breed` of type `String`
+  """
+  breed: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`commentaries` of type `String`
+  """
+  commentaries: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Pet`.`species` of type `String`
+  """
+  species: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Sale'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Sale_Data {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Sale`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Sale`.`clientId` of type `UUID!`
+  """
+  clientId: UUID
+  """
+  ✨ `_expr` server value variant of `clientId` (✨ Generated from Field `Sale`.`clientId` of type `UUID!`)
+  """
+  clientId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Sale`.`employeeId` of type `UUID!`
+  """
+  employeeId: UUID
+  """
+  ✨ `_expr` server value variant of `employeeId` (✨ Generated from Field `Sale`.`employeeId` of type `UUID!`)
+  """
+  employeeId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Sale`.`client` of type `Client!`
+  """
+  client: Client_Key
+  """
+  ✨ Generated from Field `Sale`.`employee` of type `Employee!`
+  """
+  employee: Employee_Key
+  """
+  ✨ Generated from Field `Sale`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Sale`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Sale`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Sale`.`date` of type `Timestamp!`
+  """
+  date: Timestamp
+  """
+  ✨ `_expr` server value variant of `date` (✨ Generated from Field `Sale`.`date` of type `Timestamp!`)
+  """
+  date_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `date` (✨ Generated from Field `Sale`.`date` of type `Timestamp!`)
+  """
+  date_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: Float
+}
+"""
+✨ Generated filter input type for table 'Sale'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Sale_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Sale_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Sale_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Sale_Filter!]
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Sale`.`clientId` of type `UUID!`
+  """
+  clientId: UUID_Filter
+  """
+  ✨ Generated from Field `Sale`.`employeeId` of type `UUID!`
+  """
+  employeeId: UUID_Filter
+  """
+  ✨ Generated from Field `Sale`.`client` of type `Client!`
+  """
+  client: Client_Filter
+  """
+  ✨ Generated from Field `Sale`.`employee` of type `Employee!`
+  """
+  employee: Employee_Filter
+  """
+  ✨ Generated from Field `Sale`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Sale`.`date` of type `Timestamp!`
+  """
+  date: Timestamp_Filter
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: Float_Filter
+  """
+  ✨ Generated from Field `Sale`.`saleServicess_on_sale` of type `[SaleServices!]!`
+  """
+  saleServicess_on_sale: SaleServices_ListFilter
+  """
+  ✨ Generated from Field `Sale`.`services_via_SaleServices` of type `[Service!]!`
+  """
+  services_via_SaleServices: Service_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Sale'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Sale_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Sale_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Sale_Filter
+}
+"""
+✨ Generated key input type for table 'Sale'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Sale_Key {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Sale`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Sale'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Sale_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Sale_Filter
+}
+"""
+✨ Generated order input type for table 'Sale'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Sale_Order {
+  """
+  ✨ Generated from Field `Sale`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`clientId` of type `UUID!`
+  """
+  clientId: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`employeeId` of type `UUID!`
+  """
+  employeeId: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`client` of type `Client!`
+  """
+  client: Client_Order
+  """
+  ✨ Generated from Field `Sale`.`employee` of type `Employee!`
+  """
+  employee: Employee_Order
+  """
+  ✨ Generated from Field `Sale`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`date` of type `Timestamp!`
+  """
+  date: OrderDirection
+  """
+  ✨ Generated from Field `Sale`.`total` of type `Float!`
+  """
+  total: OrderDirection
+}
+"""
+✨ Generated data input type for table 'SaleServices'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input SaleServices_Data {
+  """
+  ✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`
+  """
+  saleId: UUID
+  """
+  ✨ `_expr` server value variant of `saleId` (✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`)
+  """
+  saleId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID
+  """
+  ✨ `_expr` server value variant of `serviceId` (✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`)
+  """
+  serviceId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SaleServices`.`serviceName` of type `String!`
+  """
+  serviceName: String
+  """
+  ✨ `_expr` server value variant of `serviceName` (✨ Generated from Field `SaleServices`.`serviceName` of type `String!`)
+  """
+  serviceName_expr: String_Expr
+  """
+  ✨ Generated from Field `SaleServices`.`sale` of type `Sale!`
+  """
+  sale: Sale_Key
+  """
+  ✨ Generated from Field `SaleServices`.`service` of type `Service!`
+  """
+  service: Service_Key
+}
+"""
+✨ Generated filter input type for table 'SaleServices'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input SaleServices_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [SaleServices_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: SaleServices_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [SaleServices_Filter!]
+  """
+  ✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`
+  """
+  saleId: UUID_Filter
+  """
+  ✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID_Filter
+  """
+  ✨ Generated from Field `SaleServices`.`serviceName` of type `String!`
+  """
+  serviceName: String_Filter
+  """
+  ✨ Generated from Field `SaleServices`.`sale` of type `Sale!`
+  """
+  sale: Sale_Filter
+  """
+  ✨ Generated from Field `SaleServices`.`service` of type `Service!`
+  """
+  service: Service_Filter
+}
+"""
+✨ Generated first-row input type for table 'SaleServices'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input SaleServices_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [SaleServices_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: SaleServices_Filter
+}
+"""
+✨ Generated key input type for table 'SaleServices'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input SaleServices_Key {
+  """
+  ✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`
+  """
+  saleId: UUID
+  """
+  ✨ `_expr` server value variant of `saleId` (✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`)
+  """
+  saleId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID
+  """
+  ✨ `_expr` server value variant of `serviceId` (✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`)
+  """
+  serviceId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `SaleServices`.`serviceName` of type `String!`
+  """
+  serviceName: String
+  """
+  ✨ `_expr` server value variant of `serviceName` (✨ Generated from Field `SaleServices`.`serviceName` of type `String!`)
+  """
+  serviceName_expr: String_Expr
+}
+"""
+✨ Generated list filter input type for table 'SaleServices'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input SaleServices_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: SaleServices_Filter
+}
+"""
+✨ Generated order input type for table 'SaleServices'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input SaleServices_Order {
+  """
+  ✨ Generated from Field `SaleServices`.`saleId` of type `UUID!`
+  """
+  saleId: OrderDirection
+  """
+  ✨ Generated from Field `SaleServices`.`serviceId` of type `UUID!`
+  """
+  serviceId: OrderDirection
+  """
+  ✨ Generated from Field `SaleServices`.`serviceName` of type `String!`
+  """
+  serviceName: OrderDirection
+  """
+  ✨ Generated from Field `SaleServices`.`sale` of type `Sale!`
+  """
+  sale: Sale_Order
+  """
+  ✨ Generated from Field `SaleServices`.`service` of type `Service!`
+  """
+  service: Service_Order
+}
+"""
+✨ Generated data input type for table 'Schedule'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Schedule_Data {
+  """
+  ✨ Generated from Field `Schedule`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Schedule`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Schedule`.`employeeId` of type `UUID!`
+  """
+  employeeId: UUID
+  """
+  ✨ `_expr` server value variant of `employeeId` (✨ Generated from Field `Schedule`.`employeeId` of type `UUID!`)
+  """
+  employeeId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Schedule`.`petClientId` of type `UUID!`
+  """
+  petClientId: UUID
+  """
+  ✨ `_expr` server value variant of `petClientId` (✨ Generated from Field `Schedule`.`petClientId` of type `UUID!`)
+  """
+  petClientId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Schedule`.`petId` of type `UUID!`
+  """
+  petId: UUID
+  """
+  ✨ `_expr` server value variant of `petId` (✨ Generated from Field `Schedule`.`petId` of type `UUID!`)
+  """
+  petId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Schedule`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID
+  """
+  ✨ `_expr` server value variant of `serviceId` (✨ Generated from Field `Schedule`.`serviceId` of type `UUID!`)
+  """
+  serviceId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Schedule`.`serviceName` of type `String!`
+  """
+  serviceName: String
+  """
+  ✨ `_expr` server value variant of `serviceName` (✨ Generated from Field `Schedule`.`serviceName` of type `String!`)
+  """
+  serviceName_expr: String_Expr
+  """
+  ✨ Generated from Field `Schedule`.`employee` of type `Employee!`
+  """
+  employee: Employee_Key
+  """
+  ✨ Generated from Field `Schedule`.`pet` of type `Pet!`
+  """
+  pet: Pet_Key
+  """
+  ✨ Generated from Field `Schedule`.`service` of type `Service!`
+  """
+  service: Service_Key
+  """
+  ✨ Generated from Field `Schedule`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Schedule`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Schedule`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Schedule`.`date` of type `Timestamp!`
+  """
+  date: Timestamp
+  """
+  ✨ `_expr` server value variant of `date` (✨ Generated from Field `Schedule`.`date` of type `Timestamp!`)
+  """
+  date_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `date` (✨ Generated from Field `Schedule`.`date` of type `Timestamp!`)
+  """
+  date_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Schedule`.`endDate` of type `Timestamp`
+  """
+  endDate: Timestamp
+  """
+  ✨ `_expr` server value variant of `endDate` (✨ Generated from Field `Schedule`.`endDate` of type `Timestamp`)
+  """
+  endDate_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `endDate` (✨ Generated from Field `Schedule`.`endDate` of type `Timestamp`)
+  """
+  endDate_time: Timestamp_Relative
+}
+"""
+✨ Generated filter input type for table 'Schedule'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Schedule_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Schedule_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Schedule_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Schedule_Filter!]
+  """
+  ✨ Generated from Field `Schedule`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Schedule`.`employeeId` of type `UUID!`
+  """
+  employeeId: UUID_Filter
+  """
+  ✨ Generated from Field `Schedule`.`petClientId` of type `UUID!`
+  """
+  petClientId: UUID_Filter
+  """
+  ✨ Generated from Field `Schedule`.`petId` of type `UUID!`
+  """
+  petId: UUID_Filter
+  """
+  ✨ Generated from Field `Schedule`.`serviceId` of type `UUID!`
+  """
+  serviceId: UUID_Filter
+  """
+  ✨ Generated from Field `Schedule`.`serviceName` of type `String!`
+  """
+  serviceName: String_Filter
+  """
+  ✨ Generated from Field `Schedule`.`employee` of type `Employee!`
+  """
+  employee: Employee_Filter
+  """
+  ✨ Generated from Field `Schedule`.`pet` of type `Pet!`
+  """
+  pet: Pet_Filter
+  """
+  ✨ Generated from Field `Schedule`.`service` of type `Service!`
+  """
+  service: Service_Filter
+  """
+  ✨ Generated from Field `Schedule`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Schedule`.`date` of type `Timestamp!`
+  """
+  date: Timestamp_Filter
+  """
+  ✨ Generated from Field `Schedule`.`endDate` of type `Timestamp`
+  """
+  endDate: Timestamp_Filter
+}
+"""
+✨ Generated first-row input type for table 'Schedule'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Schedule_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Schedule_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Schedule_Filter
+}
+"""
+✨ Generated key input type for table 'Schedule'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Schedule_Key {
+  """
+  ✨ Generated from Field `Schedule`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Schedule`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Schedule'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Schedule_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Schedule_Filter
+}
+"""
+✨ Generated order input type for table 'Schedule'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Schedule_Order {
+  """
+  ✨ Generated from Field `Schedule`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`employeeId` of type `UUID!`
+  """
+  employeeId: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`petClientId` of type `UUID!`
+  """
+  petClientId: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`petId` of type `UUID!`
+  """
+  petId: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`serviceId` of type `UUID!`
+  """
+  serviceId: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`serviceName` of type `String!`
+  """
+  serviceName: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`employee` of type `Employee!`
+  """
+  employee: Employee_Order
+  """
+  ✨ Generated from Field `Schedule`.`pet` of type `Pet!`
+  """
+  pet: Pet_Order
+  """
+  ✨ Generated from Field `Schedule`.`service` of type `Service!`
+  """
+  service: Service_Order
+  """
+  ✨ Generated from Field `Schedule`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`date` of type `Timestamp!`
+  """
+  date: OrderDirection
+  """
+  ✨ Generated from Field `Schedule`.`endDate` of type `Timestamp`
+  """
+  endDate: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Service'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Service_Data {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Service`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Service`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Service`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Service`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Service`.`description` of type `String`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Service`.`description` of type `String`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Service`.`price` of type `Float!`
+  """
+  price: Float
+}
+"""
+✨ Generated filter input type for table 'Service'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Service_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Service_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Service_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Service_Filter!]
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Service`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Service`.`description` of type `String`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Service`.`price` of type `Float!`
+  """
+  price: Float_Filter
+  """
+  ✨ Generated from Field `Service`.`saleServicess_on_service` of type `[SaleServices!]!`
+  """
+  saleServicess_on_service: SaleServices_ListFilter
+  """
+  ✨ Generated from Field `Service`.`schedule_on_service` of type `Schedule`
+  """
+  schedule_on_service: Schedule_Filter
+  """
+  ✨ Generated from Field `Service`.`sales_via_SaleServices` of type `[Sale!]!`
+  """
+  sales_via_SaleServices: Sale_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Service'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Service_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Service_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Service_Filter
+}
+"""
+✨ Generated key input type for table 'Service'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Service_Key {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Service`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Service`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+}
+"""
+✨ Generated list filter input type for table 'Service'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Service_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Service_Filter
+}
+"""
+✨ Generated order input type for table 'Service'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Service_Order {
+  """
+  ✨ Generated from Field `Service`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`description` of type `String`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Service`.`price` of type `Float!`
+  """
+  price: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Stock'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Stock_Data {
+  """
+  ✨ Generated from Field `Stock`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Stock`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Stock`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `Stock`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `Stock`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `Stock`.`description` of type `String`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Stock`.`description` of type `String`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Stock`.`price` of type `Float`
+  """
+  price: Float
+  """
+  ✨ Generated from Field `Stock`.`product` of type `String!`
+  """
+  product: String
+  """
+  ✨ `_expr` server value variant of `product` (✨ Generated from Field `Stock`.`product` of type `String!`)
+  """
+  product_expr: String_Expr
+  """
+  ✨ Generated from Field `Stock`.`quantity` of type `Int!`
+  """
+  quantity: Int
+}
+"""
+✨ Generated filter input type for table 'Stock'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Stock_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Stock_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Stock_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Stock_Filter!]
+  """
+  ✨ Generated from Field `Stock`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Stock`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Stock`.`description` of type `String`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Stock`.`price` of type `Float`
+  """
+  price: Float_Filter
+  """
+  ✨ Generated from Field `Stock`.`product` of type `String!`
+  """
+  product: String_Filter
+  """
+  ✨ Generated from Field `Stock`.`quantity` of type `Int!`
+  """
+  quantity: Int_Filter
+}
+"""
+✨ Generated first-row input type for table 'Stock'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Stock_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Stock_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Stock_Filter
+}
+"""
+✨ Generated key input type for table 'Stock'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Stock_Key {
+  """
+  ✨ Generated from Field `Stock`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Stock`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Stock'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Stock_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Stock_Filter
+}
+"""
+✨ Generated order input type for table 'Stock'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Stock_Order {
+  """
+  ✨ Generated from Field `Stock`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Stock`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `Stock`.`description` of type `String`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Stock`.`price` of type `Float`
+  """
+  price: OrderDirection
+  """
+  ✨ Generated from Field `Stock`.`product` of type `String!`
+  """
+  product: OrderDirection
+  """
+  ✨ Generated from Field `Stock`.`quantity` of type `Int!`
+  """
+  quantity: OrderDirection
+}
+"""
+✨ Generated data input type for table 'User'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input User_Data {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `User`.`username` of type `String!`
+  """
+  username: String
+  """
+  ✨ `_expr` server value variant of `username` (✨ Generated from Field `User`.`username` of type `String!`)
+  """
+  username_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`auth` of type `String`
+  """
+  auth: String
+  """
+  ✨ `_expr` server value variant of `auth` (✨ Generated from Field `User`.`auth` of type `String`)
+  """
+  auth_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createAt` (✨ Generated from Field `User`.`createAt` of type `Timestamp!`)
+  """
+  createAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createAt` (✨ Generated from Field `User`.`createAt` of type `Timestamp!`)
+  """
+  createAt_time: Timestamp_Relative
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: String
+  """
+  ✨ `_expr` server value variant of `password` (✨ Generated from Field `User`.`password` of type `String!`)
+  """
+  password_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`role` of type `String!`
+  """
+  role: String
+  """
+  ✨ `_expr` server value variant of `role` (✨ Generated from Field `User`.`role` of type `String!`)
+  """
+  role_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'User'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [User_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: User_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [User_Filter!]
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `User`.`username` of type `String!`
+  """
+  username: String_Filter
+  """
+  ✨ Generated from Field `User`.`auth` of type `String`
+  """
+  auth: String_Filter
+  """
+  ✨ Generated from Field `User`.`createAt` of type `Timestamp!`
+  """
+  createAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: String_Filter
+  """
+  ✨ Generated from Field `User`.`role` of type `String!`
+  """
+  role: String_Filter
+  """
+  ✨ Generated from Field `User`.`employes_on_user` of type `[Employee!]!`
+  """
+  employes_on_user: Employee_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'User'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input User_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [User_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: User_Filter
+}
+"""
+✨ Generated key input type for table 'User'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input User_Key {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `User`.`username` of type `String!`
+  """
+  username: String
+  """
+  ✨ `_expr` server value variant of `username` (✨ Generated from Field `User`.`username` of type `String!`)
+  """
+  username_expr: String_Expr
+}
+"""
+✨ Generated list filter input type for table 'User'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input User_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: User_Filter
+}
+"""
+✨ Generated order input type for table 'User'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input User_Order {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `User`.`username` of type `String!`
+  """
+  username: OrderDirection
+  """
+  ✨ Generated from Field `User`.`auth` of type `String`
+  """
+  auth: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createAt` of type `Timestamp!`
+  """
+  createAt: OrderDirection
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: OrderDirection
+  """
+  ✨ Generated from Field `User`.`role` of type `String!`
+  """
+  role: OrderDirection
+}

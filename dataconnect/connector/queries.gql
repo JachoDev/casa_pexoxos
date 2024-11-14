@@ -2,14 +2,7 @@
 
 # @auth() directives control who can call each operation.
 # Anyone should be able to list all movies, so the auth level is set to PUBLIC
-query ListMovies @auth(level: PUBLIC) {
-  movies {
-    id
-    title
-    imageUrl
-    genre
-  }
-}
+
 
 # List all users, only admins should be able to list all users, so we use NO_ACCESS
 query ListUsers @auth(level: NO_ACCESS) {
@@ -37,47 +30,3 @@ query ListUsers @auth(level: NO_ACCESS) {
 #   }
 # }
 
-# Get movie by id
-query GetMovieById($id: UUID!) @auth(level: PUBLIC) {
-  movie(id: $id) {
-    id
-    title
-    imageUrl
-    genre
-    metadata: movieMetadata_on_movie {
-      rating
-      releaseYear
-      description
-    }
-    reviews: reviews_on_movie {
-      id
-      reviewText
-      reviewDate
-      rating
-      user {
-        id
-        username
-      }
-    }
-  }
-}
-
-# Search for movies, actors, and reviews
-query SearchMovie(
-  $titleInput: String
-  $genre: String
-) @auth(level: PUBLIC) {
-  movies(
-    where: {
-      _and: [
-        { genre: { eq: $genre } }
-        { title: { contains: $titleInput } }
-      ]
-    }
-  ) {
-    id
-    title
-    genre
-    imageUrl
-  }
-}

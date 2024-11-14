@@ -6,15 +6,17 @@ import {
   //SafeAreaView,
   Text,
   View,
+  FlatList,
 } from 'react-native';
+
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
       paddingHorizontal: 36,
       alignSelf: 'center',
-      width: '50%',
-      height: '30%',
+      width: '70%',
+      height: '10%',
       alignContent: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#fff',
@@ -60,26 +62,23 @@ const createStyles = () =>
     },
   });
 
-type PetCardProps = PropsWithChildren<{
+type PetListProps = PropsWithChildren<{
   title: string;
 }>;
 
-function PetCard({children, title}: PetCardProps): React.JSX.Element {
+function PetList({children, title}: PetListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
 
   return (
     <>
 			<View style={styles.container}>
-        <View >
-          <Text style={styles.pageTitle}>
-            Componente en construccion
-          </Text>
-          {children}
-        </View>
+       <FlatList>
+        
+       </FlatList>
 			</View>
 		</>
   );
 }
 
-export default PetCard;
+export default PetList;

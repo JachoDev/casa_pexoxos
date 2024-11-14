@@ -1,0 +1,54 @@
+extend type Employee {
+  """
+  ✨ Implicit foreign key field based on `Employee`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
+  """
+  userId: UUID @fdc_generated(from: "Employee.user", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Employee`.`user`. It must match the value of `User`.`username`. See `@ref` for how to customize it.
+  """
+  userUsername: String @fdc_generated(from: "Employee.user", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Pet {
+  """
+  ✨ Implicit foreign key field based on `Pet`.`client`. It must match the value of `Client`.`id`. See `@ref` for how to customize it.
+  """
+  clientId: UUID! @fdc_generated(from: "Pet.client", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Sale {
+  """
+  ✨ Implicit foreign key field based on `Sale`.`client`. It must match the value of `Client`.`id`. See `@ref` for how to customize it.
+  """
+  clientId: UUID! @fdc_generated(from: "Sale.client", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Sale`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "Sale.employee", purpose: IMPLICIT_REF_FIELD)
+}
+extend type SaleServices {
+  """
+  ✨ Implicit foreign key field based on `SaleServices`.`service`. It must match the value of `Service`.`name`. See `@ref` for how to customize it.
+  """
+  serviceName: String! @fdc_generated(from: "SaleServices.service", purpose: IMPLICIT_REF_FIELD)
+}
+extend type Schedule {
+  """
+  ✨ Implicit foreign key field based on `Schedule`.`employee`. It must match the value of `Employee`.`id`. See `@ref` for how to customize it.
+  """
+  employeeId: UUID! @fdc_generated(from: "Schedule.employee", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Schedule`.`pet`. It must match the value of `Pet`.`clientId`. See `@ref` for how to customize it.
+  """
+  petClientId: UUID! @fdc_generated(from: "Schedule.pet", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Schedule`.`pet`. It must match the value of `Pet`.`id`. See `@ref` for how to customize it.
+  """
+  petId: UUID! @fdc_generated(from: "Schedule.pet", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Schedule`.`service`. It must match the value of `Service`.`id`. See `@ref` for how to customize it.
+  """
+  serviceId: UUID! @fdc_generated(from: "Schedule.service", purpose: IMPLICIT_REF_FIELD)
+  """
+  ✨ Implicit foreign key field based on `Schedule`.`service`. It must match the value of `Service`.`name`. See `@ref` for how to customize it.
+  """
+  serviceName: String! @fdc_generated(from: "Schedule.service", purpose: IMPLICIT_REF_FIELD)
+}

@@ -16,6 +16,7 @@ import PetButton from '../components/ui/buttons/PetButton';
 import logo from '../assets/images/image_banner.png';
 import animals from '../assets/images/animals.png';
 import background from '../assets/images/background.png';
+import ServiceList from '../components/ui/Lists/ServiceList';
 
 type HomeProps = PropsWithChildren<{
   title: string;
@@ -84,7 +85,6 @@ const createStyles = () =>
 			width: 800,
 			height: 300,
       marginHorizontal: 50,
-      backgroundColor: 'gray',
       alignItems: 'center',
       justifyContent: 'center',
 		},
@@ -162,9 +162,7 @@ function Home({children, title}: HomeProps): React.JSX.Element {
                 </View>
               </View>
               <View style={styles.carouselSection}>
-                <Text>
-                  Componente en construccion
-                </Text>
+                <ServiceList title={''} />
               </View>
             </View>
             <View style={styles.scheduleSection}>

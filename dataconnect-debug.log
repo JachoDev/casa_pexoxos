@@ -1,163 +1,98 @@
-I1108 20:18:28.913098   33520 load.go:37] Reloading schema and connectors...
-I1108 20:18:28.937914   33520 control.go:45] [engine.Service /emulator/casa_pexoxos 7686] UpdateSchema(): done sources: schema\schema.gql [2626B] 
-I1108 20:18:28.956478   33520 control.go:73] [engine.Service /emulator/casa_pexoxos 7686] UpdateConnector(default): done sources: connector\mutations.gql [1124B] connector\queries.gql [1767B] 
-I1108 20:18:28.999524   33520 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-I1108 20:18:29.004591   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: prelude.gql [62831B] main\implicit.gql [1258B] main\input.gql [30654B] main\relation.gql [3401B] main\query.gql [6067B] main\mutation.gql [19287B] 
-I1108 20:18:29.006173   33520 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-Generated sources: package.json [623B] index.d.ts [7102B] esm\index.esm.js [4395B] esm\package.json [17B] index.cjs.js [4832B] 
-I1108 20:18:29.006173   33520 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
-I1108 20:18:29.006173   33520 load.go:115] Finished reloading
-I1108 20:18:29.007623   33520 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
-I1108 20:18:29.007687   33520 dev.go:95] Listening on address (HTTP + gRPC): [::1]:9399
-I1108 20:18:30.791256   33520 migrate.go:28] Running migration SQL:
+I1109 18:11:47.492097    8616 load.go:37] Reloading schema and connectors...
+I1109 18:11:47.541737    8616 control.go:45] [engine.Service /emulator/casa_pexoxos c5b3] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1109 18:11:47.567954    8616 control.go:73] [engine.Service /emulator/casa_pexoxos c5b3] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1109 18:11:47.615130    8616 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1109 18:11:47.619384    8616 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\input.gql [52893B] main\relation.gql [6686B] prelude.gql [62831B] main\query.gql [8949B] main\mutation.gql [28669B] main\implicit.gql [2766B] 
+I1109 18:11:47.621162    8616 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: package.json [623B] index.d.ts [2539B] esm\index.esm.js [1236B] esm\package.json [17B] index.cjs.js [1370B] 
+I1109 18:11:47.621670    8616 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1109 18:11:47.621670    8616 load.go:115] Finished reloading
+I1109 18:11:47.621670    8616 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I1109 18:11:47.621670    8616 dev.go:95] Listening on address (HTTP + gRPC): [::1]:9399
+I1109 18:11:49.254976    8616 migrate.go:28] Running migration SQL:
 Step 1: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"
-Step 2: CREATE TABLE "public"."Clients" ("user_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "address" character varying(30) NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "email" character varying(30) NULL, "last_name" character varying(30) NOT NULL, "name" character varying(30) NOT NULL, "phone_number" character varying(30) NULL, PRIMARY KEY ("user_id"))
-Step 3: CREATE TABLE "public"."Pets" ("pet_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "client_id_id" uuid NOT NULL, "breed" character varying(30) NULL, "commentaries" character varying(30) NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "name" character varying(30) NOT NULL, "species" character varying(30) NULL, PRIMARY KEY ("pet_id"), CONSTRAINT "Pets_client_id_id_fkey" FOREIGN KEY ("client_id_id") REFERENCES "public"."Clients" ("user_id") ON DELETE CASCADE)
-Step 4: CREATE INDEX "Pets_clientIdId_idx" ON "public"."Pets" ("client_id_id")
-Step 5: CREATE TABLE "public"."movie" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "genre" text NULL, "image_url" text NOT NULL, "title" text NOT NULL, PRIMARY KEY ("id"))
-Step 6: CREATE TABLE "public"."Users" ("user_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_auth" text NULL DEFAULT replace((uuid_generate_v4())::text, '-'::text, ''::text), "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "password" character varying(30) NOT NULL, "role" character varying(30) NOT NULL, "username" character varying(30) NOT NULL, PRIMARY KEY ("user_id"))
-Step 7: CREATE TABLE "public"."Reviews" ("movie_id" uuid NOT NULL, "user_id" uuid NOT NULL, "id" uuid NOT NULL DEFAULT uuid_generate_v4(), "rating" integer NULL, "review_date" date NOT NULL, "review_text" text NULL, PRIMARY KEY ("movie_id", "user_id"), CONSTRAINT "Reviews_movie_id_fkey" FOREIGN KEY ("movie_id") REFERENCES "public"."movie" ("id") ON DELETE CASCADE, CONSTRAINT "Reviews_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."Users" ("user_id") ON DELETE CASCADE)
-Step 8: CREATE INDEX "Reviews_movieId_idx" ON "public"."Reviews" ("movie_id")
-Step 9: CREATE INDEX "Reviews_userId_idx" ON "public"."Reviews" ("user_id")
-Step 10: CREATE TABLE "public"."movie_metadata" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "movie_id" uuid NOT NULL, "description" text NULL, "rating" double precision NULL, "release_year" integer NULL, PRIMARY KEY ("id"), CONSTRAINT "movie_metadata_movie_id_fkey" FOREIGN KEY ("movie_id") REFERENCES "public"."movie" ("id") ON DELETE CASCADE)
-Step 11: CREATE INDEX "movie_metadata_movieId_idx" ON "public"."movie_metadata" ("movie_id")
-Step 12: CREATE UNIQUE INDEX "movie_metadata_movieId_uidx" ON "public"."movie_metadata" ("movie_id")
-I1108 20:18:30.936366   33520 control.go:45] [engine.Service /emulator/casa_pexoxos c48c] UpdateSchema(): done sources: schema\schema.gql [2626B] 
-I1108 20:18:30.937442   33520 control.go:73] [engine.Service /emulator/casa_pexoxos c48c] UpdateConnector(default): done sources: connector\mutations.gql [1124B] connector\queries.gql [1767B] 
-I1108 20:19:12.457042   33520 engine.go:150] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql ListUsers: invalid request. 
+Step 2: CREATE TABLE "public"."Stock" ("stock_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "description" character varying(30) NULL, "unit_price" double precision NULL, "product_name" character varying(30) NOT NULL, "item_quantity" integer NOT NULL, PRIMARY KEY ("stock_id"))
+Step 3: CREATE TABLE "public"."Users" ("user_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "username" character varying(30) NOT NULL, "user_auth" text NULL DEFAULT replace((uuid_generate_v4())::text, '-'::text, ''::text), "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "password" character varying(30) NOT NULL, "role" character varying(30) NOT NULL, PRIMARY KEY ("user_id", "username"))
+Step 4: CREATE TABLE "public"."Employees" ("employee_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "user_id" uuid NULL, "user_username" text NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "email" character varying(30) NULL, "first_name" character varying(30) NOT NULL, "hire_date" date NOT NULL, "job_title" character varying(30) NOT NULL, "last_name" character varying(30) NOT NULL, "phone_number" character varying(30) NULL, "salary" double precision NULL, PRIMARY KEY ("employee_id"), CONSTRAINT "Employees_user_id_user_username_fkey" FOREIGN KEY ("user_id", "user_username") REFERENCES "public"."Users" ("user_id", "username") ON DELETE SET NULL)
+Step 5: CREATE INDEX "Employees_userId_userUsername_idx" ON "public"."Employees" ("user_id", "user_username")
+Step 6: CREATE TABLE "public"."Clients" ("client_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "first_name" character varying(30) NOT NULL, "address" character varying(30) NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "email" character varying(30) NULL, "last_name" character varying(30) NOT NULL, "phone_number" character varying(30) NULL, PRIMARY KEY ("client_id"))
+Step 7: CREATE TABLE "public"."Pets" ("pet_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "client_id" uuid NOT NULL, "breed" character varying(30) NULL, "commentaries" character varying(30) NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "pet_name" character varying(30) NOT NULL, "species" character varying(30) NULL, PRIMARY KEY ("pet_id", "client_id"), CONSTRAINT "Pets_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "public"."Clients" ("client_id") ON DELETE CASCADE)
+Step 8: CREATE INDEX "Pets_clientId_idx" ON "public"."Pets" ("client_id")
+Step 9: CREATE TABLE "public"."Sales" ("sale_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "client_id" uuid NOT NULL, "employee_id" uuid NOT NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "sale_date" timestamptz NOT NULL, "total_price" double precision NOT NULL, PRIMARY KEY ("sale_id"), CONSTRAINT "Sales_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "public"."Clients" ("client_id") ON DELETE CASCADE, CONSTRAINT "Sales_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "public"."Employees" ("employee_id") ON DELETE CASCADE)
+Step 10: CREATE INDEX "Sales_clientId_idx" ON "public"."Sales" ("client_id")
+Step 11: CREATE INDEX "Sales_employeeId_idx" ON "public"."Sales" ("employee_id")
+Step 12: CREATE TABLE "public"."Services" ("service_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "service_name" character varying(30) NOT NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "description" character varying(30) NULL, "price" double precision NOT NULL, PRIMARY KEY ("service_id", "service_name"))
+Step 13: CREATE TABLE "public"."Schedule" ("schedule_id" uuid NOT NULL DEFAULT uuid_generate_v4(), "employee_id" uuid NOT NULL, "pet_client_id" uuid NOT NULL, "pet_id" uuid NOT NULL, "service_id" uuid NOT NULL, "service_name" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "schedule_date" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP, "end_date" timestamptz NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY ("schedule_id"), CONSTRAINT "Schedule_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "public"."Employees" ("employee_id") ON DELETE CASCADE, CONSTRAINT "Schedule_pet_id_pet_client_id_fkey" FOREIGN KEY ("pet_id", "pet_client_id") REFERENCES "public"."Pets" ("pet_id", "client_id") ON DELETE CASCADE, CONSTRAINT "Schedule_service_id_service_name_fkey" FOREIGN KEY ("service_id", "service_name") REFERENCES "public"."Services" ("service_id", "service_name") ON DELETE CASCADE)
+Step 14: CREATE INDEX "Schedule_employeeId_idx" ON "public"."Schedule" ("employee_id")
+Step 15: CREATE INDEX "Schedule_petId_petClientId_idx" ON "public"."Schedule" ("pet_id", "pet_client_id")
+Step 16: CREATE INDEX "Schedule_serviceId_serviceName_idx" ON "public"."Schedule" ("service_id", "service_name")
+Step 17: CREATE UNIQUE INDEX "Schedule_serviceId_serviceName_uidx" ON "public"."Schedule" ("service_id", "service_name")
+Step 18: CREATE TABLE "public"."sale_services" ("sale_id" uuid NOT NULL, "service_id" uuid NOT NULL, "service_name" text NOT NULL, PRIMARY KEY ("sale_id", "service_id", "service_name"), CONSTRAINT "sale_services_sale_id_fkey" FOREIGN KEY ("sale_id") REFERENCES "public"."Sales" ("sale_id") ON DELETE CASCADE, CONSTRAINT "sale_services_service_id_service_name_fkey" FOREIGN KEY ("service_id", "service_name") REFERENCES "public"."Services" ("service_id", "service_name") ON DELETE CASCADE)
+Step 19: CREATE INDEX "sale_services_saleId_idx" ON "public"."sale_services" ("sale_id")
+Step 20: CREATE INDEX "sale_services_serviceId_serviceName_idx" ON "public"."sale_services" ("service_id", "service_name")
+I1109 18:11:49.408869    8616 control.go:45] [engine.Service /emulator/casa_pexoxos 804f] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1109 18:11:49.409372    8616 control.go:73] [engine.Service /emulator/casa_pexoxos 804f] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1109 18:12:22.417129    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:22.417129    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:22.423852    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:22.423968    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:12:24.302363    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:24.302363    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.304592    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.304592    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:12:24.678512    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:24.678512    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.679873    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.679873    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:12:24.945960    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:24.945960    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.947454    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:24.947953    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:12:25.144865    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:25.144865    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:25.146163    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:25.146163    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:12:25.353267    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:12:25.353841    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:25.355142    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:12:25.355344    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:13:01.752035    8616 engine.go:150] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql UpsertUser: invalid request. 
 Auth: admin
-Variables:
-{
-   "password": "secreto",
-   "username": "tenedor"
- }
-Errors: input: $username is not expected
-input: $password is not expected
+Errors: input: $username (String) is missing
+input: $password (String) is missing
+input: $role (String) is missing
 
-sources: input [1767B] 
-I1108 20:19:17.984823   33520 prepare.go:112] [operation "ListUsers" attempt 1] preparePlan succeeded
-I1108 20:19:17.985160   33520 prepare.go:103] [operation "ListUsers" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:19:17.986671   33520 executor.go:97] [operation "ListUsers" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:19:17.986838   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql ListUsers: succeeded. 
-I1108 20:19:25.345294   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:19:25.345294   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:19:25.354067   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-W1108 20:19:25.354067   33520 engine.go:152] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: failed. 
+sources: input [1219B] 
+I1109 18:13:28.051741    8616 prepare.go:112] [operation "ListUsers" attempt 1] preparePlan succeeded
+I1109 18:13:28.052246    8616 prepare.go:103] [operation "ListUsers" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:13:28.055289    8616 executor.go:97] [operation "ListUsers" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:13:28.055289    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql ListUsers: succeeded. 
+I1109 18:15:13.845855    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:15:13.845855    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:15:13.847340    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:15:13.847548    8616 engine.go:148] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : succeeded. 
+I1109 18:15:15.290163    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:15:15.290163    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:15:15.293262    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+W1109 18:15:15.293262    8616 engine.go:152] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : failed. 
 Auth: admin
-Variables:
-{
-   "password": "secreto",
-   "username": "tenedor"
- }
-Errors: input: user_upsert SQL query error: pq: null value in column "role" of relation "Users" violates not-null constraint
-WITH  "user_upsert_temp"  AS (INSERT INTO  "public"."Users"  ( "user_id" , "password" , "username" , "user_auth" , "created_at" ) VALUES (uuid_generate_v4(), $1 ::text, $2 ::text,replace((uuid_generate_v4())::text, '-'::text, ''::text), $3 ::timestamptz) ON CONFLICT ( "user_id" ) DO UPDATE SET  "user_id" = excluded. "user_id" , "password" = CASE WHEN ( $4 ::boolean) THEN (excluded. "password" ) ELSE ( "Users"."password" ) END, "username" = CASE WHEN ( $5 ::boolean) THEN (excluded. "username" ) ELSE ( "Users"."username" ) END RETURNING jsonb_build_object('id', REPLACE(CAST(( "user_id" ) AS text), '-', '')) AS j) SELECT * FROM  "user_upsert_temp" 
-Params: [secreto tenedor 2024-11-09T02:19:25.345798Z true true]
+Errors: input: user_insert SQL query error: pq: duplicate key value violates unique constraint "Users_pkey"
+WITH  "user_insert_temp"  AS (INSERT INTO  "public"."Users"  ( "user_auth" , "created_at" , "user_id" , "password" , "role" , "username" ) VALUES ('',timestamptz '2024-11-10T00:15:09.125Z','11111111-2222-3333-4444-555555555555'::uuid,'','','') RETURNING jsonb_build_object('id', REPLACE(CAST(( "user_id" ) AS text), '-', ''), 'username',  "username" ) AS j) SELECT * FROM  "user_insert_temp" 
+Params: []
 
 Data:
-[123 10 32 32 32 34 117 115 101 114 95 117 112 115 101 114 116 34 58 32 110 117 108 108 10 32 125]
-sources: input [1124B] 
-I1108 20:20:03.347832   33520 engine.go:150] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: invalid request. 
+[123 10 32 32 32 34 117 115 101 114 95 105 110 115 101 114 116 34 58 32 110 117 108 108 10 32 125]
+sources: input [281B] 
+I1109 18:15:15.929648    8616 prepare.go:112] [operation "" attempt 1] preparePlan succeeded
+I1109 18:15:15.929648    8616 prepare.go:103] [operation "" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+I1109 18:15:15.931799    8616 executor.go:97] [operation "" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
+W1109 18:15:15.932313    8616 engine.go:152] [engine.Service /emulator/casa_pexoxos 804f] ExecuteGraphql : failed. 
 Auth: admin
-Variables:
-{
-   "password": "secreto",
-   "role": "admin",
-   "username": "tenedor"
- }
-Errors: input: $role is not expected
+Errors: input: user_insert SQL query error: pq: duplicate key value violates unique constraint "Users_pkey"
+WITH  "user_insert_temp"  AS (INSERT INTO  "public"."Users"  ( "user_auth" , "created_at" , "user_id" , "password" , "role" , "username" ) VALUES ('',timestamptz '2024-11-10T00:15:09.125Z','11111111-2222-3333-4444-555555555555'::uuid,'','','') RETURNING jsonb_build_object('id', REPLACE(CAST(( "user_id" ) AS text), '-', ''), 'username',  "username" ) AS j) SELECT * FROM  "user_insert_temp" 
+Params: []
 
-sources: input [1124B] 
-I1108 20:21:04.294915   33520 load.go:37] Reloading schema and connectors...
-I1108 20:21:04.477055   33520 control.go:45] [engine.Service /emulator/casa_pexoxos c48c] UpdateSchema(): done sources: schema\schema.gql [2626B] 
-I1108 20:21:04.478082   33520 control.go:73] [engine.Service /emulator/casa_pexoxos c48c] UpdateConnector(default): done sources: connector\mutations.gql [1151B] connector\queries.gql [1767B] 
-I1108 20:21:04.502193   33520 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-I1108 20:21:04.505921   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\query.gql [6067B] main\mutation.gql [19287B] main\implicit.gql [1258B] main\input.gql [30654B] main\relation.gql [3401B] prelude.gql [62831B] 
-I1108 20:21:04.507479   33520 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-Generated sources: index.cjs.js [4832B] package.json [623B] index.d.ts [7118B] esm\index.esm.js [4395B] esm\package.json [17B] 
-I1108 20:21:04.508005   33520 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
-I1108 20:21:04.508005   33520 load.go:115] Finished reloading
-I1108 20:21:04.780484   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:04.780760   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:04.783021   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:04.783526   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:08.132134   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:08.132134   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.133911   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.133911   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:08.459883   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:08.459883   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.461232   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.461232   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:08.709362   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:08.709362   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.711811   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.711811   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:08.902177   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:08.902177   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.903447   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:08.903792   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:09.080072   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:09.080072   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.081568   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.081568   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:09.258865   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:09.258865   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.260350   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.260350   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:09.446220   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:09.446220   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.449183   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:09.449687   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:10.007105   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:10.007197   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:10.008790   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:10.008790   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:10.193342   33520 prepare.go:112] [operation "UpsertUser" attempt 1] preparePlan succeeded
-I1108 20:21:10.193342   33520 prepare.go:103] [operation "UpsertUser" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:10.194969   33520 executor.go:97] [operation "UpsertUser" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:10.195213   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql UpsertUser: succeeded. 
-I1108 20:21:29.193863   33520 prepare.go:112] [operation "ListUsers" attempt 1] preparePlan succeeded
-I1108 20:21:29.193863   33520 prepare.go:103] [operation "ListUsers" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:29.198601   33520 executor.go:97] [operation "ListUsers" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:29.198601   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql ListUsers: succeeded. 
-I1108 20:21:46.748915   33520 load.go:37] Reloading schema and connectors...
-I1108 20:21:46.895455   33520 control.go:45] [engine.Service /emulator/casa_pexoxos c48c] UpdateSchema(): done sources: schema\schema.gql [2626B] 
-I1108 20:21:46.897011   33520 control.go:73] [engine.Service /emulator/casa_pexoxos c48c] UpdateConnector(default): done sources: connector\mutations.gql [1151B] connector\queries.gql [1773B] 
-I1108 20:21:46.922859   33520 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-I1108 20:21:46.926015   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\input.gql [30654B] main\relation.gql [3401B] main\query.gql [6067B] main\mutation.gql [19287B] prelude.gql [62831B] main\implicit.gql [1258B] 
-I1108 20:21:46.927667   33520 collector.go:107] connector "default" javascriptSdk wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
-Generated sources: esm\package.json [17B] index.cjs.js [4832B] package.json [623B] index.d.ts [7136B] esm\index.esm.js [4395B] 
-I1108 20:21:46.927667   33520 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
-I1108 20:21:46.927667   33520 load.go:115] Finished reloading
-I1108 20:21:47.626571   33520 prepare.go:112] [operation "ListUsers" attempt 1] preparePlan succeeded
-I1108 20:21:47.626571   33520 prepare.go:103] [operation "ListUsers" attempt 1] DBStats beforePrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterPrepare: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:47.631599   33520 executor.go:97] [operation "ListUsers" attempt 1] DBStats beforeRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}, afterRun: sql.DBStats{MaxOpenConnections:1, OpenConnections:1, InUse:0, Idle:1, WaitCount:0, WaitDuration:0, MaxIdleClosed:0, MaxIdleTimeClosed:0, MaxLifetimeClosed:0}
-I1108 20:21:47.631599   33520 engine.go:148] [engine.Service /emulator/casa_pexoxos c48c] ExecuteGraphql ListUsers: succeeded. 
-I1108 20:44:56.077274   33520 load.go:37] Reloading schema and connectors...
-E1108 20:44:56.081500   33520 load.go:79] Could not load sources: <nil>
-I1108 20:44:56.085700   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: prelude.gql [62831B] main\implicit.gql [1258B] main\input.gql [30654B] main\relation.gql [3401B] main\query.gql [6067B] main\mutation.gql [19287B] 
-I1108 20:44:56.085700   33520 load.go:80] Finished reloading
-I1108 20:59:19.022225   33520 load.go:37] Reloading schema and connectors...
-E1108 20:59:19.025897   33520 load.go:79] Could not load sources: <nil>
-I1108 20:59:19.027976   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\relation.gql [3401B] main\query.gql [6067B] main\mutation.gql [19287B] prelude.gql [62831B] main\implicit.gql [1258B] main\input.gql [30654B] 
-I1108 20:59:19.027976   33520 load.go:80] Finished reloading
-I1108 21:47:42.735812   33520 load.go:37] Reloading schema and connectors...
-E1108 21:47:42.738715   33520 load.go:79] Could not load sources: <nil>
-I1108 21:47:42.743031   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\input.gql [30654B] prelude.gql [62831B] main\relation.gql [3401B] main\query.gql [6067B] main\mutation.gql [19287B] main\implicit.gql [1258B] 
-I1108 21:47:42.743031   33520 load.go:80] Finished reloading
-I1108 22:12:03.716317   33520 load.go:37] Reloading schema and connectors...
-E1108 22:12:03.718626   33520 load.go:79] Could not load sources: <nil>
-I1108 22:12:03.721278   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\query.gql [6067B] main\mutation.gql [19287B] main\implicit.gql [1258B] main\input.gql [30654B] main\relation.gql [3401B] prelude.gql [62831B] 
-I1108 22:12:03.721278   33520 load.go:80] Finished reloading
-I1108 22:19:21.576781   33520 load.go:37] Reloading schema and connectors...
-E1108 22:19:21.580781   33520 load.go:79] Could not load sources: <nil>
-I1108 22:19:21.583781   33520 collector.go:107] schema extensions wrote into "C:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
-Generated sources: main\mutation.gql [19287B] main\implicit.gql [1258B] main\input.gql [30654B] prelude.gql [62831B] main\relation.gql [3401B] main\query.gql [6067B] 
-I1108 22:19:21.583781   33520 load.go:80] Finished reloading
+Data:
+[123 10 32 32 32 34 117 115 101 114 95 105 110 115 101 114 116 34 58 32 110 117 108 108 10 32 125]
+sources: input [281B] 

@@ -11,21 +11,27 @@ import {
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: 36,
       alignSelf: 'center',
-      width: '50%',
-      height: '30%',
+      width: 200,
+      height: 70,
       alignContent: 'flex-start',
       justifyContent: 'center',
-      backgroundColor: '#fff',
-      borderRadius: 40,
-      shadowColor:'#000000',
-      shadowRadius: 5,
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 10, height: -10 },
-      elevation: 10,
-      borderWidth: 2,
-      borderColor: '#959595'
+      backgroundColor: '#fffaaa',
+      borderRadius: 10,
+      marginVertical: 40,
+      marginHorizontal: 25,
+      flexDirection: 'row',
+    },
+    imageView: {
+      flex: 6,
+      backgroundColor: 'black',
+    },
+    textView: {
+      flex: 12,
+    },
+    arrowView: {
+      flex: 1,
+      backgroundColor: 'red',
     },
     scrollView: {
       paddingRight: 20,
@@ -60,26 +66,31 @@ const createStyles = () =>
     },
   });
 
-type PetCardProps = PropsWithChildren<{
+type ServiceProps = PropsWithChildren<{
   title: string;
 }>;
 
-function PetCard({children, title}: PetCardProps): React.JSX.Element {
+function ServiceCard({ title }: ServiceProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
 
   return (
     <>
-			<View style={styles.container}>
-        <View >
-          <Text style={styles.pageTitle}>
-            Componente en construccion
+			<View style={styles.container}> 
+        <View style={styles.imageView}>
+
+        </View>
+        <View style={styles.textView}>
+          <Text >
+            {title}
           </Text>
-          {children}
+        </View>
+        <View style={styles.arrowView}>
+          
         </View>
 			</View>
 		</>
   );
 }
 
-export default PetCard;
+export default ServiceCard;
