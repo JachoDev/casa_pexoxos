@@ -59,6 +59,7 @@ const createStyles = () =>
 
 type ServiceListProps = PropsWithChildren<{
   title: string;
+  imageUrl: String;
 }>;
 
 function ServiceList({ title }: ServiceListProps): React.JSX.Element {
@@ -68,58 +69,118 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   const services = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
+      name: 'Mascota 1',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '01:00 PM',
+      color: 'green',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
+      name: 'Mascota 2',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '01:30 PM',
+      color: 'red',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
+      name: 'Mascota 3',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '02:00 PM',
+      color: 'blue',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2zxa',
-      title: 'First Item',
+      name: 'Mascota 4',
+      service: 'Corte',
+      date: '15/11/2024',
+      time: '03:00 PM',
+      color: 'yellow',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f63',
-      title: 'Second Item',
+      name: 'Mascota 5',
+      service: 'Baño',
+      date: '15/11/2024',
+      time: '03:30 PM',
+      color: 'green',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d12',
-      title: 'Third Item',
+      name: 'Mascota 6',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '04:00 PM',
+      color: 'red',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab328ba',
-      title: 'First Item',
+      name: 'Mascota 7',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '04:30 PM',
+      color: 'purple',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa47f63',
-      title: 'Second Item',
+      name: 'Mascota 8',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '05:00 PM',
+      color: 'yellow',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e59d72',
-      title: 'Third Item',
+      name: 'Mascota 9',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '06:00 PM',
+      color: 'red',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53ab728ba',
-      title: 'First Item',
+      name: 'Mascota 10',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '06:30 PM',
+      color: 'purple',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa67f63',
-      title: 'Second Item',
+      name: 'Mascota 11',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '07:00 PM',
+      color: 'blue',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e62d72',
-      title: 'Third Item',
+      name: 'Mascota 12',
+      service: 'Corte y Baño',
+      date: '15/11/2024',
+      time: '07:30 PM',
+      color: 'green',
+      petImage: '../../../assets/images/pexoxo1.jpg',
     },
   ]
 
   return (
     <>
 			<View style={styles.container}>
-        <FlatList data={services} renderItem={({item}) => <ServiceCard title={item.title} />} numColumns={3} />
+        <FlatList data={services} renderItem={({item}) => <ServiceCard name={item.name} service={item.service} date={item.date} time={item.time} color={item.color} petImage={item.petImage} />} numColumns={3} />
 			</View>
 		</>
   );

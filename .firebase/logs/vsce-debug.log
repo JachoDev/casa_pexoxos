@@ -2191,3 +2191,193 @@ I1113 20:07:11.736576   22056 dev.go:95] Listening on address (HTTP + gRPC): 127
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1113 20:07:13.311112   22056 engine.go:148] [engine.Service /emulator/casa_pexoxos d8d0] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
 [info] [Firebase Plugin] Stopping Data Connect toolkit
 [warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2024-11-14T02:10:14.394Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2024-11-14T02:10:20.283Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit on port 50001
+[debug] [2024-11-14T02:10:23.853Z] I1113 20:10:23.725493   23688 control.go:45] [engine.Service /emulator/casa_pexoxos a2dc] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1113 20:10:23.844023   23688 control.go:73] [engine.Service /emulator/casa_pexoxos a2dc] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1113 20:10:23.725493   23688 control.go:45] [engine.Service /emulator/casa_pexoxos a2dc] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1113 20:10:23.844023   23688 control.go:73] [engine.Service /emulator/casa_pexoxos a2dc] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \n"}}
+[debug] [2024-11-14T02:10:23.854Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-14T02:10:23.855Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-11-14T02:10:23.855Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\javie\\.cache\\firebase\\emulators\\dataconnect-emulator-1.7.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\javie\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-1.7.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2024-11-14T02:10:24.739Z] I1113 20:10:23.892704   14284 load.go:37] Reloading schema and connectors...
+I1113 20:10:23.948627   14284 control.go:45] [engine.Service /emulator/casa_pexoxos 1601] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1113 20:10:23.988693   14284 control.go:73] [engine.Service /emulator/casa_pexoxos 1601] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1113 20:10:24.082197   14284 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1113 20:10:24.087654   14284 collector.go:107] schema extensions wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\mutation.gql [28669B] main\implicit.gql [2766B] main\input.gql [52893B] main\relation.gql [6686B] prelude.gql [65742B] main\query.gql [8949B] 
+I1113 20:10:24.090162   14284 collector.go:107] connector "default" javascriptSdk wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.d.ts [2539B] esm\index.esm.js [1236B] esm\package.json [17B] index.cjs.js [1370B] package.json [623B] 
+I1113 20:10:24.090162   14284 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1113 20:10:24.090162   14284 load.go:115] Finished reloading
+I1113 20:10:24.134020   14284 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1113 20:10:23.892704   14284 load.go:37] Reloading schema and connectors...\nI1113 20:10:23.948627   14284 control.go:45] [engine.Service /emulator/casa_pexoxos 1601] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1113 20:10:23.988693   14284 control.go:73] [engine.Service /emulator/casa_pexoxos 1601] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \nI1113 20:10:24.082197   14284 codegen.go:82] [connector \"default\" javascriptSdk] Generating sources into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nI1113 20:10:24.087654   14284 collector.go:107] schema extensions wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: main\\mutation.gql [28669B] main\\implicit.gql [2766B] main\\input.gql [52893B] main\\relation.gql [6686B] prelude.gql [65742B] main\\query.gql [8949B] \nI1113 20:10:24.090162   14284 collector.go:107] connector \"default\" javascriptSdk wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nGenerated sources: index.d.ts [2539B] esm\\index.esm.js [1236B] esm\\package.json [17B] index.cjs.js [1370B] package.json [623B] \nI1113 20:10:24.090162   14284 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package\nI1113 20:10:24.090162   14284 load.go:115] Finished reloading\nI1113 20:10:24.134020   14284 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[debug] [2024-11-14T02:10:26.817Z] I1113 20:10:26.675449   14284 engine.go:148] [engine.Service /emulator/casa_pexoxos 1601] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1113 20:10:26.675449   14284 engine.go:148] [engine.Service /emulator/casa_pexoxos 1601] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2024-11-14T18:10:14.892Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2024-11-14T18:10:25.173Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit on port 50001
+[debug] [2024-11-14T18:10:28.781Z] I1114 12:10:28.739769   15140 control.go:45] [engine.Service /emulator/casa_pexoxos a951] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1114 12:10:28.767784   15140 control.go:73] [engine.Service /emulator/casa_pexoxos a951] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 12:10:28.739769   15140 control.go:45] [engine.Service /emulator/casa_pexoxos a951] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1114 12:10:28.767784   15140 control.go:73] [engine.Service /emulator/casa_pexoxos a951] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \n"}}
+[debug] [2024-11-14T18:10:28.782Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-14T18:10:28.782Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-11-14T18:10:28.782Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\javie\\.cache\\firebase\\emulators\\dataconnect-emulator-1.7.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\javie\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-1.7.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2024-11-14T18:10:29.308Z] I1114 12:10:28.819137   19868 load.go:37] Reloading schema and connectors...
+I1114 12:10:28.870720   19868 control.go:45] [engine.Service /emulator/casa_pexoxos 3bfd] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1114 12:10:28.908638   19868 control.go:73] [engine.Service /emulator/casa_pexoxos 3bfd] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1114 12:10:28.957233   19868 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1114 12:10:28.960234   19868 collector.go:107] schema extensions wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [65742B] main\mutation.gql [28669B] main\implicit.gql [2766B] main\input.gql [52893B] main\relation.gql [6686B] main\query.gql [8949B] 
+I1114 12:10:28.964279   19868 collector.go:107] connector "default" javascriptSdk wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: index.d.ts [2539B] esm\index.esm.js [1236B] esm\package.json [17B] index.cjs.js [1370B] package.json [623B] 
+I1114 12:10:28.964279   19868 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1114 12:10:28.964279   19868 load.go:115] Finished reloading
+I1114 12:10:28.977823   19868 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 12:10:28.819137   19868 load.go:37] Reloading schema and connectors...\nI1114 12:10:28.870720   19868 control.go:45] [engine.Service /emulator/casa_pexoxos 3bfd] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1114 12:10:28.908638   19868 control.go:73] [engine.Service /emulator/casa_pexoxos 3bfd] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \nI1114 12:10:28.957233   19868 codegen.go:82] [connector \"default\" javascriptSdk] Generating sources into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nI1114 12:10:28.960234   19868 collector.go:107] schema extensions wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: prelude.gql [65742B] main\\mutation.gql [28669B] main\\implicit.gql [2766B] main\\input.gql [52893B] main\\relation.gql [6686B] main\\query.gql [8949B] \nI1114 12:10:28.964279   19868 collector.go:107] connector \"default\" javascriptSdk wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nGenerated sources: index.d.ts [2539B] esm\\index.esm.js [1236B] esm\\package.json [17B] index.cjs.js [1370B] package.json [623B] \nI1114 12:10:28.964279   19868 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package\nI1114 12:10:28.964279   19868 load.go:115] Finished reloading\nI1114 12:10:28.977823   19868 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[debug] [2024-11-14T18:10:32.027Z] I1114 12:10:31.640304   19868 engine.go:148] [engine.Service /emulator/casa_pexoxos 3bfd] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 12:10:31.640304   19868 engine.go:148] [engine.Service /emulator/casa_pexoxos 3bfd] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2024-11-14T23:33:42.987Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2024-11-14T23:33:47.183Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit on port 50001
+[debug] [2024-11-14T23:33:49.273Z] I1114 17:33:49.241786   21868 control.go:45] [engine.Service /emulator/casa_pexoxos a751] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1114 17:33:49.267399   21868 control.go:73] [engine.Service /emulator/casa_pexoxos a751] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 17:33:49.241786   21868 control.go:45] [engine.Service /emulator/casa_pexoxos a751] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1114 17:33:49.267399   21868 control.go:73] [engine.Service /emulator/casa_pexoxos a751] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \n"}}
+[debug] [2024-11-14T23:33:49.274Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-14T23:33:49.274Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-11-14T23:33:49.274Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\javie\\.cache\\firebase\\emulators\\dataconnect-emulator-1.7.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\javie\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-1.7.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2024-11-14T23:33:51.447Z] I1114 17:33:49.406568    9376 load.go:37] Reloading schema and connectors...
+I1114 17:33:49.452221    9376 control.go:45] [engine.Service /emulator/casa_pexoxos 6f8b] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1114 17:33:49.473078    9376 control.go:73] [engine.Service /emulator/casa_pexoxos 6f8b] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1114 17:33:49.504069    9376 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1114 17:33:49.507114    9376 collector.go:107] schema extensions wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [65742B] main\input.gql [52893B] main\relation.gql [6686B] main\query.gql [8949B] main\mutation.gql [28669B] main\implicit.gql [2766B] 
+I1114 17:33:49.508162    9376 collector.go:107] connector "default" javascriptSdk wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: package.json [623B] index.d.ts [2539B] esm\index.esm.js [1236B] esm\package.json [17B] index.cjs.js [1370B] 
+I1114 17:33:49.508162    9376 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1114 17:33:49.508162    9376 load.go:115] Finished reloading
+I1114 17:33:49.516289    9376 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 17:33:49.406568    9376 load.go:37] Reloading schema and connectors...\nI1114 17:33:49.452221    9376 control.go:45] [engine.Service /emulator/casa_pexoxos 6f8b] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1114 17:33:49.473078    9376 control.go:73] [engine.Service /emulator/casa_pexoxos 6f8b] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \nI1114 17:33:49.504069    9376 codegen.go:82] [connector \"default\" javascriptSdk] Generating sources into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nI1114 17:33:49.507114    9376 collector.go:107] schema extensions wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: prelude.gql [65742B] main\\input.gql [52893B] main\\relation.gql [6686B] main\\query.gql [8949B] main\\mutation.gql [28669B] main\\implicit.gql [2766B] \nI1114 17:33:49.508162    9376 collector.go:107] connector \"default\" javascriptSdk wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nGenerated sources: package.json [623B] index.d.ts [2539B] esm\\index.esm.js [1236B] esm\\package.json [17B] index.cjs.js [1370B] \nI1114 17:33:49.508162    9376 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package\nI1114 17:33:49.508162    9376 load.go:115] Finished reloading\nI1114 17:33:49.516289    9376 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[debug] [2024-11-14T23:33:54.214Z] I1114 17:33:53.893392    9376 engine.go:148] [engine.Service /emulator/casa_pexoxos 6f8b] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1114 17:33:53.893392    9376 engine.go:148] [engine.Service /emulator/casa_pexoxos 6f8b] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[debug] [2024-11-15T04:20:49.036Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2024-11-15T04:20:49.037Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2024-11-15T04:20:49.040Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-15T04:20:49.040Z] > authorizing via signed-in user (javier.a.r.d28@gmail.com)
+[debug] [2024-11-15T04:20:49.041Z] Checked if tokens are valid: false, expires at: 1731199596488
+[debug] [2024-11-15T04:20:49.042Z] Checked if tokens are valid: false, expires at: 1731199596488
+[debug] [2024-11-15T04:20:49.042Z] > refreshing access token with scopes: []
+[debug] [2024-11-15T04:20:49.044Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-11-15T04:20:49.045Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T04:20:49.047Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2024-11-15T04:20:49.047Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2024-11-15T04:20:49.048Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-15T04:20:49.048Z] > authorizing via signed-in user (javier.a.r.d28@gmail.com)
+[debug] [2024-11-15T04:20:49.049Z] Checked if tokens are valid: false, expires at: 1731199596488
+[debug] [2024-11-15T04:20:49.049Z] Checked if tokens are valid: false, expires at: 1731199596488
+[debug] [2024-11-15T04:20:49.049Z] > refreshing access token with scopes: []
+[debug] [2024-11-15T04:20:49.049Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-11-15T04:20:49.049Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T04:20:49.052Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2024-11-15T04:20:49.059Z] *** [apiv2] error from fetch(http://127.0.0.1:4400/emulators, {"headers":{},"method":"GET"}): FetchError: request to http://127.0.0.1:4400/emulators failed, reason: connect ECONNREFUSED 127.0.0.1:4400
+[debug] [2024-11-15T04:20:49.059Z] >>> [apiv2][query] GET http://[::1]:4400/emulators [none]
+[debug] [2024-11-15T04:20:49.066Z] *** [apiv2] error from fetch(http://[::1]:4400/emulators, {"headers":{},"method":"GET"}): FetchError: request to http://[::1]:4400/emulators failed, reason: connect ECONNREFUSED ::1:4400
+[debug] [2024-11-15T04:20:49.506Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-11-15T04:20:49.506Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T04:20:49.512Z] [Firebase Plugin] User found:  javier.a.r.d28@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2024-11-15T04:20:49.513Z] Checked if tokens are valid: true, expires at: 1731648048506
+[debug] [2024-11-15T04:20:49.515Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2024-11-15T04:20:49.522Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-11-15T04:20:49.522Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T04:20:49.527Z] [Firebase Plugin] User found:  javier.a.r.d28@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2024-11-15T04:20:49.528Z] Checked if tokens are valid: true, expires at: 1731648048523
+[debug] [2024-11-15T04:20:49.529Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2024-11-15T04:20:50.147Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-15T04:20:50.148Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2024-11-15T04:20:50.434Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-15T04:20:50.435Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2024-11-15T14:54:31.923Z] [Firebase Plugin] Activating Firebase extension.
+[info] [Firebase Plugin] Checked firebase-tools, is up to date!
+[debug] [2024-11-15T14:54:38.597Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit on port 50001
+[debug] [2024-11-15T14:54:41.239Z] I1115 08:54:41.212685   29704 control.go:45] [engine.Service /emulator/casa_pexoxos 7667] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1115 08:54:41.235678   29704 control.go:73] [engine.Service /emulator/casa_pexoxos 7667] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1115 08:54:41.212685   29704 control.go:45] [engine.Service /emulator/casa_pexoxos 7667] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1115 08:54:41.235678   29704 control.go:73] [engine.Service /emulator/casa_pexoxos 7667] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \n"}}
+[debug] [2024-11-15T14:54:41.240Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2024-11-15T14:54:41.240Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2024-11-15T14:54:41.240Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\javie\\.cache\\firebase\\emulators\\dataconnect-emulator-1.7.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\javie\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-1.7.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2024-11-15T14:54:42.067Z] I1115 08:54:41.317405   32884 load.go:37] Reloading schema and connectors...
+I1115 08:54:41.388196   32884 control.go:45] [engine.Service /emulator/casa_pexoxos 5978] UpdateSchema(): done sources: schema\schema.gql [4683B] 
+I1115 08:54:41.431897   32884 control.go:73] [engine.Service /emulator/casa_pexoxos 5978] UpdateConnector(default): done sources: connector\mutations.gql [1219B] connector\queries.gql [996B] 
+I1115 08:54:41.488616   32884 codegen.go:82] [connector "default" javascriptSdk] Generating sources into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+I1115 08:54:41.495383   32884 collector.go:107] schema extensions wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\input.gql [52893B] main\relation.gql [6686B] main\query.gql [8949B] main\mutation.gql [28669B] prelude.gql [65742B] main\implicit.gql [2766B] 
+I1115 08:54:41.495383   32884 collector.go:107] connector "default" javascriptSdk wrote into "c:\\Users\\javie\\Documents\\Projects\\NodeJS\\ReactN\\Pexoxos_windows\\casa_pexoxos\\dataconnect\\connector\\dataconnect-generated\\js\\default-connector"
+Generated sources: esm\package.json [17B] index.cjs.js [1370B] package.json [623B] index.d.ts [2539B] esm\index.esm.js [1236B] 
+I1115 08:54:41.495383   32884 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package
+I1115 08:54:41.499402   32884 load.go:115] Finished reloading
+I1115 08:54:41.509939   32884 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1115 08:54:41.317405   32884 load.go:37] Reloading schema and connectors...\nI1115 08:54:41.388196   32884 control.go:45] [engine.Service /emulator/casa_pexoxos 5978] UpdateSchema(): done sources: schema\\schema.gql [4683B] \nI1115 08:54:41.431897   32884 control.go:73] [engine.Service /emulator/casa_pexoxos 5978] UpdateConnector(default): done sources: connector\\mutations.gql [1219B] connector\\queries.gql [996B] \nI1115 08:54:41.488616   32884 codegen.go:82] [connector \"default\" javascriptSdk] Generating sources into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nI1115 08:54:41.495383   32884 collector.go:107] schema extensions wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: main\\input.gql [52893B] main\\relation.gql [6686B] main\\query.gql [8949B] main\\mutation.gql [28669B] prelude.gql [65742B] main\\implicit.gql [2766B] \nI1115 08:54:41.495383   32884 collector.go:107] connector \"default\" javascriptSdk wrote into \"c:\\\\Users\\\\javie\\\\Documents\\\\Projects\\\\NodeJS\\\\ReactN\\\\Pexoxos_windows\\\\casa_pexoxos\\\\dataconnect\\\\connector\\\\dataconnect-generated\\\\js\\\\default-connector\"\nGenerated sources: esm\\package.json [17B] index.cjs.js [1370B] package.json [623B] index.d.ts [2539B] esm\\index.esm.js [1236B] \nI1115 08:54:41.495383   32884 installsdk.go:128] generate.javascriptSdk.packageJsonDir is not specified, skipping automatic installation of JS package\nI1115 08:54:41.499402   32884 load.go:115] Finished reloading\nI1115 08:54:41.509939   32884 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[debug] [2024-11-15T14:54:43.953Z] I1115 08:54:43.380405   32884 engine.go:148] [engine.Service /emulator/casa_pexoxos 5978] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1115 08:54:43.380405   32884 engine.go:148] [engine.Service /emulator/casa_pexoxos 5978] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[debug] [2024-11-15T14:54:44.870Z] I1115 08:54:44.872983   32884 engine.go:148] [engine.Service /emulator/casa_pexoxos 5978] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1115 08:54:44.872983   32884 engine.go:148] [engine.Service /emulator/casa_pexoxos 5978] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[debug] [2024-11-15T16:09:27.843Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2024-11-15T16:09:27.844Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2024-11-15T16:09:27.845Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-15T16:09:27.845Z] > authorizing via signed-in user (javier.a.r.d28@gmail.com)
+[debug] [2024-11-15T16:09:27.846Z] Checked if tokens are valid: false, expires at: 1731650856423
+[debug] [2024-11-15T16:09:27.847Z] Checked if tokens are valid: false, expires at: 1731650856423
+[debug] [2024-11-15T16:09:27.847Z] > refreshing access token with scopes: []
+[debug] [2024-11-15T16:09:27.849Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-11-15T16:09:27.849Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T16:09:27.852Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2024-11-15T16:09:27.852Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2024-11-15T16:09:27.853Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-15T16:09:27.853Z] > authorizing via signed-in user (javier.a.r.d28@gmail.com)
+[debug] [2024-11-15T16:09:27.854Z] Checked if tokens are valid: false, expires at: 1731650856423
+[debug] [2024-11-15T16:09:27.854Z] Checked if tokens are valid: false, expires at: 1731650856423
+[debug] [2024-11-15T16:09:27.854Z] > refreshing access token with scopes: []
+[debug] [2024-11-15T16:09:27.854Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-11-15T16:09:27.854Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T16:09:27.856Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2024-11-15T16:09:27.865Z] *** [apiv2] error from fetch(http://127.0.0.1:4400/emulators, {"headers":{},"method":"GET"}): FetchError: request to http://127.0.0.1:4400/emulators failed, reason: connect ECONNREFUSED 127.0.0.1:4400
+[debug] [2024-11-15T16:09:27.865Z] >>> [apiv2][query] GET http://[::1]:4400/emulators [none]
+[debug] [2024-11-15T16:09:27.872Z] *** [apiv2] error from fetch(http://[::1]:4400/emulators, {"headers":{},"method":"GET"}): FetchError: request to http://[::1]:4400/emulators failed, reason: connect ECONNREFUSED ::1:4400
+[debug] [2024-11-15T16:09:28.145Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-11-15T16:09:28.145Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T16:09:28.151Z] [Firebase Plugin] User found:  javier.a.r.d28@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2024-11-15T16:09:28.152Z] Checked if tokens are valid: true, expires at: 1731690567145
+[debug] [2024-11-15T16:09:28.152Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2024-11-15T16:09:28.159Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-11-15T16:09:28.159Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-15T16:09:28.164Z] [Firebase Plugin] User found:  javier.a.r.d28@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2024-11-15T16:09:28.165Z] Checked if tokens are valid: true, expires at: 1731690567159
+[debug] [2024-11-15T16:09:28.165Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2024-11-15T16:09:28.569Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-15T16:09:28.569Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2024-11-15T16:09:28.779Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-15T16:09:28.779Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2024-11-15T16:09:48.330Z] [Firebase Plugin] Received emulators started notification. Running detection.
+[debug] [2024-11-15T16:09:48.331Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2024-11-15T16:09:48.342Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2024-11-15T16:09:48.343Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"dataconnect":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":9399},{"address":"::1","family":"IPv6","port":9399}],"name":"dataconnect","host":"127.0.0.1","port":9399,"pid":24184,"timeout":10000}}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] !  Data Connect Emulator has exited upon receiving signal: SIGINT 

@@ -2,21 +2,25 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Image,
   StyleSheet,
   //SafeAreaView,
   Text,
   View,
 } from 'react-native';
+import Svg, { Path, SvgXml } from 'react-native-svg';
+import arrow from '../../../assets/images/arrow.svg';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: 200,
-      height: 70,
+      width: 220,
+      height: 85,
       alignContent: 'flex-start',
       justifyContent: 'center',
-      backgroundColor: '#fffaaa',
+      backgroundColor: '#ffffff6f',
       borderRadius: 10,
       marginVertical: 40,
       marginHorizontal: 25,
@@ -24,37 +28,40 @@ const createStyles = () =>
     },
     imageView: {
       flex: 6,
-      backgroundColor: 'black',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    imageCircle: {
+      width: 50,
+      height: 50,
+      borderRadius: 30,
+    },
+    image: {
+      width: 55,
+      height: 55,
     },
     textView: {
       flex: 12,
     },
+    textRow: {
+      flexDirection: 'row',
+      alignContent: 'center',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+    textStyle: {
+      color: 'black',
+      fontSize: 14,
+    },
+    textTag: {
+      color: 'black',
+      fontSize: 12,
+      marginRight: 6,
+    },
     arrowView: {
       flex: 1,
-      backgroundColor: 'red',
-    },
-    scrollView: {
-      paddingRight: 20,
-    },
-    icon: {
-      fontFamily: 'Segoe MDL2 Assets',
-      fontSize: 16,
-    },
-    heroGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
       justifyContent: 'center',
+      alignItems: 'center',
     },
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
@@ -67,26 +74,63 @@ const createStyles = () =>
   });
 
 type ServiceProps = PropsWithChildren<{
-  title: string;
+  name: string;
+  service: string;
+  date: string;
+  time: string;
+  petImage: string;
+  color: string;
 }>;
 
-function ServiceCard({ title }: ServiceProps): React.JSX.Element {
+function ServiceCard({ name, service, date, time, color, petImage }: ServiceProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
+  const ima = petImage;
 
   return (
     <>
 			<View style={styles.container}> 
         <View style={styles.imageView}>
-
+          <View style={styles.imageCircle}>
+            <Image style={styles.image} source={require('../../../assets/images/pexoxo1.jpg')} resizeMode='stretch'/>
+          </View>
         </View>
         <View style={styles.textView}>
-          <Text >
-            {title}
-          </Text>
+          <View style={styles.textRow}>
+            <Text style={styles.textTag}>
+              Mascota:
+            </Text>
+            <Text style={styles.textStyle}>
+              {name}
+            </Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.textTag}>
+              Servicio:
+            </Text>
+            <Text style={styles.textStyle}>
+              {service}
+            </Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.textTag}>
+              Fecha:
+            </Text>
+            <Text style={styles.textStyle}>
+              {date}
+            </Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.textTag}>
+              Hora:
+            </Text>
+            <Text style={styles.textStyle}>
+              {time}
+            </Text>
+          </View>
         </View>
-        <View style={styles.arrowView}>
-          
+        <View style={[styles.arrowView, {backgroundColor: color}]}>
+        
         </View>
 			</View>
 		</>

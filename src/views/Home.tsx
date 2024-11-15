@@ -14,6 +14,7 @@ import { useTheme } from '@react-navigation/native';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
 import logo from '../assets/images/image_banner.png';
+import pexoxos from '../assets/images/pexoxos.png';
 import animals from '../assets/images/animals.png';
 import background from '../assets/images/background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
@@ -72,9 +73,9 @@ const createStyles = () =>
       color: '#000000'
     },
     imageLogo: {
-			width: 250,
+			width: 350,
 			height: 300,
-      marginHorizontal: 50,
+      marginHorizontal: 20,
       marginLeft: 100,
 		},
     imageAnimals: {
@@ -100,6 +101,9 @@ const createStyles = () =>
       height: 500,
       alignSelf: 'flex-end',
       alignItems: 'center',
+      backgroundColor: '#6e6e6939',
+      borderRadius: 10,
+      paddingTop: 30,
     },
     scheduleSectionTitle: {
       paddingTop: 30,
@@ -134,12 +138,17 @@ const createStyles = () =>
       paddingTop: 30,
       width: 150,
     },
+    pexoxosStyle: {
+      width: 250,
+      height: 50,
+      marginTop: 20,
+    },
   });
 
 function Home({children, title}: HomeProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -151,9 +160,7 @@ function Home({children, title}: HomeProps): React.JSX.Element {
                 <View>
                   <SearchBar title='' />
                   <View>
-                    <Text style={styles.pageTitle}>
-                      Pexoxos
-                    </Text>
+                    <Image source={pexoxos} style={styles.pexoxosStyle}/>
                     <PetButton title={''} />
                   </View>
                 </View>

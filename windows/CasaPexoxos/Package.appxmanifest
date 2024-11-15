@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="ba883fdf-3f3d-4323-a6e8-f9d5ca79cf6e"
+    Name="3b2b57ae-6770-4348-aa98-2e815154f0d5"
     Publisher="CN=javie"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="ba883fdf-3f3d-4323-a6e8-f9d5ca79cf6e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="3b2b57ae-6770-4348-aa98-2e815154f0d5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>CasaPexoxos</DisplayName>

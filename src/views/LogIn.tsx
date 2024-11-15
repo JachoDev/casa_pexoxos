@@ -13,11 +13,12 @@ import {
   Button,
   ImageBackground,
 } from 'react-native';
-import {useTheme, useIsFocused} from '@react-navigation/native';
+import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
 import Navbar from '../components/sections/Navbar';
 import loginImage from '../assets/images/image_banner.png';
 import logo from '../assets/images/image_logo.png';
 import background from '../assets/images/background.png';
+import Home from './Home';
 
 type LogInProps = PropsWithChildren<{
   title: string;
@@ -101,7 +102,6 @@ const createStyles = () =>
       borderColor: '#762776',
       borderRadius: 4,
       color: '#000000',
-      backgroundColor: 'white',
     },
 		imageBanner: {
 			width: 500,
@@ -121,6 +121,7 @@ const createStyles = () =>
 function LogIn({children, title}: LogInProps): React.JSX.Element {
 	const {colors} = useTheme();
   const styles = createStyles(colors);
+  const navigation = useNavigation();
 
   return (
     <>
@@ -148,7 +149,7 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
                   </Text>
                   <TextInput style={styles.textInput} 
                                     placeholder='Nombre de Usuario'
-                                    placeholderTextColor='gray'/>
+                                    placeholderTextColor='gray' />
                 </View>
                 <View >
                   <Text style={styles.textInputTitle}>
@@ -156,7 +157,7 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
                   </Text>
                   <TextInput style={styles.textInput}
                                   placeholder='Contraseña'
-                                  placeholderTextColor='gray'/>
+                                  placeholderTextColor='gray' secureTextEntry={true} />
                 </View>
               </View>
               <View style={styles.rowContainerSmall}>
@@ -166,7 +167,7 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
                 </Text>
               </View>
               <View style={styles.button}>
-                <Button title='Entrar' color='#ffa0b5' />
+                <Button title='Entrar' color='#ffa0b5' onPress={() => navigation.navigate('Home')}/>
               </View>
             </View>
             <View >
