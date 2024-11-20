@@ -59,7 +59,6 @@ const createStyles = () =>
 
 type ServiceListProps = PropsWithChildren<{
   title: string;
-  imageUrl: String;
 }>;
 
 function ServiceList({ title }: ServiceListProps): React.JSX.Element {

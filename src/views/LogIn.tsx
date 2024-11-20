@@ -58,7 +58,6 @@ const createStyles = () =>
 			alignItems: 'center',
 			alignContent: 'center',
       alignSelf: 'center',
-      
 		},
     scrollView: {
       paddingRight: 20,

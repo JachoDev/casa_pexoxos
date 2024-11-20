@@ -4,15 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../views/Home';
 import LogIn from '../views/LogIn';
+import Lodging from '../views/Lodging';
 
 const Stack = createNativeStackNavigator();
 
 function AppRouter (): React.JSX.Element {
     return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName='LogIn'>
+          <Stack.Navigator initialRouteName='Home'>
             <Stack.Screen name="LogIn" component={LogIn} />
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Lodging" component={Lodging} />
           </Stack.Navigator>
         </NavigationContainer>
       );
