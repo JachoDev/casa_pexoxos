@@ -13,6 +13,7 @@ import lodging from '../../assets/images/icons/lodging.png'
 import payday from '../../assets/images/icons/payday.png'
 import petGrooming from '../../assets/images/icons/pet-grooming.png'
 import user from '../../assets/images/icons/user.png'
+import NavButton from '../ui/buttons/NavButton';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -42,7 +43,7 @@ const createStyles = () =>
     },
     iconImage:{
       width: 50,
-      height: 50
+      height: 50,
     },
   });
 
@@ -60,21 +61,11 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
     <>
 			<View style={styles.container}>
         <View style={styles.shadowContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image style={styles.iconImage} source={petGrooming}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image style={styles.iconImage} source={calendar}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Lodging')}>
-            <Image style={styles.iconImage} source={lodging}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image style={styles.iconImage} source={payday}/>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-            <Image style={styles.iconImage} source={user}/>
-          </TouchableOpacity>
+          <NavButton route='Home' image={petGrooming}/>
+          <NavButton route='Home' image={calendar}/>
+          <NavButton route='Lodging' image={lodging}/>
+          <NavButton route='Home' image={payday}/>
+          <NavButton route='Home' image={user}/>
         </View>
 			</View>
 		</>
