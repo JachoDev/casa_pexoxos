@@ -152,7 +152,7 @@ function Home({children, title}: HomeProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
+        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
           <Navbar title='' />
           <View style={styles.homeView}>
             <View>

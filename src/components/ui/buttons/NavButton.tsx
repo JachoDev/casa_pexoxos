@@ -10,23 +10,24 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
-import calendar from '../../assets/images/icons/calendar.png'
-import lodging from '../../assets/images/icons/lodging.png'
-import payday from '../../assets/images/icons/payday.png'
-import petGrooming from '../../assets/images/icons/pet-grooming.png'
-import user from '../../assets/images/icons/user.png'
-import Navbar from '../../sections/Navbar';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
-    iconImage:{
+    iconImage: {
       width: isHovered ? 55 : 50,
       height: isHovered ? 55 : 50,
       opacity: _isPressing ? 0.2 : 1,
+      alignSelf: 'center',
+    },
+    iconTitle: {
+      color: 'black',
+      alignSelf: 'center',
+      fontSize: 11,
     },
   });
 
 type NavButtonProps = PropsWithChildren<{
+  title: string;
   route: string;
   image: ImageSourcePropType;
 }>;
@@ -46,9 +47,9 @@ function NavButton(props: NavButtonProps): JSX.Element {
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
         onPressOut={() => setIsPressing(false)}
-
       >
         <Image style={styles.iconImage} source={props.image}/>
+        <Text style={styles.iconTitle}> {props.title} </Text>
       </Pressable>
 		</>
   );

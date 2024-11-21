@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
 import calendar from '../../assets/images/icons/calendar.png'
 import lodging from '../../assets/images/icons/lodging.png'
@@ -22,24 +23,43 @@ const createStyles = () =>
       width: '70%',
       height: '10%',
       alignContent: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#00000029',
+      // backgroundColor: '#00000029',
       borderRadius: 40,
 
     },
     shadowContainer: {
       width: '100%',
-      height: '98%',
+      height: '91%',
       backgroundColor: '#fffff0',
       borderRadius: 40,
-      borderColor: '#cdcdcd29',
-      borderWidth: 1,
+      // borderColor: '#cdcdcd29',
+      // borderWidth: 1,
+      position: 'absolute',
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'space-between',
       justifyContent: 'space-between',
       paddingHorizontal: 50,
+    },
+    gradient: {
+      width: '100%',
+      flex: 1,
+    },
+    gradientRow: {
+      width: '99.8%',
+      height: '100%',
+      flexDirection: 'row',
+      borderRadius: 40,
+      alignSelf: 'center',
+    },
+    gradientCenter: {
+      width: '100%',
+      flex: 10,
+    },
+    gradientSide: {
+      flex: 1,
     },
     iconImage:{
       width: 50,
@@ -60,12 +80,29 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
   return (
     <>
 			<View style={styles.container}>
+        <View style={styles.gradientRow}>
+          <View style={styles.gradientCenter}>
+            <LinearGradient
+              style={styles.gradient}
+              colors={['#26262601', '#26262699']}
+              start={{x: 0, y: 0}}
+              end={{x: 0, y: 1.5}}
+            />
+            <LinearGradient 
+              style={styles.gradient}
+              colors={['#26262699', '#26262601']}
+              start={{x: 0, y: .1}}
+              end={{x: 0, y: 1.9}}
+          />
+          </View>
+        </View>
+        
         <View style={styles.shadowContainer}>
-          <NavButton route='Home' image={petGrooming}/>
-          <NavButton route='Home' image={calendar}/>
-          <NavButton route='Lodging' image={lodging}/>
-          <NavButton route='Home' image={payday}/>
-          <NavButton route='Home' image={user}/>
+          <NavButton title='Servicios' route='Home' image={petGrooming}/>
+          <NavButton title='Agenda' route='Home' image={calendar}/>
+          <NavButton title='Hospedaje' route='Lodging' image={lodging}/>
+          <NavButton title='Cuentas' route='Home' image={payday}/>
+          <NavButton title='Usuario' route='Home' image={user}/>
         </View>
 			</View>
 		</>
