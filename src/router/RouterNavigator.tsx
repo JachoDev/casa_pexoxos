@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../views/Home';
 import LogIn from '../views/LogIn';
 import Lodging from '../views/Lodging';
+import Sales from '../views/Sales';
+import User from '../views/User';
+import Pets from '../views/Pets';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +18,9 @@ function AppRouter (): React.JSX.Element {
             <Stack.Screen name="LogIn" component={LogIn} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Lodging" component={Lodging} />
+            <Stack.Screen name="Sales" component={Sales} />
+            <Stack.Screen name="User" component={User} />
+            <Stack.Screen name="Pets" component={Pets} />
           </Stack.Navigator>
         </NavigationContainer>
       );

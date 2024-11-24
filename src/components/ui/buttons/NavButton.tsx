@@ -48,7 +48,7 @@ function NavButton(props: NavButtonProps): JSX.Element {
         onPressIn={() => setIsPressing(true)}
         onPressOut={() => setIsPressing(false)}
       >
-        <Image style={styles.iconImage} source={props.image}/>
+        <Image style={styles.iconImage} source={props.image} resizeMode='contain'/>
         <Text style={styles.iconTitle}> {props.title} </Text>
       </Pressable>
 		</>

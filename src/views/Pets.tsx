@@ -12,7 +12,7 @@ import {
 import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/background.png';
 
-type UserProps = PropsWithChildren<{
+type PetsProps = PropsWithChildren<{
   title: string;
 }>;
 
@@ -32,7 +32,7 @@ const createStyles = () =>
     },
   });
 
-function User({ title }: UserProps): React.JSX.Element {
+function Pets({ title }: PetsProps): React.JSX.Element {
   const styles = createStyles();
 
   return (
@@ -47,4 +47,4 @@ function User({ title }: UserProps): React.JSX.Element {
   );
 }
 
-export default User;
+export default Pets;

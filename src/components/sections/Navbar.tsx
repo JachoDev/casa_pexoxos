@@ -14,7 +14,9 @@ import lodging from '../../assets/images/icons/lodging.png'
 import payday from '../../assets/images/icons/payday.png'
 import petGrooming from '../../assets/images/icons/pet-grooming.png'
 import user from '../../assets/images/icons/user.png'
+import logo from '../../assets/images/image_banner.png'
 import NavButton from '../ui/buttons/NavButton';
+import { RadialGradient } from 'react-native-gradients';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -98,11 +100,12 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
         </View>
         
         <View style={styles.shadowContainer}>
+          <NavButton title='Pexoxos' route='Pets' image={logo} />
           <NavButton title='Servicios' route='Home' image={petGrooming}/>
           <NavButton title='Agenda' route='Home' image={calendar}/>
           <NavButton title='Hospedaje' route='Lodging' image={lodging}/>
-          <NavButton title='Cuentas' route='Home' image={payday}/>
-          <NavButton title='Usuario' route='Home' image={user}/>
+          <NavButton title='Cuentas' route='Sales' image={payday}/>
+          <NavButton title='Usuario' route='User' image={user}/>
         </View>
 			</View>
 		</>

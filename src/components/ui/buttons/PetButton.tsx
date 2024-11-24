@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -7,12 +7,16 @@ import {
   Text,
   View,
   Image,
+  Pressable,
 } from 'react-native';
 import cat from '../../../assets/images/gatoicon.png';
 import dog from '../../../assets/images/perroicon.png';
 import bird from '../../../assets/images/tusyicon.png';
+import CatButton from './CatButton';
+import DogButton from './DogButton';
+import BirdButton from './BirdButton';
 
-const createStyles = () =>
+const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     container: {
       marginTop: 20,
@@ -61,14 +65,13 @@ const createStyles = () =>
       position: 'static',
     },
     petImage: {
-      alignSelf: 'center',
-      width: 250,
-      height: 50,
+      width: isHovered ? 260 : 250,
+      height: isHovered ? 60 : 50,
     },
     catImage: {
       alignSelf: 'center',
-      width: 250,
-      height: 50,
+      width: isHovered ? 260 : 250,
+      height: isHovered ? 60 : 50,
       marginRight: 100,
     },
     birdImage: {
@@ -80,34 +83,37 @@ const createStyles = () =>
     petText: {
       color: 'black',
       fontSize: 12,
-    }
+    },
+    iconImage: {
+      width: isHovered ? 255 : 250,
+      height: isHovered ? 55 : 50,
+    },
+    iconTitle: {
+      color: 'black',
+      alignSelf: 'center',
+      fontSize: 11,
+    },
   });
 
 type NavbarProps = PropsWithChildren<{
   title: string;
 }>;
 
-function PetButton({children, title}: NavbarProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
+function PetButton(props: NavbarProps): React.JSX.Element {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressing, setIsPressing] = useState(false);
+  const styles = createStyles(isHovered, isPressing);
+
+  const onPress = ()=> {};
 
   return (
     <>
 			<View style={styles.container}>
         <View style={styles.petBackground}>
           <View style={styles.petRow}>
-            <View style={styles.catButton}>
-              <Image style={styles.catImage} source={cat}/>
-              <Text style={styles.petText}>Gatos</Text>
-            </View>
-            <View style={styles.dogButton}>
-              <Image style={styles.petImage} source={dog}/>
-              <Text style={styles.petText}>Perros</Text>
-            </View>
-            <View style={styles.birdButton}>
-              <Image style={styles.birdImage} source={bird}/>
-              <Text style={styles.petText}>Razas Pequeñas</Text>
-            </View>
+            <CatButton title='Gatos' filter='' image={cat}/>
+            <DogButton title='Perros' filter='' image={dog}/>
+            <BirdButton title='Razas Pequeñas' filter='' image={bird}/>
           </View>
         </View>
 			</View>
