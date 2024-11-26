@@ -44,17 +44,19 @@ type DogButtonProps = PropsWithChildren<{
   title: string;
   filter: string;
   image: ImageSourcePropType;
+  isSelected: boolean;
+  onPress: Function;
 }>;
 
 
 function DogButton(props: DogButtonProps): JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
-  const [isSelected, setIsSelected] = useState(false)
+  const [isSelected, setIsSelected] = useState(props.isSelected)
   const styles = createStyles(isHovered, isPressing, isSelected);
   const navigation = useNavigation();
 
-  const onPress = () => {setIsSelected(!isSelected)};
+  const onPress = () => {props.onPress};
 
   return (
     <>
