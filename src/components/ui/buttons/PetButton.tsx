@@ -52,6 +52,7 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       height: isDogHovered ? 65 : 60,
       opacity: isDogPressing ? 0.2 : 1,
       marginLeft: 10,
+      position: 'relative',
     },
     birdImage: {
       width: isBirdSelected ? 330 : isBirdHovered ? 260 : 250,
@@ -66,7 +67,6 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       borderRadius: isDogSelected ? 10 : 0,
       width: isDogSelected ? 100 : 80,
       height: isDogSelected ? 120 : 100,
-      position: 'static',
     },
     catButton: {
       backgroundColor: isCatSelected ? '#cbc5c5' : '#f19a56',
@@ -77,7 +77,6 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       borderBottomLeftRadius: 10,
       width: isCatSelected ? 100 : 80,
       height: isCatSelected ? 120 : 100,
-      position: 'static',
     },
     birdButton: {
       backgroundColor: isBirdSelected ? '#cbc5c5' : '#f19a56',
@@ -88,7 +87,6 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       borderBottomRightRadius: 10,
       width: isBirdSelected ? 100 : 80,
       height: isBirdSelected ? 120 : 100,
-      position: 'static',
     },
   });
 
@@ -106,7 +104,7 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
   const [isBirdHovered, setIsBirdHovered] = useState(false);
   const [isBirdPressing, setIsBirdPressing] = useState(false);
   const [isBirdSelected, setIsBirdSelected] = useState(false);
-  const styles = createStyles(isDogHovered, isDogPressing, isDogSelected, isCatHovered, isCatPressing, isCatSelected, isBirdHovered, isBirdPressing, isBirdSelected);
+  const styles = createStyles( isDogHovered, isDogPressing, isDogSelected, isCatHovered, isCatPressing, isCatSelected, isBirdHovered, isBirdPressing, isBirdSelected);
   const onDogPress = () => {
     setIsDogSelected(true);
     setIsCatSelected(false);
@@ -114,9 +112,12 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
     //Select dog filter
   };
   const onCatPress = () => {
-    setIsDogSelected(false);
-    setIsCatSelected(true);
-    setIsBirdSelected(false);
+    if (isCatSelected == false) {
+      setIsDogSelected(false);
+      setIsCatSelected(true);
+      setIsBirdSelected(false);
+    }
+    
     //Select cat filter
   };
   const onBirdPress = () => {
