@@ -34,7 +34,7 @@ const createStyles = () =>
     shadowContainer: {
       width: '100%',
       height: '91%',
-      backgroundColor: '#fffff0',
+      backgroundColor: '#ffffff89',
       borderRadius: 40,
       // borderColor: '#cdcdcd29',
       // borderWidth: 1,

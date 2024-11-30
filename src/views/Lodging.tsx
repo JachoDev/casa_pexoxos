@@ -10,7 +10,12 @@ import {
   ImageBackground,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
-import background from '../assets/images/background.png';
+import background from '../assets/images/background_yellow.png';
+import SearchBar from '../components/sections/SearchBar';
+import PetButton from '../components/ui/buttons/PetButton';
+import ServiceList from '../components/ui/Lists/ServiceList';
+import LodgingList from '../components/ui/Lists/LodgingList';
+import lodging from '../assets/images/lodging_title.png';
 
 type LodgingProps = PropsWithChildren<{
   title: string;
@@ -30,6 +35,90 @@ const createStyles = () =>
       justifyContent: 'center',
       height: '100%',
     },
+    heroGradient: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+    },
+    heroBackgroundImage: {
+      position: 'absolute',
+      resizeMode: 'cover',
+      width: '100%',
+      height: '99%',
+    },
+    pageHeader: {},
+    pageTitleContainer: {
+      height: 204,
+      justifyContent: 'center',
+    },
+    homeSection: {
+      flexDirection: 'row',
+      alignContent: 'space-between',
+      justifyContent: 'space-between',
+      alignSelf: 'stretch',
+    },
+    pageTitle: {
+      fontSize: 40,
+      fontWeight: '600', // SemiBold
+      paddingLeft: 36,
+      color: '#000000'
+    },
+    imageLogo: {
+			width: 350,
+			height: 300,
+      marginHorizontal: 20,
+      marginLeft: 100,
+		},
+    imageAnimals: {
+      width: 300,
+			height: 150,
+    },
+    carouselSection: {
+			width: 1100,
+			height: 300,
+      marginHorizontal: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+		},
+    homeView: {
+      flexDirection: 'row',
+      marginTop: 10,
+      alignSelf: 'stretch',
+      alignItems: 'stretch',
+      alignContent: 'space-between',
+      justifyContent: 'space-between',
+    },
+    buttonSection: {
+      alignItems: 'center',
+    },
+    sectionTitle: {
+      color: 'black',
+      fontSize: 20,
+      fontWeight: '500',
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+    dropdownText: {
+      alignSelf: 'center',
+      justifyContent: 'center',
+      color: 'gray',
+      fontSize: 10,
+    },
+    scheduleButton: {
+      paddingTop: 30,
+      width: 150,
+    },
+    pexoxosStyle: {
+      width: 250,
+      height: 50,
+      marginTop: 20,
+    },
+    imageTitle: {
+      width: 300,
+      height: 100,
+      marginBottom: -40,
+    },
   });
 
 function Lodging({ title }: LodgingProps): React.JSX.Element {
@@ -40,7 +129,20 @@ function Lodging({ title }: LodgingProps): React.JSX.Element {
       <SafeAreaView style={styles.container}>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
           <Navbar title='' />
-          
+          <View style={styles.homeView}>
+            <View style={styles.homeSection}>
+              <View style={styles.buttonSection}>
+                <Image source={lodging} style={styles.imageTitle}/>
+                <PetButton title={''} />
+              </View>
+              <View>
+                <SearchBar title='' />
+              </View>
+            </View>
+              </View>
+              <View style={styles.carouselSection}>
+                <LodgingList title={''} />
+              </View>
         </ImageBackground>
       </SafeAreaView>
 		</>

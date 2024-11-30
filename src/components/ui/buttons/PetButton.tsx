@@ -16,7 +16,6 @@ import bird from '../../../assets/images/tusyicon.png';
 const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelected: boolean, isCatHovered: boolean, isCatPressing: boolean, isCatSelected: boolean, isBirdHovered: boolean, isBirdPressing: boolean, isBirdSelected: boolean) =>
   StyleSheet.create({
     container: {
-      marginTop: 20,
       alignSelf: 'stretch',
       width: 400,
       height: 150,

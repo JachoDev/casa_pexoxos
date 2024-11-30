@@ -2,6 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Image,
   StyleSheet,
   //SafeAreaView,
   Text,
@@ -11,60 +12,37 @@ import {
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: 36,
       alignSelf: 'center',
-      width: '50%',
-      height: '30%',
+      width: 120,
+      height: 125,
       alignContent: 'flex-start',
       justifyContent: 'center',
-      backgroundColor: '#fff',
-      borderRadius: 40,
-      shadowColor:'#000000',
-      shadowRadius: 5,
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 10, height: -10 },
-      elevation: 10,
-      borderWidth: 2,
-      borderColor: '#959595'
+      backgroundColor: '#eeeeee',
+      borderRadius: 10,
+      marginVertical: 40,
+      marginHorizontal: 35,
+      paddingTop: 5,
+      flexDirection: 'row',
     },
-    scrollView: {
-      paddingRight: 20,
-    },
-    icon: {
-      fontFamily: 'Segoe MDL2 Assets',
-      fontSize: 16,
-    },
-    heroGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
-      justifyContent: 'center',
+    image: {
+      width: 100,
+      height: 100,
     },
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
       // TitleLargeTextBlockStyle
-      fontSize: 20,
+      fontSize: 12,
       fontWeight: '600', // SemiBold
-      paddingLeft: 36,
       color: '#000000'
     },
   });
 
 type PetCardProps = PropsWithChildren<{
-  title: string;
+  name: string;
+  image: string;
 }>;
 
-function PetCard({children, title}: PetCardProps): React.JSX.Element {
+function PetCard(props: PetCardProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
 
@@ -72,10 +50,10 @@ function PetCard({children, title}: PetCardProps): React.JSX.Element {
     <>
 			<View style={styles.container}>
         <View >
+          <Image style={styles.image} source={require('../../../assets/images/pexoxo1.jpg')} resizeMode='stretch'/>
           <Text style={styles.pageTitle}>
-            Componente en construccion
+            {props.name}
           </Text>
-          {children}
         </View>
 			</View>
 		</>

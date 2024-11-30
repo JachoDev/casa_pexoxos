@@ -8,57 +8,20 @@ import {
   View,
   FlatList,
 } from 'react-native';
+import PetCard from '../Cards/PetCards';
 
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: 36,
-      alignSelf: 'center',
-      width: '70%',
-      height: '10%',
-      alignContent: 'flex-start',
-      justifyContent: 'center',
-      backgroundColor: '#fff',
-      borderRadius: 40,
-      shadowColor:'#000000',
-      shadowRadius: 5,
-      shadowOpacity: 0.1,
-      shadowOffset: { width: 10, height: -10 },
-      elevation: 10,
-      borderWidth: 2,
-      borderColor: '#959595'
-    },
-    scrollView: {
-      paddingRight: 20,
-    },
-    icon: {
-      fontFamily: 'Segoe MDL2 Assets',
-      fontSize: 16,
-    },
-    heroGradient: {
-      position: 'absolute',
+      paddingTop: 10,
       width: '100%',
       height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
+      alignSelf: 'center',
+      alignContent: 'center',
       justifyContent: 'center',
-    },
-    pageTitle: {
-      // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
-      // TitleLargeTextBlockStyle
-      fontSize: 20,
-      fontWeight: '600', // SemiBold
-      paddingLeft: 36,
-      color: '#000000'
+      alignItems: 'center',
+      borderRadius: 10,
     },
   });
 
@@ -66,16 +29,101 @@ type PetListProps = PropsWithChildren<{
   title: string;
 }>;
 
-function PetList({children, title}: PetListProps): React.JSX.Element {
+function PetList(props: PetListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
+
+  const pets = [
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      name: 'Mascota 1',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      name: 'Mascota 2',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      name: 'Mascota 3',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2zxa',
+      name: 'Mascota 4',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f63',
+      name: 'Mascota 5',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b1',
+      name: 'Mascota 1',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f62',
+      name: 'Mascota 2',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d73',
+      name: 'Mascota 3',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2zx4',
+      name: 'Mascota 4',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f65',
+      name: 'Mascota 5',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb281a',
+      name: 'Mascota 1',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f23',
+      name: 'Mascota 2',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '58694a0f-3da1-471f-bd96-145571e29d32',
+      name: 'Mascota 3',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2z4a',
+      name: 'Mascota 4',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+    {
+      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f53',
+      name: 'Mascota 5',
+      petImage: '../../../assets/images/pexoxo1.jpg',
+    },
+  ];
+
 
   return (
     <>
 			<View style={styles.container}>
-       <FlatList>
-        
-       </FlatList>
+      <FlatList
+          data={pets}
+          renderItem={({item}) =>
+            <PetCard name={item.name}
+              image={item.petImage}
+            />
+          }
+          numColumns={5}
+        />
 			</View>
 		</>
   );

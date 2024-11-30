@@ -27,7 +27,6 @@ const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'auto',
-
       width: '100%',
       alignContent: 'stretch',
       justifyContent: 'center',
@@ -176,7 +175,6 @@ function Home({children, title}: HomeProps): React.JSX.Element {
               <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
               <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
               <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
-      
               <View style={styles.scheduleButton}>
                 <Button  color='#03bdbf' title='Agendar Cita'/>
               </View>
