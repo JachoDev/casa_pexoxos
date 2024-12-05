@@ -16,7 +16,7 @@ import PetButton from '../components/ui/buttons/PetButton';
 import logo from '../assets/images/image_banner.png';
 import pexoxos from '../assets/images/pexoxos.png';
 import animals from '../assets/images/animals.png';
-import background from '../assets/images/background.png';
+import background from '../assets/images/orange_background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
 
 type HomeProps = PropsWithChildren<{

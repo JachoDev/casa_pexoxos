@@ -10,7 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
-import background from '../assets/images/background_yellow.png';
+import background from '../assets/images/Blue_Background.png';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
 import ServiceList from '../components/ui/Lists/ServiceList';

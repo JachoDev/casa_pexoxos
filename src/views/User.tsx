@@ -10,7 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
-import background from '../assets/images/background.png';
+import background from '../assets/images/Red_Background.png';
 
 type UserProps = PropsWithChildren<{
   title: string;

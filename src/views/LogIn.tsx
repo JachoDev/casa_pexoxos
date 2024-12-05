@@ -17,7 +17,7 @@ import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
 import Navbar from '../components/sections/Navbar';
 import loginImage from '../assets/images/image_banner.png';
 import logo from '../assets/images/image_logo.png';
-import background from '../assets/images/background.png';
+import background from '../assets/images/Login_Background.png';
 import Home from './Home';
 
 type LogInProps = PropsWithChildren<{
