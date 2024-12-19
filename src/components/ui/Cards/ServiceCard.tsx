@@ -22,6 +22,7 @@ const createStyles = () =>
       justifyContent: 'center',
       backgroundColor: '#ffffff6f',
       borderRadius: 10,
+      paddingTop: 8,
       marginVertical: 40,
       marginHorizontal: 25,
       flexDirection: 'row',
@@ -51,12 +52,12 @@ const createStyles = () =>
     },
     textStyle: {
       color: 'black',
-      fontSize: 14,
+      fontSize: 9,
     },
     textTag: {
       color: 'black',
-      fontSize: 12,
-      marginRight: 6,
+      fontSize: 9,
+      marginRight: 3,
     },
     arrowView: {
       flex: 1,
@@ -66,7 +67,7 @@ const createStyles = () =>
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
       // TitleLargeTextBlockStyle
-      fontSize: 20,
+      fontSize: 14,
       fontWeight: '600', // SemiBold
       paddingLeft: 36,
       color: '#000000'
@@ -78,11 +79,12 @@ type ServiceProps = PropsWithChildren<{
   service: string;
   date: string;
   time: string;
+  recomendations: string;
   petImage: string;
   color: string;
 }>;
 
-function ServiceCard({ name, service, date, time, color, petImage }: ServiceProps): React.JSX.Element {
+function ServiceCard({ name, service, date, time, color, petImage, recomendations }: ServiceProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const ima = petImage;
@@ -92,7 +94,7 @@ function ServiceCard({ name, service, date, time, color, petImage }: ServiceProp
 			<View style={styles.container}> 
         <View style={styles.imageView}>
           <View style={styles.imageCircle}>
-            <Image style={styles.image} source={require('../../../assets/images/pexoxo1.jpg')} resizeMode='stretch'/>
+            <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
           </View>
         </View>
         <View style={styles.textView}>
@@ -110,6 +112,14 @@ function ServiceCard({ name, service, date, time, color, petImage }: ServiceProp
             </Text>
             <Text style={styles.textStyle}>
               {service}
+            </Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.textTag}>
+              Sugerencias:
+            </Text>
+            <Text style={styles.textStyle}>
+              {recomendations}
             </Text>
           </View>
           <View style={styles.textRow}>

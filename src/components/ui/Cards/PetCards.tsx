@@ -19,7 +19,7 @@ const createStyles = () =>
       justifyContent: 'center',
       backgroundColor: '#eeeeee',
       borderRadius: 10,
-      marginVertical: 40,
+      marginVertical: 30,
       marginHorizontal: 35,
       paddingTop: 5,
       flexDirection: 'row',
@@ -33,7 +33,8 @@ const createStyles = () =>
       // TitleLargeTextBlockStyle
       fontSize: 12,
       fontWeight: '600', // SemiBold
-      color: '#000000'
+      color: '#000000',
+      paddingLeft: 5,
     },
   });
 
@@ -50,7 +51,7 @@ function PetCard(props: PetCardProps): React.JSX.Element {
     <>
 			<View style={styles.container}>
         <View >
-          <Image style={styles.image} source={require('../../../assets/images/pexoxo1.jpg')} resizeMode='stretch'/>
+          <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
           <Text style={styles.pageTitle}>
             {props.name}
           </Text>

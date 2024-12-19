@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,6 +9,8 @@ import {
   FlatList,
 } from 'react-native';
 import ServiceCard from '../Cards/ServiceCard';
+import { cutsList, petList } from '../../../../App';
+
 
 
 const createStyles = () =>
@@ -32,8 +34,13 @@ type ServiceListProps = PropsWithChildren<{
 function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
+  const today = new Date();
+  const filteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() == today.toDateString());
+  const [services, setServices] = useState(filteredData);
 
-  const services = [
+
+
+  const list = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       name: 'Mascota 1',
@@ -144,16 +151,25 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
     },
   ];
 
+  useEffect(() => {
+    setServices(filteredData);
+  
+    return cleanUp = () => {
+      
+    }
+  }, [services]);
+
   return (
     <>
 			<View style={styles.container}>
         <FlatList
           data={services}
           renderItem={({item}) =>
-            <ServiceCard name={item.name}
-              service={item.service}
-              date={item.date}
-              time={item.time}
+            <ServiceCard name={petList.find((e) => e.id == item.petId).name}
+              service={item.groomming}
+              recomendations={item.recomendations}
+              date={item.checkIn.toDate().toDateString()}
+              time={item.checkIn.toDate().toLocaleTimeString()}
               color={item.color}
               petImage={item.petImage}
             />

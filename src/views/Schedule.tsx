@@ -22,7 +22,7 @@ import background from '../assets/images/orange_background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
 import { Flyout } from 'react-native-windows';
 
-type HomeProps = PropsWithChildren<{
+type ScheduleProps = PropsWithChildren<{
   title: string;
 }>;
 
@@ -146,18 +146,29 @@ const createStyles = () =>
       marginTop: 20,
     },
     flyer: {
-      width: 400,
-      height: 400,
+      width: 1000,
+      height: 500,
+      backgroundColor: '#ffffffa0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
     },
     flex1: {
       flex: 1,
     },
-    textStyl: {
-      color: 'white',
+    textStyle: {
+      color: 'black',
+    },
+    ss: {
+      backgroundColor: 'black',
+      color: 'black',
     }
   });
 
-function Home({children, title}: HomeProps): React.JSX.Element {
+function Schedule({children, title}: ScheduleProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const [showFlyout, setShowFlyout] = useState(false);
@@ -165,33 +176,31 @@ function Home({children, title}: HomeProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} horizontalOffset={600} verticalOffset={600} >
+        <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient-with-dismiss-on-pointer-move-away' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
 
-              <Pressable
-                style={[styles.flyer]}
-                onPress={() => setShowFlyout(false)}>
+              <View
+                style={[styles.flyer]}>
                 <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
+              </View>
 
         </Flyout>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
-          <Navbar title='' />
+          <Navbar title=''/>
           <View style={styles.homeView}>
-            <View>
-              <View style={styles.homeSection}>
-                <View>
-                  <SearchBar title='' />
-                  <View>
-                    <Image source={pexoxos} style={styles.pexoxosStyle}/>
-                    <PetButton title={''} />
-                  </View>
-                </View>
-                <View>
-                  <Image style={styles.imageLogo} source={animals} resizeMode='contain'/>
-                </View>
+            <View style={styles.scheduleSection}>
+              <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
+              <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+              <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
+              <View style={styles.scheduleButton}>
+                <Button  color='#03bdbf' title='Agendar Cita' onPress={() => setShowFlyout(true)}/>
               </View>
-              <View style={styles.carouselSection}>
-                <ServiceList title={''} />
+            </View>
+            <View style={styles.scheduleSection}>
+              <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
+              <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+              <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
+              <View style={styles.scheduleButton}>
+                <Button  color='#03bdbf' title='Agendar Cita' onPress={() => setShowFlyout(true)}/>
               </View>
             </View>
           </View>
@@ -201,4 +210,4 @@ function Home({children, title}: HomeProps): React.JSX.Element {
   );
 }
 
-export default Home;
+export default Schedule;

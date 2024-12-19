@@ -102,7 +102,7 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
         <View style={styles.shadowContainer}>
           <NavButton title='Pexoxos' route='Pets' image={logo} />
           <NavButton title='Servicios' route='Home' image={petGrooming}/>
-          <NavButton title='Agenda' route='Home' image={calendar}/>
+          <NavButton title='Agenda' route='Schedule' image={calendar}/>
           <NavButton title='Hospedaje' route='Lodging' image={lodging}/>
           <NavButton title='Cuentas' route='Sales' image={payday}/>
           <NavButton title='Usuario' route='User' image={user}/>

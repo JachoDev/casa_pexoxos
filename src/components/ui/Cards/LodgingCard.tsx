@@ -16,18 +16,18 @@ const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: 220,
+      width: 230,
       height: 95,
       alignContent: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#eeeeee',
       borderRadius: 10,
-      marginVertical: 40,
-      marginHorizontal: 25,
+      marginVertical: 25,
+      marginHorizontal: 15,
       flexDirection: 'row',
     },
     imageView: {
-      flex: 9,
+      flex: 7,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -59,7 +59,7 @@ const createStyles = () =>
     textTag: {
       color: 'black',
       fontSize: 10,
-      marginRight: 6,
+      marginRight: 4,
     },
     arrowView: {
       flex: 1,
@@ -95,7 +95,7 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
 			<View style={styles.container}> 
         <View style={styles.imageView}>
           <View style={styles.imageCircle}>
-            <Image style={styles.image} source={require('../../../assets/images/pexoxo1.jpg')} resizeMode='stretch'/>
+            <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
           </View>
         </View>
         <View style={styles.textView}>

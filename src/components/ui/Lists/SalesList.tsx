@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import SalesCard from '../Cards/SalesCard';
+import { salesList, clientsList, petList } from '../../../../App';
 
 
 const createStyles = () =>
@@ -61,91 +62,20 @@ type SalesListProps = PropsWithChildren<{
 function SalesList(props: SalesListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
+  const [sales, setSales] = useState(salesList);
 
-  const pets = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      name: 'Mascota 1',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      name: 'Mascota 2',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      name: 'Mascota 3',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2zxa',
-      name: 'Mascota 4',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f63',
-      name: 'Mascota 5',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b1',
-      name: 'Mascota 1',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f62',
-      name: 'Mascota 2',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d73',
-      name: 'Mascota 3',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2zx4',
-      name: 'Mascota 4',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f65',
-      name: 'Mascota 5',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb281a',
-      name: 'Mascota 1',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f23',
-      name: 'Mascota 2',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d32',
-      name: 'Mascota 3',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb2z4a',
-      name: 'Mascota 4',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa17f53',
-      name: 'Mascota 5',
-      petImage: '../../../assets/images/pexoxo1.jpg',
-    },
-  ];
-
+  useEffect(() => {
+    setSales(salesList);
+    console.log(sales);
+    return cleanUp = () => {
+      
+    }
+  }, [sales]);
 
   return (
     <>
 			<View style={styles.container}>
       <View style={styles.rowTile}>
-          <Text style={styles.pageTitle}>Máscota</Text>
           <Text style={styles.pageTitle}>Cliente</Text>
           <Text style={styles.pageTitle}>Teléfono</Text>
           <Text style={styles.pageTitle}>Servicio</Text>
@@ -154,9 +84,15 @@ function SalesList(props: SalesListProps): React.JSX.Element {
           <Text style={styles.pageTitle}>Total</Text>
         </View>
       <FlatList
-          data={pets}
+          data={sales}
           renderItem={({item}) =>
-            <SalesCard name={item.name}
+            <SalesCard 
+              name={clientsList.find((e) => e.id == item.clientId).name}
+              phone={clientsList.find((e) => e.id == item.clientId).phone}
+              service={item.services}
+              paymentMethod={item.paymentMethod}
+              date={item.date.toDate().toUTCString()}
+              total={' $' + item.total}
             />
           }
         />
