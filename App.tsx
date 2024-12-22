@@ -8,9 +8,11 @@ import { collection, doc, setDoc, getDocs, Timestamp  } from "firebase/firestore
 
 export const petList = [];
 export const clientsList = [];
+export const expensesList = [];
 export const salesList = [];
 export const lodgingList = [];
 export const cutsList = [];
+export const inventory = [];
 
 
 function App(): React.JSX.Element  {
@@ -55,6 +57,20 @@ function App(): React.JSX.Element  {
                     pets: doc.data().PetID
                   }
                   clientsList.push(_doc)
+                }
+        //console.log(doc.id, '=>', doc.data());
+      });
+      const queryExpenses = collection(db, "egresos");  
+      const querySnapshotExpenses = await getDocs(queryExpenses);
+      querySnapshotExpenses.forEach((doc) => {
+        if (!(expensesList.find((e) => e.id == doc.id))) {
+                  const _doc = {
+                    id: doc.id,
+                    date: doc.data().Createdat,
+                    expenditure: doc.data().Expenditure,
+                    total: doc.data().Total,
+                  }
+                  expensesList.push(_doc)
                 }
         //console.log(doc.id, '=>', doc.data());
       });
@@ -106,6 +122,19 @@ function App(): React.JSX.Element  {
                     checkIn: doc.data().CheckIn,
                   }
                   cutsList.push(_doc)
+                }
+        //console.log(doc.id, '=>', doc.data());
+      });
+      const queryinv = collection(db, "inventario");  
+      const querySnapshotinv = await getDocs(queryinv);
+      querySnapshotinv.forEach((doc) => {
+        if (!(inventory.find((e) => e.id == doc.id))) {
+                  const _doc = {
+                    id: doc.id,
+                    product: doc.data().Product,
+                    qty: doc.data().Quantity,
+                  }
+                  inventory.push(_doc)
                 }
         //console.log(doc.id, '=>', doc.data());
       });

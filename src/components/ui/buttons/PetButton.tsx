@@ -38,7 +38,8 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
     iconTitle: {
       color: 'black',
       alignSelf: 'center',
-      fontSize: 11,
+      fontSize: 12,
+      fontWeight: 'bold',
     },
     catImage: {
       width: isCatSelected ? 320 : isCatHovered ? 250 : 240,
@@ -60,7 +61,7 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       opacity: isBirdPressing ? 0.2 : 1,
     },
     dogButton: {
-      backgroundColor: isDogSelected ? '#cbc5c5' : '#f19a56',
+      backgroundColor: !isDogSelected ? '#cbc5c5' : '#ff66c4',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isDogSelected ? 10 : 0,
@@ -68,7 +69,7 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       height: isDogSelected ? 120 : 100,
     },
     catButton: {
-      backgroundColor: isCatSelected ? '#cbc5c5' : '#f19a56',
+      backgroundColor: !isCatSelected ? '#cbc5c5' : '#38b6ff',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isCatSelected ? 10 : 0,
@@ -78,7 +79,7 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       height: isCatSelected ? 120 : 100,
     },
     birdButton: {
-      backgroundColor: isBirdSelected ? '#cbc5c5' : '#f19a56',
+      backgroundColor: !isBirdSelected ? '#cbc5c5' : '#ff3131',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isBirdSelected ? 10 : 0,

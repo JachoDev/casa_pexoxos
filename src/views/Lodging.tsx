@@ -74,7 +74,7 @@ const createStyles = () =>
 			height: 150,
     },
     carouselSection: {
-			width: 1100,
+			width: 'auto',
 			height: 300,
       marginHorizontal: 50,
       alignItems: 'center',

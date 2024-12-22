@@ -174,7 +174,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
               petImage={item.petImage}
             />
           }
-          numColumns={3}
+          numColumns={4}
         />
 			</View>
 		</>

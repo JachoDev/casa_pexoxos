@@ -13,7 +13,7 @@ const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: 1100,
+      width: 500,
       height: 25,
       alignContent: 'flex-start',
       justifyContent: 'center',
@@ -41,33 +41,25 @@ const createStyles = () =>
     },
   });
 
-type SalesCardProps = PropsWithChildren<{
-  name: string;
-  phone: string;
-  date: string;
-  service: string;
-  paymentMethod: string;
-  total: string;
+type InventoryCardProps = PropsWithChildren<{
+  product: string;
+  qty: string;
 }>;
 
-function SalesCard(props: SalesCardProps): React.JSX.Element {
+function InventoryCard(props: InventoryCardProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
 
   return (
     <>
-			<View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.rowTile}>
-          <Text style={styles.pageTitle}>{props.name}</Text>
-          <Text style={styles.pageTitle}>{props.phone}</Text>
-          <Text style={styles.pageTitle}>{props.service}</Text>
-          <Text style={styles.pageTitle}>{props.paymentMethod}</Text>
-          <Text style={styles.pageTitle}>{props.date}</Text>
-          <Text style={styles.pageTitle}>{props.total}</Text>
+          <Text style={styles.pageTitle}>{props.product}</Text>
+          <Text style={styles.pageTitle}>{props.qty}</Text>
         </View>
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 
-export default SalesCard;
+export default InventoryCard;

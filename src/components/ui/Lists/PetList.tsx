@@ -33,10 +33,10 @@ type PetListProps = PropsWithChildren<{
 function PetList(props: PetListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [pets, setPets] = useState(petList);
+  const [pets, setPets] = useState(petList.sort((a, b) => a.name.localeCompare(b.name)));
 
   useEffect(() => {
-    setPets(petList);
+    setPets(petList.sort((a, b) => a.name.localeCompare(b.name)));
     console.log(pets)
   
     return cleanUp = () => {

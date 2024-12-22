@@ -94,7 +94,7 @@ const createStyles = () =>
 			color: '#000000'
 		},
 		textInputTitle: {
-			fontSize: 12,
+			fontSize: 18,
 			color: '#000000'
 		},
 		textInput: {

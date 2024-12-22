@@ -13,6 +13,7 @@ import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/background_yellow.png';
 import SalesList from '../components/ui/Lists/SalesList';
 import Searchbar from '../components/sections/SearchBar';
+import ExpensesList from '../components/ui/Lists/ExpensesList';
 
 type SalesProps = PropsWithChildren<{
   title: string;
@@ -34,7 +35,7 @@ const createStyles = () =>
     },
     salesListView: {
       width: 1100,
-      height: 400,
+      height: 200,
       marginTop: 15,
       backgroundColor: '#',
       alignSelf: 'center',
@@ -47,6 +48,7 @@ const createStyles = () =>
       height: 40,
       marginRight: 30,
       backgroundColor: '#29aad9',
+      fontSize: 16,
       alignSelf: 'flex-end',
       borderRadius: 5,
     },
@@ -66,6 +68,12 @@ function Sales({ title }: SalesProps): React.JSX.Element {
           </View>
           <View style={styles.salesListView}>
             <SalesList title=''/>
+          </View>
+          <View style={styles.button}>
+            <Button title='Crear egreso' onPress={() => {}}/>
+          </View>
+          <View style={styles.salesListView}>
+            <ExpensesList title=''/>
           </View>
         </ImageBackground>
       </SafeAreaView>

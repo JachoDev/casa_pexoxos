@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -7,17 +7,18 @@ import {
   //SafeAreaView,
   Text,
   View,
+  Pressable,
 } from 'react-native';
 import Svg, { Path, SvgXml } from 'react-native-svg';
 import arrow from '../../../assets/images/arrow.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const createStyles = () =>
+const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: 220,
-      height: 85,
+      width: isHovered ? 440 : 220,
+      height: isHovered ? 170 : 85,
       alignContent: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#ffffff6f',
@@ -26,6 +27,7 @@ const createStyles = () =>
       marginVertical: 40,
       marginHorizontal: 25,
       flexDirection: 'row',
+      opacity: _isPressing ? .2 : 1
     },
     imageView: {
       flex: 6,
@@ -33,13 +35,13 @@ const createStyles = () =>
       alignItems: 'center',
     },
     imageCircle: {
-      width: 50,
-      height: 50,
+      width: isHovered ? 100 : 50,
+      height: isHovered ? 100 : 50,
       borderRadius: 30,
     },
     image: {
-      width: 55,
-      height: 55,
+      width: isHovered ? 110 : 55,
+      height: isHovered ? 110 : 55,
     },
     textView: {
       flex: 12,
@@ -52,12 +54,14 @@ const createStyles = () =>
     },
     textStyle: {
       color: 'black',
-      fontSize: 9,
+      fontSize: isHovered ? 18 : 9,
+      fontWeight: isHovered ? 'bold' : '100',
     },
     textTag: {
       color: 'black',
-      fontSize: 9,
+      fontSize: isHovered ? 18 : 9,
       marginRight: 3,
+      fontWeight: isHovered ? 'bold' : '100',
     },
     arrowView: {
       flex: 1,
@@ -85,12 +89,21 @@ type ServiceProps = PropsWithChildren<{
 }>;
 
 function ServiceCard({ name, service, date, time, color, petImage, recomendations }: ServiceProps): React.JSX.Element {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressing, setIsPressing] = useState(false);
   const {colors} = useTheme();
-  const styles = createStyles(colors);
+  const styles = createStyles(isHovered, isPressing);
   const ima = petImage;
 
   return (
     <>
+      <Pressable
+        onPress={() => {}}
+        onHoverIn={() => setIsHovered(true)}
+        onHoverOut={() => setIsHovered(false)}
+        onPressIn={() => setIsPressing(true)}
+        onPressOut={() => setIsPressing(false)}
+      >
 			<View style={styles.container}> 
         <View style={styles.imageView}>
           <View style={styles.imageCircle}>
@@ -143,6 +156,7 @@ function ServiceCard({ name, service, date, time, color, petImage, recomendation
         
         </View>
 			</View>
+      </Pressable>
 		</>
   );
 }

@@ -36,7 +36,7 @@ const createStyles = () =>
       color: 'black',
       marginTop: 1,
       width: 275,
-      fontSize: 10,
+      fontSize: 16,
       backgroundColor: 'transparent',
     },
     pageTitle: {
@@ -59,7 +59,7 @@ function Searchbar(props: NavbarProps): React.JSX.Element {
     <>
 			<View style={styles.container}>
       <Image source={testSvg} style={styles.icon}/>
-        <View style={styles.textInput}>
+        <View style={styles.textInputView}>
           <TextInput style={styles.textInput}
                                   placeholder='Buscar'
                                   onChangeText={setSearch}

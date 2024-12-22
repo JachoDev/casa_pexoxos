@@ -9,7 +9,9 @@ import {
   FlatList,
 } from 'react-native';
 import SalesCard from '../Cards/SalesCard';
-import { salesList, clientsList, petList } from '../../../../App';
+import { inventory, clientsList, petList } from '../../../../App';
+import ExpensesCard from '../Cards/ExpensesCard';
+import InventoryCard from '../Cards/InventoryCard';
 
 
 const createStyles = () =>
@@ -55,17 +57,17 @@ const createStyles = () =>
     },
 });
 
-type SalesListProps = PropsWithChildren<{
+type InventoryListProps = PropsWithChildren<{
   title: string;
 }>;
 
-function SalesList(props: SalesListProps): React.JSX.Element {
+function InventoryList(props: InventoryListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [sales, setSales] = useState(salesList);
+  const [sales, setSales] = useState(inventory);
 
   useEffect(() => {
-    setSales(salesList);
+    setSales(inventory);
     console.log(sales);
     return cleanUp = () => {
       
@@ -76,23 +78,15 @@ function SalesList(props: SalesListProps): React.JSX.Element {
     <>
 			<View style={styles.container}>
       <View style={styles.rowTile}>
-          <Text style={styles.pageTitle}>Cliente</Text>
-          <Text style={styles.pageTitle}>Teléfono</Text>
-          <Text style={styles.pageTitle}>Servicio</Text>
-          <Text style={styles.pageTitle}>Forma de Pago</Text>
-          <Text style={styles.pageTitle}>Fecha</Text>
-          <Text style={styles.pageTitle}>Total</Text>
+          <Text style={styles.pageTitle}>Producto</Text>
+          <Text style={styles.pageTitle}>Cantidad</Text>
         </View>
       <FlatList
           data={sales}
           renderItem={({item}) =>
-            <SalesCard 
-              name={clientsList.find((e) => e.id == item.clientId).name}
-              phone={clientsList.find((e) => e.id == item.clientId).phone}
-              service={item.services}
-              paymentMethod={item.paymentMethod}
-              date={item.date.toDate().toUTCString()}
-              total={' $' + item.total}
+            <InventoryCard  
+              product={item.product}
+              qty={item.qty}
             />
           }
         />
@@ -101,4 +95,4 @@ function SalesList(props: SalesListProps): React.JSX.Element {
   );
 }
 
-export default SalesList;
+export default InventoryList;

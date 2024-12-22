@@ -15,12 +15,15 @@ import Navbar from '../components/sections/Navbar';
 import { useTheme } from '@react-navigation/native';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
-import logo from '../assets/images/image_banner.png';
+import logo from '../assets/images/icons/hair-cut.png';
+import logo2 from '../assets/images/icons/lodging.png';
 import pexoxos from '../assets/images/pexoxos.png';
 import animals from '../assets/images/animals.png';
 import background from '../assets/images/orange_background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
 import { Flyout } from 'react-native-windows';
+import DateForm from '../components/ui/forms/DateForm';
+import LodgingForm from '../components/ui/forms/LodgingForm';
 
 type ScheduleProps = PropsWithChildren<{
   title: string;
@@ -146,9 +149,20 @@ const createStyles = () =>
       marginTop: 20,
     },
     flyer: {
-      width: 1000,
+      width: 700,
       height: 500,
-      backgroundColor: '#ffffffa0',
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
+    flyer2: {
+      width: 700,
+      height: 800,
+      backgroundColor: '#ffffffe0',
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'space-around',
@@ -172,35 +186,42 @@ function Schedule({children, title}: ScheduleProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const [showFlyout, setShowFlyout] = useState(false);
+  const [showFlyout2, setShowFlyout2] = useState(false);
 
   return (
     <>
       <SafeAreaView style={styles.container}>
         <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient-with-dismiss-on-pointer-move-away' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
-
               <View
                 style={[styles.flyer]}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
+                <Text style={styles.textStyle}>Agendar cita</Text>
+                <DateForm title={''} />
               </View>
-
+        </Flyout>
+        <Flyout isOpen={showFlyout2} onDismiss={() => setShowFlyout2(false)} showMode='transient-with-dismiss-on-pointer-move-away' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
+              <View
+                style={[styles.flyer2]}>
+                <Text style={styles.textStyle}>Agendar hospedaje</Text>
+                <LodgingForm title={''} />
+              </View>
         </Flyout>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
           <Navbar title=''/>
           <View style={styles.homeView}>
             <View style={styles.scheduleSection}>
               <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
-              <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+              <Text style={styles.scheduleSectionTitle}>Baños y Cortes</Text>
               <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
               <View style={styles.scheduleButton}>
                 <Button  color='#03bdbf' title='Agendar Cita' onPress={() => setShowFlyout(true)}/>
               </View>
             </View>
             <View style={styles.scheduleSection}>
-              <Image source={logo} style={styles.imageAnimals} resizeMode='contain'/>
-              <Text style={styles.scheduleSectionTitle}>Confirmar hora de cita</Text>
+              <Image source={logo2} style={styles.imageAnimals} resizeMode='contain'/>
+              <Text style={styles.scheduleSectionTitle}>Hospedaje y Estancias</Text>
               <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
               <View style={styles.scheduleButton}>
-                <Button  color='#03bdbf' title='Agendar Cita' onPress={() => setShowFlyout(true)}/>
+                <Button  color='#3ab549' title='Agendar Hospedaje' onPress={() => setShowFlyout2(true)}/>
               </View>
             </View>
           </View>

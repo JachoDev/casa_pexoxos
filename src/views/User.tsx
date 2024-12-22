@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/Red_Background.png';
+import ExpensesList from '../components/ui/Lists/ExpensesList';
+import InventoryList from '../components/ui/Lists/InventoryList';
 
 type UserProps = PropsWithChildren<{
   title: string;
@@ -30,6 +32,13 @@ const createStyles = () =>
       justifyContent: 'center',
       height: '100%',
     },
+    salesListView: {
+      width: 500,
+      height: 400,
+      marginTop: 15,
+      backgroundColor: '#',
+      alignSelf: 'center',
+    },
   });
 
 function User({ title }: UserProps): React.JSX.Element {
@@ -40,6 +49,9 @@ function User({ title }: UserProps): React.JSX.Element {
       <SafeAreaView style={styles.container}>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
           <Navbar title='' />
+          <View style={styles.salesListView}>
+            <InventoryList title=''/>
+          </View>
           
         </ImageBackground>
       </SafeAreaView>

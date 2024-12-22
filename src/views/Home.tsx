@@ -65,6 +65,7 @@ const createStyles = () =>
     },
     homeSection: {
       flexDirection: 'row',
+
     },
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
@@ -85,7 +86,7 @@ const createStyles = () =>
 			height: 150,
     },
     carouselSection: {
-			width: 800,
+			width: 'auto',
 			height: 300,
       marginHorizontal: 50,
       alignItems: 'center',
@@ -154,7 +155,16 @@ const createStyles = () =>
     },
     textStyl: {
       color: 'white',
-    }
+      fontSize: 18,
+    },
+    notificationBox: {
+      width: 300,
+      height: 250,
+      backgroundColor: '#0000007f',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   });
 
 function Home({children, title}: HomeProps): React.JSX.Element {
@@ -166,13 +176,11 @@ function Home({children, title}: HomeProps): React.JSX.Element {
     <>
       <SafeAreaView style={styles.container}>
         <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} horizontalOffset={600} verticalOffset={600} >
-
               <Pressable
                 style={[styles.flyer]}
                 onPress={() => setShowFlyout(false)}>
                 <Text style={styles.textStyle}>Hide Modal</Text>
               </Pressable>
-
         </Flyout>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
           <Navbar title='' />
@@ -188,6 +196,9 @@ function Home({children, title}: HomeProps): React.JSX.Element {
                 </View>
                 <View>
                   <Image style={styles.imageLogo} source={animals} resizeMode='contain'/>
+                </View>
+                <View style={styles.notificationBox}>
+                  <Text style={styles.textStyl}> Notificaciones</Text>
                 </View>
               </View>
               <View style={styles.carouselSection}>

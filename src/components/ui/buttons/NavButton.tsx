@@ -22,7 +22,8 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
     iconTitle: {
       color: 'black',
       alignSelf: 'center',
-      fontSize: 11,
+      fontSize: 12,
+      fontWeight: 'bold'
     },
   });
 
