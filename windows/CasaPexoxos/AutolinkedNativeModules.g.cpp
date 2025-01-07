@@ -18,6 +18,9 @@
 // Includes from react-native-linear-gradient
 #include <winrt/BVLinearGradient.h>
 
+// Includes from react-native-print
+#include <winrt/RNPrint.h>
+
 // Includes from react-native-screens
 #include <winrt/RNScreens.h>
 
@@ -39,6 +42,8 @@ void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collecti
     packageProviders.Append(winrt::ReactNativePicker::ReactPackageProvider());
     // IReactPackageProviders from react-native-linear-gradient
     packageProviders.Append(winrt::BVLinearGradient::ReactPackageProvider());
+    // IReactPackageProviders from react-native-print
+    packageProviders.Append(winrt::RNPrint::ReactPackageProvider());
     // IReactPackageProviders from react-native-screens
     packageProviders.Append(winrt::RNScreens::ReactPackageProvider());
     // IReactPackageProviders from react-native-svg

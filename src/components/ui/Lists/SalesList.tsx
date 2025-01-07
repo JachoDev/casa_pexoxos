@@ -61,11 +61,12 @@ type SalesListProps = PropsWithChildren<{
 
 function SalesList(props: SalesListProps): React.JSX.Element {
   const {colors} = useTheme();
-  const styles = createStyles(colors);
-  const [sales, setSales] = useState(salesList);
+  const styles = createStyles(colors); 
+  const today = new Date();
+  const [sales, setSales] = useState(salesList.sort((a, b) => b.date - a.date));
 
   useEffect(() => {
-    setSales(salesList);
+    setSales(salesList.sort((a, b) => b.date - a.date));
     console.log(sales);
     return cleanUp = () => {
       

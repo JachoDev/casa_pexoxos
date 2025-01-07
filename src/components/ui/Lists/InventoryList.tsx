@@ -64,10 +64,10 @@ type InventoryListProps = PropsWithChildren<{
 function InventoryList(props: InventoryListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [sales, setSales] = useState(inventory);
+  const [sales, setSales] = useState(inventory.sort((a, b) => a.product.localeCompare(b.product)));
 
   useEffect(() => {
-    setSales(inventory);
+    setSales(inventory.sort((a, b) => a.product.localeCompare(b.product)));
     console.log(sales);
     return cleanUp = () => {
       

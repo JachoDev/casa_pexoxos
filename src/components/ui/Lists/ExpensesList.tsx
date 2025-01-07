@@ -63,10 +63,10 @@ type ExpensesListProps = PropsWithChildren<{
 function ExpensesList(props: ExpensesListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [sales, setSales] = useState(expensesList);
+  const [sales, setSales] = useState(expensesList.sort((a, b) => b.date - a.date));
 
   useEffect(() => {
-    setSales(expensesList);
+    setSales(expensesList.sort((a, b) => b.date - a.date));
     console.log(sales);
     return cleanUp = () => {
       

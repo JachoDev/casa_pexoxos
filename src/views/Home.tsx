@@ -64,7 +64,6 @@ const createStyles = () =>
       justifyContent: 'center',
     },
     homeSection: {
-      flexDirection: 'row',
 
     },
     pageTitle: {
@@ -93,7 +92,6 @@ const createStyles = () =>
       justifyContent: 'center',
 		},
     homeView: {
-      flexDirection: 'row',
       marginTop: 10,
       alignSelf: 'center',
       alignContent: 'center',
@@ -158,8 +156,8 @@ const createStyles = () =>
       fontSize: 18,
     },
     notificationBox: {
-      width: 300,
-      height: 250,
+      width: 900,
+      height: 150,
       backgroundColor: '#0000007f',
       borderRadius: 10,
       alignItems: 'center',
@@ -184,27 +182,15 @@ function Home({children, title}: HomeProps): React.JSX.Element {
         </Flyout>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
           <Navbar title='' />
+          <View style={styles.homeSection}>
+            <View style={styles.notificationBox}>
+              <Text style={styles.textStyl}> Notificaciones</Text>
+            </View>
+          </View>
           <View style={styles.homeView}>
-            <View>
-              <View style={styles.homeSection}>
-                <View>
-                  <SearchBar title='' />
-                  <View>
-                    <Image source={pexoxos} style={styles.pexoxosStyle}/>
-                    <PetButton title={''} />
-                  </View>
-                </View>
-                <View>
-                  <Image style={styles.imageLogo} source={animals} resizeMode='contain'/>
-                </View>
-                <View style={styles.notificationBox}>
-                  <Text style={styles.textStyl}> Notificaciones</Text>
-                </View>
-              </View>
               <View style={styles.carouselSection}>
                 <ServiceList title={''} />
               </View>
-            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>

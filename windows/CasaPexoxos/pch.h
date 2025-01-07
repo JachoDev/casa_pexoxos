@@ -14,6 +14,8 @@
 #include <UI.Xaml.Markup.h>
 #include <UI.Xaml.Navigation.h>
 
+#include "winrt/RNPrint.h"
+
 #include <winrt/Microsoft.ReactNative.h>
 
 #include <winrt/Microsoft.UI.Xaml.Automation.Peers.h>

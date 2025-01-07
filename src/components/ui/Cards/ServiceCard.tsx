@@ -12,6 +12,9 @@ import {
 import Svg, { Path, SvgXml } from 'react-native-svg';
 import arrow from '../../../assets/images/arrow.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import CutSaleForm from '../forms/CutSaleForm';
+import { Flyout } from 'react-native-windows';
+import { cutsList, petList, clientsList } from '../../../../App';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -57,6 +60,17 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       fontSize: isHovered ? 18 : 9,
       fontWeight: isHovered ? 'bold' : '100',
     },
+    flyer: {
+      width: 700,
+      height: 800,
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
     textTag: {
       color: 'black',
       fontSize: isHovered ? 18 : 9,
@@ -76,10 +90,15 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       paddingLeft: 36,
       color: '#000000'
     },
+    textFlyer: {
+      color: 'black',
+    },
   });
 
 type ServiceProps = PropsWithChildren<{
   name: string;
+  serviceId: string;
+  petId: string;
   service: string;
   date: string;
   time: string;
@@ -88,74 +107,81 @@ type ServiceProps = PropsWithChildren<{
   color: string;
 }>;
 
-function ServiceCard({ name, service, date, time, color, petImage, recomendations }: ServiceProps): React.JSX.Element {
+function ServiceCard({ name, service, date, time, color, petImage, recomendations, petId, serviceId }: ServiceProps): React.JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
-  const {colors} = useTheme();
+  const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
-  const ima = petImage;
+  const clientId = petList.find((e) => e.id == petId).clientId
+  console.log(petId)
 
   return (
     <>
+      <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
+        <View
+          style={[styles.flyer]}>
+          <Text style={styles.textFlyer}>Cobrar servicio</Text>
+          <CutSaleForm title={''} clientId={clientId} services={service} pets={name} onPress={() => setShowFlyout(false)} serviceId={serviceId}/>
+        </View>
+      </Flyout>
       <Pressable
-        onPress={() => {}}
+        onPress={() => {setShowFlyout(true)}}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
         onPressOut={() => setIsPressing(false)}
       >
-			<View style={styles.container}> 
-        <View style={styles.imageView}>
-          <View style={styles.imageCircle}>
-            <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
+        <View style={styles.container}>
+          <View style={styles.imageView}>
+            <View style={styles.imageCircle}>
+              <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
+            </View>
+          </View>
+          <View style={styles.textView}>
+            <View style={styles.textRow}>
+              <Text style={styles.textTag}>
+                Mascota:
+              </Text>
+              <Text style={styles.textStyle}>
+                {name}
+              </Text>
+            </View>
+            <View style={styles.textRow}>
+              <Text style={styles.textTag}>
+                Servicio:
+              </Text>
+              <Text style={styles.textStyle}>
+                {service}
+              </Text>
+            </View>
+            <View style={styles.textRow}>
+              <Text style={styles.textTag}>
+                Sugerencias:
+              </Text>
+              <Text style={styles.textStyle}>
+                {recomendations}
+              </Text>
+            </View>
+            <View style={styles.textRow}>
+              <Text style={styles.textTag}>
+                Fecha:
+              </Text>
+              <Text style={styles.textStyle}>
+                {date}
+              </Text>
+            </View>
+            <View style={styles.textRow}>
+              <Text style={styles.textTag}>
+                Hora:
+              </Text>
+              <Text style={styles.textStyle}>
+                {time}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.arrowView, {backgroundColor: color}]}>
           </View>
         </View>
-        <View style={styles.textView}>
-          <View style={styles.textRow}>
-            <Text style={styles.textTag}>
-              Mascota:
-            </Text>
-            <Text style={styles.textStyle}>
-              {name}
-            </Text>
-          </View>
-          <View style={styles.textRow}>
-            <Text style={styles.textTag}>
-              Servicio:
-            </Text>
-            <Text style={styles.textStyle}>
-              {service}
-            </Text>
-          </View>
-          <View style={styles.textRow}>
-            <Text style={styles.textTag}>
-              Sugerencias:
-            </Text>
-            <Text style={styles.textStyle}>
-              {recomendations}
-            </Text>
-          </View>
-          <View style={styles.textRow}>
-            <Text style={styles.textTag}>
-              Fecha:
-            </Text>
-            <Text style={styles.textStyle}>
-              {date}
-            </Text>
-          </View>
-          <View style={styles.textRow}>
-            <Text style={styles.textTag}>
-              Hora:
-            </Text>
-            <Text style={styles.textStyle}>
-              {time}
-            </Text>
-          </View>
-        </View>
-        <View style={[styles.arrowView, {backgroundColor: color}]}>
-        
-        </View>
-			</View>
       </Pressable>
 		</>
   );

@@ -34,6 +34,8 @@ const createStyles = () =>
       borderColor: '#ff66c4',
       borderRadius: 4,
       color: 'white',
+      paddingTop: 8,
+			paddingLeft: 10,
       width: 300,
       height: 40,
     },

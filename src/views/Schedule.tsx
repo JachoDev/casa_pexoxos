@@ -150,7 +150,7 @@ const createStyles = () =>
     },
     flyer: {
       width: 700,
-      height: 500,
+      height: 650,
       backgroundColor: '#ffffffe0',
       borderRadius: 10,
       alignItems: 'center',
@@ -191,14 +191,14 @@ function Schedule({children, title}: ScheduleProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient-with-dismiss-on-pointer-move-away' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
+        <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
               <View
                 style={[styles.flyer]}>
                 <Text style={styles.textStyle}>Agendar cita</Text>
                 <DateForm title={''} />
               </View>
         </Flyout>
-        <Flyout isOpen={showFlyout2} onDismiss={() => setShowFlyout2(false)} showMode='transient-with-dismiss-on-pointer-move-away' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
+        <Flyout isOpen={showFlyout2} onDismiss={() => setShowFlyout2(false)} showMode='transient' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
               <View
                 style={[styles.flyer2]}>
                 <Text style={styles.textStyle}>Agendar hospedaje</Text>

@@ -22,6 +22,10 @@
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-linear-gradient\windows\BVLinearGradient\BVLinearGradient\BVLinearGradient.vcxproj">
       <Project>{193df456-3f97-4cc1-a7d4-809857cc064e}</Project>
     </ProjectReference>
+    <!-- Projects from react-native-print -->
+    <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-print\windows\RNPrint\RNPrint.vcxproj">
+      <Project>{6f9ac236-d97d-4c75-971b-91ac99d7c23b}</Project>
+    </ProjectReference>
     <!-- Projects from react-native-screens -->
     <ProjectReference Include="$(ProjectDir)..\..\node_modules\react-native-screens\windows\RNScreens\RNScreens.vcxproj">
       <Project>{d638f49e-29d2-4699-ac52-facd82fa7138}</Project>

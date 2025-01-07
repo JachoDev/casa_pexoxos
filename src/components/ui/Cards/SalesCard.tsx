@@ -17,7 +17,7 @@ const createStyles = () =>
       height: 25,
       alignContent: 'flex-start',
       justifyContent: 'center',
-      backgroundColor: '#ffffffaf',
+      backgroundColor: '#ffffff',
       borderRadius: 2,
     },
     rowTile:{
