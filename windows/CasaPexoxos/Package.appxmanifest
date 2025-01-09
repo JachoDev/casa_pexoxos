@@ -9,7 +9,7 @@
   <Identity
     Name="3b2b57ae-6770-4348-aa98-2e815154f0d5"
     Publisher="CN=casapexoxos"
-    Version="1.0.4.0" />
+    Version="1.0.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="3b2b57ae-6770-4348-aa98-2e815154f0d5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

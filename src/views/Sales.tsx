@@ -54,30 +54,33 @@ const createStyles = () =>
     },
   });
 
-function Sales({ title }: SalesProps): React.JSX.Element {
+function Sales({title}: SalesProps): React.JSX.Element {
   const styles = createStyles();
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
-          <Navbar title='' />
-          <Searchbar title=''/>
+        <ImageBackground
+          source={background}
+          resizeMode="cover"
+          style={styles.imageBackgorund}>
+          <Navbar title="" />
+
           <View style={styles.button}>
-            <Button title='Crear venta' onPress={() => {}}/>
+            <Button title="Crear venta" onPress={() => {}} />
           </View>
           <View style={styles.salesListView}>
-            <SalesList title=''/>
+            <SalesList title="" />
           </View>
           <View style={styles.button}>
-            <Button title='Crear egreso' onPress={() => {}}/>
+            <Button title="Crear egreso" onPress={() => {}} />
           </View>
           <View style={styles.salesListView}>
-            <ExpensesList title=''/>
+            <ExpensesList title="" />
           </View>
         </ImageBackground>
       </SafeAreaView>
-		</>
+    </>
   );
 }
 

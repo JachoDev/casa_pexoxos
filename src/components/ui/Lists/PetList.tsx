@@ -9,8 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 import PetCard from '../Cards/PetCards';
-import { petList } from '../../../../App';
-
+import { petList } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({

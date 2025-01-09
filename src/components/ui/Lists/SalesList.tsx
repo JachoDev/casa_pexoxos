@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,8 +9,11 @@ import {
   FlatList,
 } from 'react-native';
 import SalesCard from '../Cards/SalesCard';
-import { salesList, clientsList, petList } from '../../../../App';
-
+import {
+  clientsList,
+  salesList,
+} from '../../../services/firebase/firestore/firestoreService';
+import ExpensesCard from '../Cards/ExpensesCard';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -34,7 +37,7 @@ const createStyles = () =>
       borderRadius: 10,
       flexDirection: 'row',
     },
-    rowTile:{
+    rowTile: {
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
@@ -53,7 +56,7 @@ const createStyles = () =>
       color: 'blue',
       flex: 1,
     },
-});
+  });
 
 type SalesListProps = PropsWithChildren<{
   title: string;
@@ -61,22 +64,20 @@ type SalesListProps = PropsWithChildren<{
 
 function SalesList(props: SalesListProps): React.JSX.Element {
   const {colors} = useTheme();
-  const styles = createStyles(colors); 
+  const styles = createStyles(colors);
   const today = new Date();
   const [sales, setSales] = useState(salesList.sort((a, b) => b.date - a.date));
 
   useEffect(() => {
     setSales(salesList.sort((a, b) => b.date - a.date));
     console.log(sales);
-    return cleanUp = () => {
-      
-    }
+    return (cleanUp = () => {});
   }, [sales]);
 
   return (
     <>
-			<View style={styles.container}>
-      <View style={styles.rowTile}>
+      <View style={styles.container}>
+        <View style={styles.rowTile}>
           <Text style={styles.pageTitle}>Cliente</Text>
           <Text style={styles.pageTitle}>Teléfono</Text>
           <Text style={styles.pageTitle}>Servicio</Text>
@@ -84,9 +85,9 @@ function SalesList(props: SalesListProps): React.JSX.Element {
           <Text style={styles.pageTitle}>Fecha</Text>
           <Text style={styles.pageTitle}>Total</Text>
         </View>
-      <FlatList
+        <FlatList
           data={sales}
-          renderItem={({item}) =>
+          renderItem={({item}) => (
             <SalesCard 
               name={clientsList.find((e) => e.id == item.clientId).name}
               phone={clientsList.find((e) => e.id == item.clientId).phone}
@@ -95,10 +96,10 @@ function SalesList(props: SalesListProps): React.JSX.Element {
               date={item.date.toDate().toUTCString()}
               total={' $' + item.total}
             />
-          }
+          )}
         />
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -9,9 +9,13 @@ import {
   View,
   Pressable,
 } from 'react-native';
-import Svg, { Path, SvgXml } from 'react-native-svg';
+import Svg, {Path, SvgXml} from 'react-native-svg';
 import arrow from '../../../assets/images/arrow.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { petList } from '../../../services/firebase/firestore/firestoreService';
+import CutSaleForm from '../forms/CutSaleForm';
+import LodgingSaleForm from '../forms/lodgingSaleForm';
+import { Flyout } from 'react-native-windows';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -24,9 +28,9 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       backgroundColor: '#eeeeee',
       borderRadius: 10,
       marginVertical: 25,
-      marginHorizontal: 15,
+      marginHorizontal: 25,
       flexDirection: 'row',
-      opacity: _isPressing ? .2 : 1
+      opacity: _isPressing ? 0.2 : 1,
     },
     imageView: {
       flex: 7,
@@ -76,14 +80,30 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       fontSize: 20,
       fontWeight: '600', // SemiBold
       paddingLeft: 36,
-      color: '#000000'
+      color: '#000000',
+    },
+    flyer: {
+      width: 700,
+      height: 800,
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
+    textFlyer: {
+      color: 'black',
     },
   });
 
 type LodgingCardProps = PropsWithChildren<{
   name: string;
+  lodgingId: string;
   inDate: string;
   outDate: string;
+  petId: string;
   time: string;
   petImage: string;
   color: string;
@@ -92,65 +112,69 @@ type LodgingCardProps = PropsWithChildren<{
 function LodgingCard(props: LodgingCardProps): React.JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
-  const {colors} = useTheme();
+  const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
-  const ima = props.petImage;
-
+  const clientId = petList.find(e => e.id == props.petId).clientId;
   return (
     <>
-      <Pressable 
-        onPress={() => {}}
+      <Flyout
+        isOpen={showFlyout}
+        onDismiss={() => setShowFlyout(false)}
+        showMode="transient"
+        isLightDismissEnabled={true}
+        isOverlayEnabled={true}
+        placement="bottom">
+        <View style={[styles.flyer]}>
+          <Text style={styles.textFlyer}>Cobrar servicio</Text>
+          <LodgingSaleForm
+            title={''}
+            clientId={clientId}
+            services={'Hospedaje'}
+            pets={props.name}
+            onSend={() => setShowFlyout(false)}
+            serviceId={props.lodgingId}
+          />
+        </View>
+      </Flyout>
+      <Pressable
+        onPress={() => {setShowFlyout(true)}}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
-        onPressOut={() => setIsPressing(false)}
-      >
-        <View style={styles.container}> 
+        onPressOut={() => setIsPressing(false)}>
+        <View style={styles.container}>
           <View style={styles.imageView}>
             <View style={styles.imageCircle}>
-              <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
+              <Image
+                style={styles.image}
+                source={require('../../../assets/images/dog.png')}
+                resizeMode="stretch"
+              />
             </View>
           </View>
           <View style={styles.textView}>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Mascota:
-              </Text>
-              <Text style={styles.textStyle}>
-                {props.name}
-              </Text>
+              <Text style={styles.textTag}>Mascota:</Text>
+              <Text style={styles.textStyle}>{props.name}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Entrada:
-              </Text>
-              <Text style={styles.textStyle}>
-                {props.inDate}
-              </Text>
+              <Text style={styles.textTag}>Entrada:</Text>
+              <Text style={styles.textStyle}>{props.inDate}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Salida:
-              </Text>
-              <Text style={styles.textStyle}>
-                {props.outDate}
-              </Text>
+              <Text style={styles.textTag}>Salida:</Text>
+              <Text style={styles.textStyle}>{props.outDate}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Entrega:
-              </Text>
-              <Text style={styles.textStyle}>
-                {props.time}
-              </Text>
+              <Text style={styles.textTag}>Entrega:</Text>
+              <Text style={styles.textStyle}>{props.time}</Text>
             </View>
           </View>
-          <View style={[styles.arrowView, {backgroundColor: props.color}]}>
-          </View>
+          <View
+            style={[styles.arrowView, {backgroundColor: props.color}]}></View>
         </View>
       </Pressable>
-			
-		</>
+    </>
   );
 }
 

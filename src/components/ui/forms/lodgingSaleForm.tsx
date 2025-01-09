@@ -14,7 +14,17 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import RNPrint from 'react-native-print';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { clientsList, salesList, cutsList, addSale, updateCutState, updateCutsList, updateSalesList } from '../../../services/firebase/firestore/firestoreService';
+import {
+  clientsList,
+  salesList,
+  cutsList,
+  addSale,
+  updateCutState,
+  updateCutsList,
+  updateSalesList,
+  updateLodgingState,
+  updateLodgingList,
+} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -70,7 +80,7 @@ const cuts = [
   'Rebaje con 3 1/2',
 ];
 
-type CutSaleFormProps = PropsWithChildren<{
+type LodgingSaleFormProps = PropsWithChildren<{
   title: string;
   clientId: string;
   services: string;
@@ -79,7 +89,7 @@ type CutSaleFormProps = PropsWithChildren<{
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
-function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
+function LodgingSaleForm(props: LodgingSaleFormProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   //const client = clientsList.find();
@@ -102,9 +112,9 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
 
   const onSend = async () => {
     try {
-      addSale(+total, pickerValue, client.id, '',[props.services]);
-      updateCutState(props.serviceId, 'Cobrado');
-      updateCutsList();
+      addSale(+total, pickerValue, client.id, '', [props.services]);
+      updateLodgingState(props.serviceId, 'Cobrado');
+      updateLodgingList();
       updateSalesList();
       printRemotePDF();
     } catch (e) {
@@ -195,4 +205,4 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
   );
 }
 
-export default CutSaleForm;
+export default LodgingSaleForm;

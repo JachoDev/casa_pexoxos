@@ -21,6 +21,7 @@ import animals from '../assets/images/animals.png';
 import background from '../assets/images/orange_background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
 import { Flyout } from 'react-native-windows';
+import { clientsList, salesList } from '../services/firebase/firestore/firestoreService';
 
 type HomeProps = PropsWithChildren<{
   title: string;
@@ -29,139 +30,63 @@ type HomeProps = PropsWithChildren<{
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      alignSelf: 'auto',
+      alignSelf: 'flex-start',
       width: '100%',
-      alignContent: 'stretch',
-      justifyContent: 'center',
-      flex: 1,
-      backgroundColor: 'white',
+      height: '100%',
+      alignContent: 'flex-start',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
     },
     imageBackgorund: {
       justifyContent: 'center',
-      height: '100%',
-    },
-    scrollView: {
-      paddingRight: 20,
-    },
-    icon: {
-      fontFamily: 'Segoe MDL2 Assets',
-      fontSize: 16,
-    },
-    heroGradient: {
-      position: 'absolute',
       width: '100%',
       height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
-      justifyContent: 'center',
     },
     homeSection: {
-
-    },
-    pageTitle: {
-      // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
-      // TitleLargeTextBlockStyle
-      fontSize: 40,
-      fontWeight: '600', // SemiBold
-      paddingLeft: 36,
-      color: '#000000'
-    },
-    imageLogo: {
-			width: 350,
-			height: 300,
-      marginHorizontal: 20,
-      marginLeft: 100,
-		},
-    imageAnimals: {
-      width: 300,
-			height: 150,
+      width: '100%',
+      height: 'auto',
+      alignSelf: 'center',
+      alignContent: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 100,
+      marginTop: 20,
     },
     carouselSection: {
-			width: 'auto',
-			height: 300,
+      width: 'auto',
+      height: '100%',
       marginHorizontal: 50,
       alignItems: 'center',
       justifyContent: 'center',
-		},
+    },
     homeView: {
+      width: '100%',
+      height: '50%',
+      paddingHorizontal: 20,
       marginTop: 10,
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-    },
-    scheduleSection: {
-      width: 280,
-      height: 500,
-      alignSelf: 'flex-end',
-      alignItems: 'center',
-      backgroundColor: '#6e6e6939',
-      borderRadius: 10,
-      paddingTop: 30,
-    },
-    scheduleSectionTitle: {
-      paddingTop: 30,
-      color: 'black',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    scheduleSectionText: {
-      paddingTop: 30,
-      color: 'black',
-      fontSize: 16,
-      justifyContent: 'center',
-      textAlign: 'center',
-    },
-    scheduleDropdown: {
-      marginTop: 30,
-      height: 30,
-      width: 175,
-      borderRadius: 5,
-      borderColor: 'gray',
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    dropdownText: {
-      alignSelf: 'center',
-      justifyContent: 'center',
-      color: 'gray',
-      fontSize: 10,
-    },
-    scheduleButton: {
-      paddingTop: 30,
-      width: 150,
-    },
-    pexoxosStyle: {
-      width: 250,
-      height: 50,
-      marginTop: 20,
-    },
-    flyer: {
-      width: 400,
-      height: 400,
-    },
-    flex1: {
-      flex: 1,
     },
     textStyl: {
       color: 'white',
       fontSize: 18,
     },
     notificationBox: {
-      width: 900,
+      width: '100%',
       height: 150,
       backgroundColor: '#0000007f',
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    flyer: {
+      padding: 20,
+      backgroundColor: 'white',
+      borderRadius: 10,
+    },
+    textStyle: {
+      color: 'black',
+      fontSize: 18,
     },
   });
 

@@ -9,12 +9,9 @@ import {
   View,
   Pressable,
 } from 'react-native';
-import Svg, { Path, SvgXml } from 'react-native-svg';
-import arrow from '../../../assets/images/arrow.svg';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import CutSaleForm from '../forms/CutSaleForm';
 import { Flyout } from 'react-native-windows';
-import { cutsList, petList, clientsList } from '../../../../App';
+import { petList } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -22,13 +19,13 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       alignSelf: 'center',
       width: isHovered ? 440 : 220,
       height: isHovered ? 170 : 85,
-      alignContent: 'flex-start',
+      alignContent: 'center',
       justifyContent: 'center',
-      backgroundColor: '#ffffff6f',
+      backgroundColor: '#eeeeee',
       borderRadius: 10,
       paddingTop: 8,
-      marginVertical: 40,
-      marginHorizontal: 25,
+      marginVertical: 25,
+      marginHorizontal: 30,
       flexDirection: 'row',
       opacity: _isPressing ? .2 : 1
     },
@@ -113,7 +110,6 @@ function ServiceCard({ name, service, date, time, color, petImage, recomendation
   const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const clientId = petList.find((e) => e.id == petId).clientId
-  console.log(petId)
 
   return (
     <>
@@ -121,7 +117,7 @@ function ServiceCard({ name, service, date, time, color, petImage, recomendation
         <View
           style={[styles.flyer]}>
           <Text style={styles.textFlyer}>Cobrar servicio</Text>
-          <CutSaleForm title={''} clientId={clientId} services={service} pets={name} onPress={() => setShowFlyout(false)} serviceId={serviceId}/>
+          <CutSaleForm title={''} clientId={clientId} services={service} pets={name} onSend={() => setShowFlyout(false)} serviceId={serviceId}/>
         </View>
       </Flyout>
       <Pressable

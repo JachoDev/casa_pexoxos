@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useRef, useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useRef, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,13 +9,16 @@ import {
   FlatList,
   Button,
   TextInput,
+  GestureResponderEvent,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ServiceCard from '../Cards/ServiceCard';
-import { cutsList, petList, clientsList } from '../../../../App';
 import {Picker} from '@react-native-picker/picker';
-import { doc, collection, addDoc, Timestamp, updateDoc, getDocs } from "firebase/firestore";
-import { db } from '../../../../firebaseConfig';
+import {
+  petList,
+  clientsList,
+  addCut,
+  updateCutsList,
+} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -28,14 +31,14 @@ const createStyles = () =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 10,
-      backgroundColor: '#762776df'
+      backgroundColor: '#762776df',
     },
     textInput: {
       borderColor: '#762776',
       borderRadius: 4,
       color: 'white',
       paddingTop: 8,
-			paddingLeft: 10,
+      paddingLeft: 10,
       width: 300,
       height: 75,
     },
@@ -43,107 +46,75 @@ const createStyles = () =>
       height: 'auto',
       paddingBottom: 2,
       marginBottom: 2,
-      alignItems: 'flex-start'
+      alignItems: 'flex-start',
     },
     titleText: {
       color: 'white',
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   });
 
-  const cuts = [
-    'Corte tipo Schnauzer',
-    'Corte tipo Scottish',
-    'Corte completo con 10',
-    'Corte completo con 7',
-    'Corte completo con 5',
-    'Corte completo con 4',
-    'Corte completo con 3 1/2',
-    'Rebaje con 10',
-    'Rebaje con 7',
-    'Rebaje con 5',
-    'Rebaje con 4',
-    'Rebaje con 3 1/2',
-  ];
-
-  const getList = async () => {
-    if(cutsList.length == 0) {
-    const querycuts = collection(db, "cortes");  
-      const querySnapshotcuts = await getDocs(querycuts);
-      querySnapshotcuts.forEach((doc) => {
-        if (!(cutsList.find((e) => e.id == doc.id))) {
-          const _doc = {
-            id: doc.id,
-            groomming: doc.data().Grooming,
-            recomendations: doc.data().Recomendations,
-            state: doc.data().State,
-            petId: doc.data().PetID,
-            checkIn: doc.data().CheckIn,
-          }
-          cutsList.push(_doc)
-        }
-            //console.log(doc.id, '=>', doc.data());
-      });
-    }
-};
+const cuts = [
+  'Corte tipo Schnauzer',
+  'Corte tipo Scottish',
+  'Corte completo con 10',
+  'Corte completo con 7',
+  'Corte completo con 5',
+  'Corte completo con 4',
+  'Corte completo con 3 1/2',
+  'Rebaje con 10',
+  'Rebaje con 7',
+  'Rebaje con 5',
+  'Rebaje con 4',
+  'Rebaje con 3 1/2',
+];
 
 type DateFormProps = PropsWithChildren<{
   title: string;
+  onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
-function DateForm({ title }: DateFormProps): React.JSX.Element {
+function DateForm( props : DateFormProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [time, setTime] = useState(new Date(Date.now() - 18000000));
-  const [date, setDate] = useState(new Date());
   const today = new Date(Date.now() - 18000000);
-  const [petListO, setPetListO] = useState(petList.sort((a, b) => a.name.localeCompare(b.name)));
-  const [clientListO, setClientListO] = useState(clientsList.sort((a, b) => a.name.localeCompare(b.name)));
+  const [time, setTime] = useState(today);
+  const [date, setDate] = useState(today);
+  const [petListO, setPetListO] = useState(
+    petList.sort((a, b) => a.name.localeCompare(b.name)),
+  );
+  const [clientListO, setClientListO] = useState(
+    clientsList.sort((a, b) => a.name.localeCompare(b.name)),
+  );
   const [pet, setPet] = useState();
   const [client, setClient] = useState();
   const [recs, setRecs] = useState('');
   const [cut, setCut] = useState();
 
-  const addCut = async (_checkIn: Date, _grooming: string, _petId: string, _recs: string) => {
-    const now = new Date();
-    const newDoc = await addDoc(collection(db, 'cortes'), {
-      CheckIn: Timestamp.fromDate(_checkIn),
-      Createdat: Timestamp.fromDate(now),
-      Grooming: _grooming,
-      PetID: _petId,
-      Recomendations: _recs,
-      State: 'Creado'
-    });
-    console.log("Document written with ID: ", newDoc.id)
-  };
-
-  const updateLists = async () => {
-    cutsList.splice(0, cutsList.length);
-    getList();
-  };
-  
   const onSend = () => {
-    const checkIn = new Date(date.getDate() + time.getTime());
-
+    
+    console.log(date.toISOString().split('T')[0]);
+    console.log(time.toTimeString());
+    const checkIn = new Date(date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1]);
+    console.log(checkIn.toUTCString());
     try {
       addCut(checkIn, cut, pet, recs);
-      updateLists();
-    } 
-    catch (e) {
-      console.log(e)
+      updateCutsList();
+    } catch (e) {
+      console.log(e);
     }
+    props.onSend();
   };
 
   useEffect(() => {
     setPetListO(petList.sort((a, b) => a.name.localeCompare(b.name)));
     setClientListO(clientsList.sort((a, b) => a.name.localeCompare(b.name)));
-    return cleanUp = () => {
-    }
+    return () => {};
   }, []);
 
   return (
     <>
-			<View style={styles.container}>
+      <View style={styles.container}>
         <View>
           <View style={styles.inputGroup}>
             <Text>Buscar Mascota</Text>
@@ -152,17 +123,19 @@ function DateForm({ title }: DateFormProps): React.JSX.Element {
               style={{height: 50, width: 200, margin: 5, color: 'white'}}
               enabled={true}
               selectedValue={pet}
-              onValueChange={(e) => {
-                console.log(e + ' this id')
-                const _pet = petList.find((_e) => _e.id == e)
-                setClient(_pet.clientId)
+              onValueChange={e => {
+                console.log(e + ' this id');
+                const _pet = petList.find(_e => _e.id == e);
+                setClient(_pet.clientId);
                 setPet(e);
-                console.log(pet)
+                console.log(pet);
               }}
-              prompt='this prompt'
-              mode='dialog'
+              prompt="this prompt"
+              mode="dialog"
               itemStyle={{color: 'white'}}>
-              {petListO.map((item) => <Picker.Item value={item.id} label={item.name} key={item.id}/>)}
+              {petListO.map(item => (
+                <Picker.Item value={item.id} label={item.name} key={item.id} />
+              ))}
             </Picker>
           </View>
           <View style={styles.inputGroup}>
@@ -171,22 +144,34 @@ function DateForm({ title }: DateFormProps): React.JSX.Element {
               accessibilityLabel="Disabled Example"
               style={{height: 50, width: 200, margin: 5, color: 'white'}}
               enabled={false}
-              prompt='this prompt'
-              mode='dialog'
+              prompt="this prompt"
+              mode="dialog"
               selectedValue={client}
               onValueChange={setClient}
               itemStyle={{color: 'white'}}>
-              {clientListO.map((item) => <Picker.Item value={item.id} label={(item.name != "" || item.lastname != "") ? item.name + ' ' + item.lastname : item.phone} key={item.id}/>)}
+              {clientListO.map(item => (
+                <Picker.Item
+                  value={item.id}
+                  label={
+                    item.name != '' || item.lastname != ''
+                      ? item.name + ' ' + item.lastname
+                      : item.phone
+                  }
+                  key={item.id}
+                />
+              ))}
             </Picker>
           </View>
           <View style={styles.inputGroup}>
             <Text>Escribir recomendaciones</Text>
-            <TextInput style={styles.textInput}
+            <TextInput
+              style={styles.textInput}
               multiline={true}
               value={recs}
               onChangeText={setRecs}
-              placeholder='Recomendaciones'
-              placeholderTextColor='gray' />
+              placeholder="Recomendaciones"
+              placeholderTextColor="gray"
+            />
           </View>
           <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Tipo de corte</Text>
@@ -196,10 +181,12 @@ function DateForm({ title }: DateFormProps): React.JSX.Element {
               enabled={true}
               selectedValue={cut}
               onValueChange={setCut}
-              prompt='this prompt'
-              mode='dialog'
+              prompt="this prompt"
+              mode="dialog"
               itemStyle={{color: 'white'}}>
-              {cuts.map((item) => <Picker.Item value={item} label={item} key={item}/>)}
+              {cuts.map(item => (
+                <Picker.Item value={item} label={item} key={item} />
+              ))}
             </Picker>
           </View>
           <View style={styles.inputGroup}>
@@ -208,7 +195,9 @@ function DateForm({ title }: DateFormProps): React.JSX.Element {
               accessibilityLabel="Simple Example"
               value={date}
               minimumDate={today}
-              onChange={(e) => {setDate(new Date(e.nativeEvent.timestamp))}}
+              onChange={e => {
+                setDate(new Date(e.nativeEvent.timestamp));
+              }}
               mode="date"
               style={{width: 200, opacity: 1, height: 50}}
             />
@@ -216,17 +205,17 @@ function DateForm({ title }: DateFormProps): React.JSX.Element {
           <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Seleccionar Horario</Text>
             <DateTimePicker
-              mode='time' 
+              mode="time"
               value={time}
               minuteInterval={15}
-              onChange={(e) => setTime(new Date(e.nativeEvent.timestamp))} 
-              style={{width: 300, opacity: 1, height: 50, }} 
+              onChange={e => setTime(new Date(e.nativeEvent.timestamp))}
+              style={{width: 300, opacity: 1, height: 50}}
             />
           </View>
-          <Button  color='#03bdbf' title='Agendar Cita' onPress={onSend}/>
+          <Button color="#03bdbf" title="Agendar Cita" onPress={onSend} />
         </View>
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 

@@ -8,8 +8,6 @@ import {
   View,
   Image,
   ImageBackground,
-  Modal,
-  Pressable,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import { useTheme } from '@react-navigation/native';
@@ -43,57 +41,10 @@ const createStyles = () =>
       justifyContent: 'center',
       height: '100%',
     },
-    scrollView: {
-      paddingRight: 20,
-    },
-    icon: {
-      fontFamily: 'Segoe MDL2 Assets',
-      fontSize: 16,
-    },
-    heroGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
-      justifyContent: 'center',
-    },
-    homeSection: {
-      flexDirection: 'row',
-    },
-    pageTitle: {
-      // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
-      // TitleLargeTextBlockStyle
-      fontSize: 40,
-      fontWeight: '600', // SemiBold
-      paddingLeft: 36,
-      color: '#000000'
-    },
-    imageLogo: {
-			width: 350,
-			height: 300,
-      marginHorizontal: 20,
-      marginLeft: 100,
-		},
     imageAnimals: {
       width: 300,
-			height: 150,
+      height: 150,
     },
-    carouselSection: {
-			width: 800,
-			height: 300,
-      marginHorizontal: 50,
-      alignItems: 'center',
-      justifyContent: 'center',
-		},
     homeView: {
       flexDirection: 'row',
       marginTop: 10,
@@ -123,30 +74,9 @@ const createStyles = () =>
       justifyContent: 'center',
       textAlign: 'center',
     },
-    scheduleDropdown: {
-      marginTop: 30,
-      height: 30,
-      width: 175,
-      borderRadius: 5,
-      borderColor: 'gray',
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    dropdownText: {
-      alignSelf: 'center',
-      justifyContent: 'center',
-      color: 'gray',
-      fontSize: 10,
-    },
     scheduleButton: {
       paddingTop: 30,
       width: 150,
-    },
-    pexoxosStyle: {
-      width: 250,
-      height: 50,
-      marginTop: 20,
     },
     flyer: {
       width: 700,
@@ -161,7 +91,7 @@ const createStyles = () =>
     },
     flyer2: {
       width: 700,
-      height: 800,
+      height: 680,
       backgroundColor: '#ffffffe0',
       borderRadius: 10,
       alignItems: 'center',
@@ -170,16 +100,9 @@ const createStyles = () =>
       alignSelf: 'center',
       verticalAlign: 'middle',
     },
-    flex1: {
-      flex: 1,
-    },
     textStyle: {
       color: 'black',
     },
-    ss: {
-      backgroundColor: 'black',
-      color: 'black',
-    }
   });
 
 function Schedule({children, title}: ScheduleProps): React.JSX.Element {
@@ -195,14 +118,14 @@ function Schedule({children, title}: ScheduleProps): React.JSX.Element {
               <View
                 style={[styles.flyer]}>
                 <Text style={styles.textStyle}>Agendar cita</Text>
-                <DateForm title={''} />
+                <DateForm title={''} onSend={() => setShowFlyout(false)}/>
               </View>
         </Flyout>
         <Flyout isOpen={showFlyout2} onDismiss={() => setShowFlyout2(false)} showMode='transient' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
               <View
                 style={[styles.flyer2]}>
                 <Text style={styles.textStyle}>Agendar hospedaje</Text>
-                <LodgingForm title={''} />
+                <LodgingForm title={''} onSend={() => setShowFlyout2(false)}/>
               </View>
         </Flyout>
         <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >

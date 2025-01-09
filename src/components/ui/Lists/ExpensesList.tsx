@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -9,9 +9,8 @@ import {
   FlatList,
 } from 'react-native';
 import SalesCard from '../Cards/SalesCard';
-import { expensesList, clientsList, petList } from '../../../../App';
 import ExpensesCard from '../Cards/ExpensesCard';
-
+import {expensesList} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -35,7 +34,7 @@ const createStyles = () =>
       borderRadius: 10,
       flexDirection: 'row',
     },
-    rowTile:{
+    rowTile: {
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
@@ -54,7 +53,7 @@ const createStyles = () =>
       color: 'blue',
       flex: 1,
     },
-});
+  });
 
 type ExpensesListProps = PropsWithChildren<{
   title: string;
@@ -63,36 +62,36 @@ type ExpensesListProps = PropsWithChildren<{
 function ExpensesList(props: ExpensesListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [sales, setSales] = useState(expensesList.sort((a, b) => b.date - a.date));
+  const [sales, setSales] = useState(
+    expensesList.sort((a, b) => b.date - a.date)
+  );
 
   useEffect(() => {
     setSales(expensesList.sort((a, b) => b.date - a.date));
     console.log(sales);
-    return cleanUp = () => {
-      
-    }
+    return () => {};
   }, [sales]);
 
   return (
     <>
-			<View style={styles.container}>
-      <View style={styles.rowTile}>
+      <View style={styles.container}>
+        <View style={styles.rowTile}>
           <Text style={styles.pageTitle}>Concepto</Text>
           <Text style={styles.pageTitle}>Fecha</Text>
           <Text style={styles.pageTitle}>Total</Text>
         </View>
-      <FlatList
+        <FlatList
           data={sales}
-          renderItem={({item}) =>
-            <ExpensesCard 
+          renderItem={({item}) => (
+            <ExpensesCard
               service={item.expenditure}
               date={item.date.toDate().toUTCString()}
               total={' $' + item.total}
             />
-          }
+          )}
         />
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 

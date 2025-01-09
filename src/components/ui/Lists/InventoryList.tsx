@@ -9,9 +9,9 @@ import {
   FlatList,
 } from 'react-native';
 import SalesCard from '../Cards/SalesCard';
-import { inventory, clientsList, petList } from '../../../../App';
 import ExpensesCard from '../Cards/ExpensesCard';
 import InventoryCard from '../Cards/InventoryCard';
+import { inventory } from '../../../services/firebase/firestore/firestoreService';
 
 
 const createStyles = () =>

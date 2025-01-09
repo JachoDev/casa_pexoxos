@@ -14,8 +14,8 @@ import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     iconImage: {
-      width: isHovered ? 55 : 50,
-      height: isHovered ? 55 : 50,
+      width: isHovered ? 55 : 45,
+      height: isHovered ? 55 : 45,
       opacity: _isPressing ? 0.2 : 1,
       alignSelf: 'center',
     },

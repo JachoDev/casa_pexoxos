@@ -1,4 +1,4 @@
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -20,7 +20,7 @@ const createStyles = () =>
       backgroundColor: '#ffffff',
       borderRadius: 2,
     },
-    rowTile:{
+    rowTile: {
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
@@ -53,14 +53,14 @@ function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
 
   return (
     <>
-            <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.rowTile}>
           <Text style={styles.pageTitle}>{props.service}</Text>
           <Text style={styles.pageTitle}>{props.date}</Text>
           <Text style={styles.pageTitle}>{props.total}</Text>
         </View>
-            </View>
-        </>
+      </View>
+    </>
   );
 }
 

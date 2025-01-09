@@ -35,51 +35,24 @@ const createStyles = () =>
       justifyContent: 'center',
       height: '100%',
     },
-    heroGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-    },
-    heroBackgroundImage: {
-      position: 'absolute',
-      resizeMode: 'cover',
-      width: '100%',
-      height: '99%',
-    },
-    pageHeader: {},
-    pageTitleContainer: {
-      height: 204,
-      justifyContent: 'center',
-    },
     homeSection: {
       flexDirection: 'row',
       alignContent: 'space-between',
       justifyContent: 'space-between',
       alignSelf: 'stretch',
     },
-    pageTitle: {
-      fontSize: 40,
-      fontWeight: '600', // SemiBold
-      paddingLeft: 36,
-      color: '#000000'
-    },
-    imageLogo: {
-			width: 350,
-			height: 300,
-      marginHorizontal: 20,
-      marginLeft: 100,
-		},
-    imageAnimals: {
+    imageTitle: {
       width: 300,
-			height: 150,
+      height: 100,
+      marginBottom: -40,
     },
     carouselSection: {
-			width: 'auto',
-			height: 300,
+      width: 'auto',
+      height: '50%',
       marginHorizontal: 50,
       alignItems: 'center',
       justifyContent: 'center',
-		},
+    },
     homeView: {
       flexDirection: 'row',
       marginTop: 10,
@@ -91,61 +64,33 @@ const createStyles = () =>
     buttonSection: {
       alignItems: 'center',
     },
-    sectionTitle: {
-      color: 'black',
-      fontSize: 20,
-      fontWeight: '500',
-      alignItems: 'center',
-      justifyContent: 'center',
-      alignContent: 'center',
-    },
-    dropdownText: {
-      alignSelf: 'center',
-      justifyContent: 'center',
-      color: 'gray',
-      fontSize: 10,
-    },
-    scheduleButton: {
-      paddingTop: 30,
-      width: 150,
-    },
-    pexoxosStyle: {
-      width: 250,
-      height: 50,
-      marginTop: 20,
-    },
-    imageTitle: {
-      width: 300,
-      height: 100,
-      marginBottom: -40,
-    },
   });
 
-function Lodging({ title }: LodgingProps): React.JSX.Element {
+function Lodging({title}: LodgingProps): React.JSX.Element {
   const styles = createStyles();
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
-          <Navbar title='' />
+        <ImageBackground
+          source={background}
+          resizeMode="cover"
+          style={styles.imageBackgorund}>
+          <Navbar title="" />
           <View style={styles.homeView}>
             <View style={styles.homeSection}>
               <View style={styles.buttonSection}>
-                <Image source={lodging} style={styles.imageTitle}/>
+                <Image source={lodging} style={styles.imageTitle} />
                 <PetButton title={''} />
               </View>
-              <View>
-                <SearchBar title='' />
-              </View>
             </View>
-              </View>
-              <View style={styles.carouselSection}>
-                <LodgingList title={''} />
-              </View>
+          </View>
+          <View style={styles.carouselSection}>
+            <LodgingList title={''} />
+          </View>
         </ImageBackground>
       </SafeAreaView>
-		</>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -9,6 +9,8 @@ import {
   View,
   Pressable,
 } from 'react-native';
+import { Flyout } from 'react-native-windows';
+import PetForm from '../forms/PetForm';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -24,7 +26,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       marginHorizontal: 35,
       paddingTop: 5,
       flexDirection: 'row',
-      opacity: _isPressing ? .2 : 1
+      opacity: _isPressing ? 0.2 : 1,
     },
     image: {
       width: isHovered ? 130 : 100,
@@ -38,6 +40,20 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       color: '#000000',
       paddingLeft: 5,
     },
+    flyer: {
+      width: 700,
+      height: 650,
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
+    textStyle: {
+      color: 'black',
+    },
   });
 
 type PetCardProps = PropsWithChildren<{
@@ -46,30 +62,43 @@ type PetCardProps = PropsWithChildren<{
 }>;
 
 function PetCard(props: PetCardProps): React.JSX.Element {
-  const {colors} = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
+  const [showFlyout, setShowFlyout] = useState(false);
 
   return (
     <>
+      <Flyout
+        isOpen={showFlyout}
+        onDismiss={() => setShowFlyout(false)}
+        showMode="transient"
+        isLightDismissEnabled={true}
+        isOverlayEnabled={true}
+        placement="bottom">
+        <View style={[styles.flyer]}>
+          <Text style={styles.textStyle}>Agendar cita</Text>
+          <PetForm title={''} onSend={() => setShowFlyout(false)} />
+        </View>
+      </Flyout>
       <Pressable
-        onPress={() => {}}
+        onPress={() => {setShowFlyout(true)}}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
-        onPressOut={() => setIsPressing(false)}
-      >
+        onPressOut={() => setIsPressing(false)}>
         <View style={styles.container}>
-          <View >
-            <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
-            <Text style={styles.pageTitle}>
-              {props.name}
-            </Text>
+          <View>
+            <Image
+              style={styles.image}
+              source={require('../../../assets/images/dog.png')}
+              resizeMode="stretch"
+            />
+            <Text style={styles.pageTitle}>{props.name}</Text>
           </View>
         </View>
       </Pressable>
-		</>
+    </>
   );
 }
 

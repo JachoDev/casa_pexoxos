@@ -156,18 +156,6 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
                 <Text style={styles.iconTitle}> Perros </Text>
               </Pressable>
             </View>
-            <View style={styles.birdButton}>
-              <Pressable
-                onPress={onBirdPress}
-                onHoverIn={() => setIsBirdHovered(true)}
-                onHoverOut={() => setIsBirdHovered(false)}
-                onPressIn={() => setIsBirdPressing(true)}
-                onPressOut={() => setIsBirdPressing(false)}
-              >
-                <Image style={styles.birdImage} source={bird} resizeMode='cover'/>
-                <Text style={styles.iconTitle}> Razas Pequeñas </Text>
-              </Pressable>
-            </View>
           </View>
         </View>
 			</View>

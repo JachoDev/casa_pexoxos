@@ -16,28 +16,24 @@ import petGrooming from '../../assets/images/icons/pet-grooming.png'
 import user from '../../assets/images/icons/user.png'
 import logo from '../../assets/images/image_banner.png'
 import NavButton from '../ui/buttons/NavButton';
-import { RadialGradient } from 'react-native-gradients';
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: '70%',
+      width: '80%',
       height: '10%',
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
       // backgroundColor: '#00000029',
-      borderRadius: 40,
-
+      borderRadius: 10,
     },
     shadowContainer: {
       width: '100%',
-      height: '91%',
-      backgroundColor: '#ffffff89',
-      borderRadius: 40,
-      // borderColor: '#cdcdcd29',
-      // borderWidth: 1,
+      height: '90%',
+      backgroundColor: '#ffffffea',
+      borderRadius: 15,
       position: 'absolute',
       flexDirection: 'row',
       alignItems: 'center',
@@ -53,7 +49,7 @@ const createStyles = () =>
       width: '99.8%',
       height: '100%',
       flexDirection: 'row',
-      borderRadius: 40,
+      borderRadius: 23,
       alignSelf: 'center',
     },
     gradientCenter: {
@@ -64,8 +60,8 @@ const createStyles = () =>
       flex: 1,
     },
     iconImage:{
-      width: 50,
-      height: 50,
+      width: 'auto',
+      height: 'auto',
     },
   });
 
@@ -86,23 +82,22 @@ function Navbar({children, title}: NavbarProps): React.JSX.Element {
           <View style={styles.gradientCenter}>
             <LinearGradient
               style={styles.gradient}
-              colors={['#26262601', '#26262699']}
+              colors={['#26262602', '#26262699']}
               start={{x: 0, y: 0}}
               end={{x: 0, y: 1.5}}
             />
             <LinearGradient 
               style={styles.gradient}
-              colors={['#26262699', '#26262601']}
-              start={{x: 0, y: .1}}
+              colors={['#26262699', '#26262602']}
+              start={{x: 0, y: 0}}
               end={{x: 0, y: 1.9}}
           />
           </View>
         </View>
-        
         <View style={styles.shadowContainer}>
           <NavButton title='Pexoxos' route='Pets' image={logo} />
           <NavButton title='Servicios' route='Home' image={petGrooming}/>
-          <NavButton title='Agenda' route='Schedule' image={calendar}/>
+          <NavButton title='Agendar' route='Schedule' image={calendar}/>
           <NavButton title='Hospedaje' route='Lodging' image={lodging}/>
           <NavButton title='Cuentas' route='Sales' image={payday}/>
           <NavButton title='Usuario' route='User' image={user}/>
