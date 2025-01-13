@@ -15,31 +15,27 @@ import {expensesList} from '../../../services/firebase/firestore/firestoreServic
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingTop: 10,
       width: '100%',
       height: '100%',
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 10,
-    },
-    salesContainer: {
-      alignSelf: 'center',
-      width: 1100,
-      height: 25,
-      alignContent: 'flex-start',
-      justifyContent: 'center',
-      backgroundColor: '#eeeeee',
-      borderRadius: 10,
-      flexDirection: 'row',
+      borderRadius: 5,
+      backgroundColor: '#ffffff',
+      borderWidth: 6,
+      borderColor: '#2e2e2e'
     },
     rowTile: {
+      height: '20%',
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-      marginBottom: 5,
+      backgroundColor: '#d35c50',
+      paddingHorizontal: 40,
+      borderBottomWidth: 6,
+      borderColor: '#2e2e2e',
     },
     image: {
       width: 100,
@@ -50,7 +46,7 @@ const createStyles = () =>
       // TitleLargeTextBlockStyle
       fontSize: 16,
       fontWeight: 'bold', // SemiBold
-      color: 'blue',
+      color: '#363e4c',
       flex: 1,
     },
   });
@@ -77,6 +73,7 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
       <View style={styles.container}>
         <View style={styles.rowTile}>
           <Text style={styles.pageTitle}>Concepto</Text>
+          <Text style={styles.pageTitle}>Método de Pago</Text>
           <Text style={styles.pageTitle}>Fecha</Text>
           <Text style={styles.pageTitle}>Total</Text>
         </View>
@@ -85,6 +82,7 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
           renderItem={({item}) => (
             <ExpensesCard
               service={item.expenditure}
+              paymentMethod={item.paymentMethod}
               date={item.date.toDate().toUTCString()}
               total={' $' + item.total}
             />

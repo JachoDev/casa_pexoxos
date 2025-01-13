@@ -14,6 +14,8 @@ import background from '../assets/images/background_yellow.png';
 import SalesList from '../components/ui/Lists/SalesList';
 import Searchbar from '../components/sections/SearchBar';
 import ExpensesList from '../components/ui/Lists/ExpensesList';
+import RNPrint from 'react-native-print';
+const { jsPDF } = require("jspdf");
 
 type SalesProps = PropsWithChildren<{
   title: string;
@@ -24,7 +26,7 @@ const createStyles = () =>
     container: {
       alignSelf: 'auto',
       width: '100%',
-      alignContent: 'stretch',
+      alignContent: 'center',
       justifyContent: 'center',
       flex: 1,
       backgroundColor: 'white',
@@ -34,9 +36,8 @@ const createStyles = () =>
       height: '100%',
     },
     salesListView: {
-      width: 1100,
-      height: 200,
-      marginTop: 15,
+      width: '90%',
+      height: '30%',
       backgroundColor: '#',
       alignSelf: 'center',
     },
@@ -46,16 +47,32 @@ const createStyles = () =>
     button: {
       width: 300,
       height: 40,
-      marginRight: 30,
-      backgroundColor: '#29aad9',
+      marginRight: 100,
       fontSize: 16,
       alignSelf: 'flex-end',
       borderRadius: 5,
+      marginVertical: 10,
     },
   });
 
 function Sales({title}: SalesProps): React.JSX.Element {
   const styles = createStyles();
+  //\Users\javie\OneDrive\Documentos\1.pdf
+  //src/views/1.pdf
+
+  const printRemotePDF = async () => {
+    const doc = new jsPDF();
+
+    doc.text('Hello world!', 10, 10);
+    doc.text('This is client-side Javascript, pumping out a PDF.', 10, 20);
+
+    //.save('a4.pdf');
+     console.log('PDF created: ', doc.save());
+    // await RNPrint.print({
+    //   filePath:
+    //     'data:application/pdf',
+    // });
+  };
 
   return (
     <>
@@ -67,13 +84,19 @@ function Sales({title}: SalesProps): React.JSX.Element {
           <Navbar title="" />
 
           <View style={styles.button}>
-            <Button title="Crear venta" onPress={() => {}} />
+            <Button
+              title="Crear venta"
+              color={'#88b764'}
+              onPress={() => {
+                printRemotePDF();
+              }}
+            />
           </View>
           <View style={styles.salesListView}>
             <SalesList title="" />
           </View>
           <View style={styles.button}>
-            <Button title="Crear egreso" onPress={() => {}} />
+            <Button title="Crear egreso" onPress={() => {}} color={'#d35c50'}/>
           </View>
           <View style={styles.salesListView}>
             <ExpensesList title="" />

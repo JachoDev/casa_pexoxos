@@ -18,6 +18,10 @@ import {
   clientsList,
   addCut,
   updateCutsList,
+  updateCut,
+  updatePet,
+  setPet,
+  updatePetList,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
@@ -33,7 +37,7 @@ const createStyles = () =>
       borderRadius: 10,
       backgroundColor: '#762776df',
     },
-    textInput: {
+    textInputL: {
       borderColor: '#762776',
       borderRadius: 4,
       color: 'white',
@@ -41,6 +45,15 @@ const createStyles = () =>
       paddingLeft: 10,
       width: 300,
       height: 75,
+    },
+    textInput: {
+      borderColor: '#762776',
+      borderRadius: 4,
+      color: 'white',
+      paddingTop: 8,
+      paddingLeft: 10,
+      width: 300,
+      height: 40,
     },
     inputGroup: {
       height: 'auto',
@@ -54,38 +67,33 @@ const createStyles = () =>
     },
   });
 
+const species = ['Perro', 'Gato', 'Razas Pequeñas'];
+const sexs = ['Macho', 'Hembra'];
 
 type PetFormProps = PropsWithChildren<{
-  title: string;
+  id?: string;
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function PetForm(props: PetFormProps): React.JSX.Element {
+  const pet = petList.find(e => e.id == props.id);
+  const client = clientsList.find(e => e.id == pet.clientId);
+  const clientName = client ? client.name + ' ' + client.lastname : 'No asignado';
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const today = new Date(Date.now() - 18000000);
-  const [time, setTime] = useState(today);
-  const [date, setDate] = useState(today);
-  const [petListO, setPetListO] = useState(
-    petList.sort((a, b) => a.name.localeCompare(b.name)),
-  );
-  const [clientListO, setClientListO] = useState(
-    clientsList.sort((a, b) => a.name.localeCompare(b.name)),
-  );
-  const [pet, setPet] = useState();
-  const [client, setClient] = useState();
-  const [recs, setRecs] = useState('');
-  const [cut, setCut] = useState();
+  const [clientId, setClientId] = useState(pet.clientId ?? '');
+  const [name, setName] = useState(pet.name ?? '');
+  const [specie, setSpecie] = useState(pet.specie ?? '');
+  const [breed, setBreed] = useState(pet.breed ?? '');
+  const [sex, setSex] = useState(pet.sex ?? '');
+  const [recs, setRecs] = useState(pet.recs ?? '');
+  const [owner, setOwner] = useState(clientName ?? '');
 
   const onSend = () => {
-    console.log(date.toISOString().split('T')[0]);
-    console.log(time.toTimeString());
-    const checkIn = new Date(
-      date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1],
-    );
-    console.log(checkIn.toUTCString());
     try {
-
+      updatePet(props.id, name, specie, breed, clientId, recs, sex);
+      updatePetList();
     } catch (e) {
       console.log(e);
     }
@@ -93,8 +101,6 @@ function PetForm(props: PetFormProps): React.JSX.Element {
   };
 
   useEffect(() => {
-    setPetListO(petList.sort((a, b) => a.name.localeCompare(b.name)));
-    setClientListO(clientsList.sort((a, b) => a.name.localeCompare(b.name)));
     return () => {};
   }, []);
 
@@ -102,11 +108,68 @@ function PetForm(props: PetFormProps): React.JSX.Element {
     <>
       <View style={styles.container}>
         <View>
-					<Text>Modificar </Text>
+          <Text>Dueño: {owner}</Text>
+          <Button color="#03bdbf" title="Agregar imagen" onPress={onSend} />
           <View style={styles.inputGroup}>
-						<Text>Nombre </Text>
+            <Text>Nombre </Text>
             <TextInput
               style={styles.textInput}
+              multiline={true}
+              value={name}
+              onChangeText={setName}
+              placeholder="Nombre"
+              placeholderTextColor="gray"
+            />
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.titleText}>Especie</Text>
+            <Picker
+              accessibilityLabel="Disabled Example"
+              style={{height: 50, width: 200, margin: 5, color: 'white'}}
+              enabled={true}
+              selectedValue={specie}
+              onValueChange={setSpecie}
+              prompt="this prompt"
+              mode="dialog"
+              itemStyle={{color: 'white'}}>
+              {species.map((e, i) => (
+                <Picker.Item key={i} label={e} value={e} />
+              ))}
+            </Picker>
+          </View>
+
+          <View style={styles.inputGroup}>
+            <Text>Raza </Text>
+            <TextInput
+              style={styles.textInput}
+              multiline={true}
+              value={breed}
+              onChangeText={setBreed}
+              placeholder="Raza"
+              placeholderTextColor="gray"
+            />
+          </View>
+          <View style={styles.inputGroup}>
+            <Text style={styles.titleText}>Sexo</Text>
+            <Picker
+              accessibilityLabel="Disabled Example"
+              style={{height: 50, width: 200, margin: 5, color: 'white'}}
+              enabled={true}
+              selectedValue={sex}
+              onValueChange={setSex}
+              prompt="this prompt"
+              mode="dialog"
+              itemStyle={{color: 'white'}}>
+              {sexs.map((e, i) => (
+                <Picker.Item key={i} label={e} value={e} />
+              ))}
+            </Picker>
+          </View>
+          <View style={styles.inputGroup}>
+            <Text>Recomendaciones </Text>
+            <TextInput
+              style={styles.textInputL}
               multiline={true}
               value={recs}
               onChangeText={setRecs}
@@ -114,51 +177,7 @@ function PetForm(props: PetFormProps): React.JSX.Element {
               placeholderTextColor="gray"
             />
           </View>
-					<View style={styles.inputGroup}>
-						<Text>Especie </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={recs}
-              onChangeText={setRecs}
-              placeholder="Recomendaciones"
-              placeholderTextColor="gray"
-            />
-          </View>
-					<View style={styles.inputGroup}>
-						<Text>Raza </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={recs}
-              onChangeText={setRecs}
-              placeholder="Recomendaciones"
-              placeholderTextColor="gray"
-            />
-          </View>
-					<View style={styles.inputGroup}>
-						<Text>Sexo </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={recs}
-              onChangeText={setRecs}
-              placeholder="Recomendaciones"
-              placeholderTextColor="gray"
-            />
-          </View>
-					<View style={styles.inputGroup}>
-						<Text>Recomendaciones </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={recs}
-              onChangeText={setRecs}
-              placeholder="Recomendaciones"
-              placeholderTextColor="gray"
-            />
-          </View>
-          <Button color="#03bdbf" title="Agendar Cita" onPress={onSend} />
+          <Button color="#03bdbf" title="Modificar" onPress={onSend} />
         </View>
       </View>
     </>

@@ -14,7 +14,7 @@ import { useTheme } from '@react-navigation/native';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
 import logo from '../assets/images/icons/hair-cut.png';
-import logo2 from '../assets/images/icons/lodging.png';
+import logo2 from '../assets/images/icons/time-and-date.png';
 import pexoxos from '../assets/images/pexoxos.png';
 import animals from '../assets/images/animals.png';
 import background from '../assets/images/orange_background.png';

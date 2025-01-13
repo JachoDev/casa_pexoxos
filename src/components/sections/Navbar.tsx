@@ -32,7 +32,7 @@ const createStyles = () =>
     shadowContainer: {
       width: '100%',
       height: '90%',
-      backgroundColor: '#ffffffea',
+      backgroundColor: '#fffffff9',
       borderRadius: 15,
       position: 'absolute',
       flexDirection: 'row',

@@ -15,6 +15,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
 import {
   petList,
+  dogBoxes,
+  catBoxes,
   clientsList,
   addLodging,
   updateLodgingList,
@@ -77,6 +79,8 @@ const cuts = [
   'Rebaje con 3 1/2',
 ];
 
+const species = ['Perro', 'Gato', 'Razas Pequeñas'];
+
 type LodgingFormProps = PropsWithChildren<{
   title: string;
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
@@ -101,18 +105,41 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
   );
   const [pet, setPet] = useState();
   const [client, setClient] = useState();
+  const [isSpecieSelected, setIsSpecieSelected] = useState(false);
+  const [sizeList, setSizeList] = useState([]);
 
   const onSend = () => {
-    const checkIn = new Date(date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1]);
-    const checkOut = new Date(dateF.toISOString().split('T')[0] + 'T' + timeF.toISOString().split('T')[1]);
+    const checkIn = new Date(
+      date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1],
+    );
+    const checkOut = new Date(
+      dateF.toISOString().split('T')[0] +
+        'T' +
+        timeF.toISOString().split('T')[1],
+    );
 
     try {
-      addLodging(checkIn, checkOut, client, pet, size);
+      addLodging(checkIn, checkOut, client, pet, size, spec);
       updateLodgingList();
     } catch (e) {
       console.log(e);
     }
     props.onSend();
+  };
+
+  const onSpecieSelect = e => {
+    setSpec(e);
+    if (e == 'Perro') {
+      setSizeList(dogBoxes);
+      setIsSpecieSelected(true);
+    } else if (e === 'Gato') {
+      setSizeList(catBoxes);
+      setIsSpecieSelected(true);
+    } else {
+      setSize('');
+      setIsSpecieSelected(false);
+      setSizeList([]);
+    }
   };
 
   useEffect(() => {
@@ -128,53 +155,6 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
           <View style={styles.rowGroup}>
             <View>
               <View style={styles.inputGroup}>
-                <Text style={styles.titleText}>Especie</Text>
-                <Picker
-                  accessibilityLabel="Disabled Example"
-                  style={{height: 50, width: 200, margin: 5, color: 'white'}}
-                  enabled={true}
-                  selectedValue={spec}
-                  onValueChange={setSpec}
-                  prompt="this prompt"
-                  mode="dialog"
-                  itemStyle={{color: 'white'}}>
-                  <Picker.Item
-                    label="Perro"
-                    value="Perro"
-                    style={{color: 'white'}}
-                  />
-                  <Picker.Item label="Gato" value="Gato" />
-                </Picker>
-              </View>
-            </View>
-            <View>
-              <View style={styles.inputGroup}>
-                <Text style={styles.titleText}>Tamaño</Text>
-                <Picker
-                  accessibilityLabel="Disabled Example"
-                  style={{height: 50, width: 200, margin: 5, color: 'white'}}
-                  enabled={true}
-                  selectedValue={size}
-                  onValueChange={setSize}
-                  prompt="this prompt"
-                  mode="dialog"
-                  itemStyle={{color: 'white'}}>
-                  <Picker.Item
-                    label="ExtraSmall"
-                    value="ExtraSmall"
-                    style={{color: 'white'}}
-                  />
-                  <Picker.Item label="Small" value="Small" />
-                  <Picker.Item label="Medium" value="Medium" />
-                  <Picker.Item label="ExtraLarge" value="ExtraLarge" />
-                  <Picker.Item label="XXL" value="XXL" />
-                </Picker>
-              </View>
-            </View>
-          </View>
-          <View style={styles.rowGroup}>
-            <View>
-              <View style={styles.inputGroup}>
                 <Text>Buscar Mascota</Text>
                 <Picker
                   accessibilityLabel="Disabled Example"
@@ -185,6 +165,8 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
                     console.log(e + ' this id');
                     const _pet = petList.find(_e => _e.id == e);
                     setClient(_pet.clientId);
+                    setSpec(_pet.specie);
+                    onSpecieSelect(_pet.specie);
                     setPet(e);
                     console.log(pet);
                   }}
@@ -221,6 +203,61 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
                           ? item.name + ' ' + item.lastname
                           : item.phone
                       }
+                      key={item.id}
+                    />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+          </View>
+          <View style={styles.rowGroup}>
+            <View>
+              <View style={styles.inputGroup}>
+                <Text style={styles.titleText}>Especie</Text>
+                <Picker
+                  accessibilityLabel="Disabled Example"
+                  style={{height: 50, width: 200, margin: 5, color: 'white'}}
+                  enabled={false}
+                  selectedValue={spec}
+                  onValueChange={e => {
+                    setSpec(e);
+                    if (e == 'Perro') {
+                      setSizeList(dogBoxes);
+                      setIsSpecieSelected(true);
+                    } else if (e === 'Gato') {
+                      setSizeList(catBoxes);
+                      setIsSpecieSelected(true);
+                    } else {
+                      setSize('');
+                      setIsSpecieSelected(false);
+                      setSizeList([]);
+                    }
+                  }}
+                  prompt="this prompt"
+                  mode="dialog"
+                  itemStyle={{color: 'white'}}>
+                  {species.map((e, i) => (
+                    <Picker.Item key={i} label={e} value={e} />
+                  ))}
+                </Picker>
+              </View>
+            </View>
+            <View>
+              <View style={styles.inputGroup}>
+                <Text style={styles.titleText}>Tamaño</Text>
+                <Picker
+                  accessibilityLabel="Disabled Example"
+                  style={{height: 50, width: 200, margin: 5, color: 'white'}}
+                  enabled={isSpecieSelected}
+                  selectedValue={size}
+                  onValueChange={setSize}
+                  prompt="this prompt"
+                  mode="dialog"
+                  itemStyle={{color: 'white'}}>
+                  {sizeList.map(item => (
+                    <Picker.Item
+                      value={item.id}
+                      label={item.box}
                       key={item.id}
                     />
                   ))}

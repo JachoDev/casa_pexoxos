@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -11,37 +11,32 @@ import {
 import SalesCard from '../Cards/SalesCard';
 import ExpensesCard from '../Cards/ExpensesCard';
 import InventoryCard from '../Cards/InventoryCard';
-import { inventory } from '../../../services/firebase/firestore/firestoreService';
-
+import {inventory} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingTop: 10,
       width: '100%',
       height: '100%',
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 10,
+      borderRadius: 5,
+      backgroundColor: '#ffffff',
+      borderWidth: 6,
+      borderColor: '#2e2e2e',
     },
-    salesContainer: {
-      alignSelf: 'center',
-      width: 1100,
-      height: 25,
-      alignContent: 'flex-start',
-      justifyContent: 'center',
-      backgroundColor: '#eeeeee',
-      borderRadius: 10,
-      flexDirection: 'row',
-    },
-    rowTile:{
+    rowTile: {
+      height: '15%',
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-      marginBottom: 5,
+      backgroundColor: '#e94b57',
+      paddingHorizontal: 20,
+      borderBottomWidth: 6,
+      borderColor: '#2e2e2e',
     },
     image: {
       width: 100,
@@ -52,10 +47,10 @@ const createStyles = () =>
       // TitleLargeTextBlockStyle
       fontSize: 16,
       fontWeight: 'bold', // SemiBold
-      color: 'blue',
+      color: '#363e4c',
       flex: 1,
     },
-});
+  });
 
 type InventoryListProps = PropsWithChildren<{
   title: string;
@@ -64,34 +59,32 @@ type InventoryListProps = PropsWithChildren<{
 function InventoryList(props: InventoryListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [sales, setSales] = useState(inventory.sort((a, b) => a.product.localeCompare(b.product)));
+  const [list, setList] = useState(
+    inventory.sort((a, b) => a.product.localeCompare(b.product)),
+  );
 
   useEffect(() => {
-    setSales(inventory.sort((a, b) => a.product.localeCompare(b.product)));
-    console.log(sales);
-    return cleanUp = () => {
-      
-    }
-  }, [sales]);
+    setList(inventory.sort((a, b) => a.product.localeCompare(b.product)));
+    console.log(list);
+    return (cleanUp = () => {});
+  }, [list]);
 
   return (
     <>
-			<View style={styles.container}>
-      <View style={styles.rowTile}>
+      <View style={styles.container}>
+        <View style={styles.rowTile}>
           <Text style={styles.pageTitle}>Producto</Text>
           <Text style={styles.pageTitle}>Cantidad</Text>
         </View>
-      <FlatList
-          data={sales}
-          renderItem={({item}) =>
-            <InventoryCard  
-              product={item.product}
-              qty={item.qty}
-            />
-          }
+        <FlatList
+          data={list}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => (
+            <InventoryCard id={item.id} product={item.product} qty={item.qty} />
+          )}
         />
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 

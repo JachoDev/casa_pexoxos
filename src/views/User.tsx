@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -13,6 +13,9 @@ import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/Red_Background.png';
 import ExpensesList from '../components/ui/Lists/ExpensesList';
 import InventoryList from '../components/ui/Lists/InventoryList';
+
+import {Flyout} from 'react-native-windows';
+import InventoryForm from '../components/ui/forms/InventoryForm';
 
 type UserProps = PropsWithChildren<{
   title: string;
@@ -30,6 +33,8 @@ const createStyles = () =>
     },
     imageBackgorund: {
       justifyContent: 'center',
+      alignContent: 'center',
+      alignItems: 'center',
       height: '100%',
     },
     salesListView: {
@@ -39,23 +44,59 @@ const createStyles = () =>
       backgroundColor: '#',
       alignSelf: 'center',
     },
+    addButton: {
+      marginTop: 40,
+      width: 250,
+    },
+    flyer: {
+      width: 700,
+      height: 650,
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
+    textStyle: {
+      color: 'black',
+    },
   });
 
-function User({ title }: UserProps): React.JSX.Element {
+function User({title}: UserProps): React.JSX.Element {
   const styles = createStyles();
+  const [showFlyout, setShowFlyout] = useState(false);
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund}>
-          <Navbar title='' />
-          <View style={styles.salesListView}>
-            <InventoryList title=''/>
+        <Flyout
+          isOpen={showFlyout}
+          onDismiss={() => setShowFlyout(false)}
+          showMode="transient"
+          isLightDismissEnabled={true}
+          isOverlayEnabled={true}
+          placement="bottom">
+          <View style={[styles.flyer]}>
+            <Text style={styles.textStyle}>Modificar información</Text>
+            <InventoryForm onSend={() => setShowFlyout(false)} isNew={true} />
           </View>
-          
+        </Flyout>
+        <ImageBackground
+          source={background}
+          resizeMode="cover"
+          style={styles.imageBackgorund}>
+          <Navbar title="" />
+          <View style={styles.addButton}>
+            <Button title="Crear regreso" onPress={() => {setShowFlyout(true)}} color={'#e94b57'} />
+          </View>
+          <View style={styles.salesListView}>
+            <InventoryList title="" />
+          </View>
         </ImageBackground>
       </SafeAreaView>
-		</>
+    </>
   );
 }
 

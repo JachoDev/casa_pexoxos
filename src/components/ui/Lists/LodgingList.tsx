@@ -29,11 +29,13 @@ const createStyles = () =>
       alignItems: 'center',
       backgroundColor: '#ffffff',
       borderRadius: 10,
+      borderWidth: 6,
+      borderColor: '#2e2e2e'
     },
     daysBar: {
       flexDirection: 'row',
       width: '100%',
-      height: 'auto',
+      height: 70,
       backgroundColor: '#03bdbf',
       alignItems: 'center',
       alignContent: 'center',
@@ -41,6 +43,8 @@ const createStyles = () =>
       justifyContent: 'center',
       paddingHorizontal: 5,
       paddingTop: 5,
+      borderBottomWidth: 6,
+      borderColor: '#2e2e2e',
     },
     daysList: {
       width: '100%',
@@ -53,7 +57,7 @@ const createStyles = () =>
     },
   });
 
-  const days = Array.from({ length: 18 }, (_, i) => {
+  const days = Array.from({ length: 28 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
     return {

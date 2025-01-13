@@ -5,9 +5,10 @@ import {
   getDocs,
   Timestamp,
   addDoc,
-	updateDoc,
+  updateDoc,
+  getDoc,
 } from 'firebase/firestore';
-import { db } from '../../../../firebaseConfig';
+import {db} from '../../../../firebaseConfig';
 
 export const petList = [];
 export const clientsList = [];
@@ -35,6 +36,7 @@ export const getPets = async () => {
           clientId: doc.data().ClientID,
           recomenations: doc.data().recomenations,
           sex: doc.data().Sex,
+          specie: doc.data().Specie,
           petImage: '../../../assets/images/pexoxo1.jpg',
         };
         petList.push(_doc);
@@ -123,6 +125,7 @@ export const getLodging = async () => {
           state: doc.data().Estado,
           size: doc.data().Size,
           petId: doc.data().PetID,
+          specie: doc.data().Specie,
         };
         lodgingList.push(_doc);
       }
@@ -207,15 +210,15 @@ export const getInventory = async () => {
 };
 
 export const getAll = async () => {
-	await getPets();
-	await getClients();
-	await getExpenses();
-	await getSales();
-	await getLodging();
-	await getCuts();
-	await getDogBoxes();
-	await getCatBoxes();
-	await getInventory();
+  await getPets();
+  await getClients();
+  await getExpenses();
+  await getSales();
+  await getLodging();
+  await getCuts();
+  await getDogBoxes();
+  await getCatBoxes();
+  await getInventory();
 };
 
 //Addition functions to Firestore Section
@@ -226,6 +229,7 @@ export const addPet = async (
   _name: string,
   _recs?: string,
   _sex?: string,
+  _specie?: string,
 ) => {
   const now = new Date();
   const newDoc = await addDoc(collection(db, 'mascotas'), {
@@ -233,8 +237,9 @@ export const addPet = async (
     ClientID: _clientId,
     Createdat: Timestamp.fromDate(now),
     Name: _name,
-    Recomenations: _recs ? _recs : '',
-    Sex: _sex ? _sex : '',
+    Recomenations: _recs ?? '',
+    Sex: _sex ?? '',
+    Specie: _specie ?? '',
   });
   console.log('Document written with ID: ', newDoc.id);
 };
@@ -275,55 +280,69 @@ export const addExpense = async (
   console.log('Document written with ID: ', newDoc.id);
 };
 
-export const addSale = async (_total: number, _paymentMethod: string, _clientId?: string, _lodgingId?: string, _services?: string[]) => {
-	const now = new Date();
-	const newDoc = await addDoc(collection(db, 'ventas'), {
-		ClientID: _clientId ? _clientId : '',
-		Createdat: Timestamp.fromDate(now),
-		HospedajeID: _lodgingId ? _lodgingId : '',
-		PaymentMethod: _paymentMethod,
-		Services: _services ? _services : [],
-		Total: _total,
-	});
-	console.log('Document written with ID: ', newDoc.id);
+export const addSale = async (
+  _total: number,
+  _paymentMethod: string,
+  _clientId?: string,
+  _lodgingId?: string,
+  _services?: string[],
+) => {
+  const now = new Date();
+  const newDoc = await addDoc(collection(db, 'ventas'), {
+    ClientID: _clientId ?? '',
+    Createdat: Timestamp.fromDate(now),
+    HospedajeID: _lodgingId ?? '',
+    PaymentMethod: _paymentMethod,
+    Services: _services ?? [],
+    Total: _total,
+  });
+  console.log('Document written with ID: ', newDoc.id);
 };
 
-export const addLodging = async (_checkIn: Date, _checkOut: Date, _clientId: string, _petId: string, _size: string) => {
-	const now = new Date();
-	const newDoc = await addDoc(collection(db, 'hospedaje'), {
-		CheckIn: Timestamp.fromDate(_checkIn),
-		CheckOut: Timestamp.fromDate(_checkOut),
-		ClientID: _clientId,
-		Createdat: Timestamp.fromDate(now),
-		Estado: 'Creado',
-		PetID: [_petId],
-		Size: _size,
-	});
-	console.log('Document written with ID: ', newDoc.id);
+export const addLodging = async (
+  _checkIn: Date,
+  _checkOut: Date,
+  _clientId: string,
+  _petId: string,
+  _size: string,
+  _specie: string
+) => {
+  const now = new Date();
+  const newDoc = await addDoc(collection(db, 'hospedaje'), {
+    CheckIn: Timestamp.fromDate(_checkIn),
+    CheckOut: Timestamp.fromDate(_checkOut),
+    ClientID: _clientId,
+    Createdat: Timestamp.fromDate(now),
+    Estado: 'Creado',
+    PetID: [_petId],
+    Size: _size,
+    Specie: _specie,
+  });
+  console.log('Document written with ID: ', newDoc.id);
 };
 
 export const addDogBox = async (_size: string, _qty: number) => {
-	const newDoc = await addDoc(collection(db, 'dogBoxes'), {
-		Quantity: _qty,
-		Size: _size,
-	});
-	console.log('Document written with ID: ', newDoc.id);
+  const newDoc = await addDoc(collection(db, 'dogBoxes'), {
+    Quantity: _qty,
+    Size: _size,
+  });
+  console.log('Document written with ID: ', newDoc.id);
 };
 
 export const addCatBox = async (_size: string, _qty: number) => {
-	const newDoc = await addDoc(collection(db, 'gateros'), {
-		Quantity: _qty,
-		Size: _size,
-	});
-	console.log('Document written with ID: ', newDoc.id);
+  const newDoc = await addDoc(collection(db, 'gateros'), {
+    Quantity: _qty,
+    Size: _size,
+  });
+  console.log('Document written with ID: ', newDoc.id);
 };
 
 export const addInventoryItem = async (_product: string, _qty: number) => {
-	const newDoc = await addDoc(collection(db, 'inventario'), {
-		Product: _product,
-		Quantity: _qty,
-	});
-	console.log('Document written with ID: ', newDoc.id);
+  const newDoc = await addDoc(collection(db, 'inventario'), {
+    Product: _product,
+    Quantity: _qty,
+  });
+  console.log('Document written with ID: ', newDoc.id);
 };
 
 export const addCut = async (
@@ -347,121 +366,351 @@ export const addCut = async (
 //Update functions to Firestore Section
 
 export const updateCutState = async (_id: string, _state: string) => {
-	const docRef = doc(db, 'cortes', _id);
-	const newDoc = await updateDoc(docRef, {
-		State: _state,
-	});
+  const docRef = doc(db, 'cortes', _id);
+  const newDoc = await updateDoc(docRef, {
+    State: _state,
+  });
 };
 
 export const updateLodgingState = async (_id: string, _state: string) => {
-	const docRef = doc(db, 'hospedaje', _id);
-	const newDoc = await updateDoc(docRef, {
-		Estado: _state,
-	});
+  const docRef = doc(db, 'hospedaje', _id);
+  const newDoc = await updateDoc(docRef, {
+    Estado: _state,
+  });
 };
 
 //Delete functions to Firestore Section
 
 export const clearPetList = () => {
-	petList.splice(0, petList.length);
+  petList.splice(0, petList.length);
 };
 
 export const clearClientsList = () => {
-	clientsList.splice(0, clientsList.length);
+  clientsList.splice(0, clientsList.length);
 };
 
 export const clearExpensesList = () => {
-	expensesList.splice(0, expensesList.length);
+  expensesList.splice(0, expensesList.length);
 };
 
 export const clearSalesList = () => {
-	salesList.splice(0, salesList.length);
+  salesList.splice(0, salesList.length);
 };
 
 export const clearLodgingList = () => {
-	lodgingList.splice(0, lodgingList.length);
+  lodgingList.splice(0, lodgingList.length);
 };
 
 export const clearCutsList = () => {
-	cutsList.splice(0, cutsList.length);
+  cutsList.splice(0, cutsList.length);
 };
 
 export const clearDogBoxes = () => {
-	dogBoxes.splice(0, dogBoxes.length);
+  dogBoxes.splice(0, dogBoxes.length);
 };
 
 export const clearCatBoxes = () => {
-	catBoxes.splice(0, catBoxes.length);
+  catBoxes.splice(0, catBoxes.length);
 };
 
 export const clearInventory = () => {
-	inventory.splice(0, inventory.length);
+  inventory.splice(0, inventory.length);
 };
 
 export const clearAll = () => {
-	clearPetList();
-	clearClientsList();
-	clearExpensesList();
-	clearSalesList();
-	clearLodgingList();
-	clearCutsList();
-	clearDogBoxes();
-	clearCatBoxes();
-	clearInventory();
+  clearPetList();
+  clearClientsList();
+  clearExpensesList();
+  clearSalesList();
+  clearLodgingList();
+  clearCutsList();
+  clearDogBoxes();
+  clearCatBoxes();
+  clearInventory();
 };
 
 //Update functions to Firestore Section
 
 export const updatePetList = async () => {
-	clearPetList();
-	getPets();
+  clearPetList();
+  getPets();
 };
 
 export const updateClientsList = async () => {
-	clearClientsList();
-	getClients();
+  clearClientsList();
+  getClients();
 };
 
 export const updateExpensesList = async () => {
-	clearExpensesList();
-	getExpenses();
+  clearExpensesList();
+  getExpenses();
 };
 
 export const updateSalesList = async () => {
-	clearSalesList();
-	getSales();
+  clearSalesList();
+  getSales();
 };
 
 export const updateLodgingList = async () => {
-	clearLodgingList();
-	getLodging();
+  clearLodgingList();
+  getLodging();
 };
 
 export const updateCutsList = async () => {
-	clearCutsList();
-	getCuts();
+  clearCutsList();
+  getCuts();
 };
 
 export const updateDogBoxes = async () => {
-	clearDogBoxes();
-	getDogBoxes();
+  clearDogBoxes();
+  getDogBoxes();
 };
 
 export const updateCatBoxes = async () => {
-	clearCatBoxes();
-	getCatBoxes();
+  clearCatBoxes();
+  getCatBoxes();
 };
 
 export const updateInventory = async () => {
-	clearInventory();
-	getInventory();
+  clearInventory();
+  getInventory();
 };
 
 export const updateLists = async () => {
-	clearAll();
-	getAll();
+  clearAll();
+  getAll();
+};
+
+//Replace functions Firestore
+
+export const setPet = async (
+  _id: string,
+  _name?: string,
+  _specie?: string,
+  _breed?: string,
+  _clientId?: string,
+  _recs?: string,
+  _sex?: string,
+) => {
+  const docRef = doc(db, 'mascotas', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    updateData.Name = _name;
+    updateData.Specie = _specie;
+    updateData.Breed = _breed;
+    updateData.ClientID = _clientId;
+    updateData.Recomenations = _recs;
+    updateData.Sex = _sex;
+
+    if (Object.keys(updateData).length > 0) {
+      await setDoc(docRef, updateData);
+    }
+  }
 };
 
 
+//Update functions to Firestore Section
+
+export const updateCut = async (
+  _id: string,
+  _state?: string,
+  _checkIn?: Date,
+  _petId?: string,
+  _groomming?: string,
+  _recomendations?: string,
+) => {
+  const docRef = doc(db, 'cortes', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_state && data.State !== _state) updateData.State = _state;
+    if (_checkIn && data.CheckIn.toDate().getTime() !== _checkIn.getTime()) updateData.CheckIn = Timestamp.fromDate(_checkIn);
+    if (_petId && data.PetID !== _petId) updateData.PetID = _petId;
+    if (_groomming && data.Grooming !== _groomming) updateData.Grooming = _groomming;
+    if (_recomendations && data.Recomendations !== _recomendations) updateData.Recomendations = _recomendations;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updatePet = async (
+  _id: string,
+  _name?: string,
+  _specie?: string,
+  _breed?: string,
+  _clientId?: string,
+  _recs?: string,
+  _sex?: string,
+) => {
+  const docRef = doc(db, 'mascotas', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_name && data.Name !== _name) updateData.Name = _name;
+    if (_specie) updateData.Specie = _specie;
+    if (_breed && data.Breed !== _breed) updateData.Breed = _breed;
+    if (_clientId && data.ClientID !== _clientId) updateData.ClientID = _clientId;
+    if (_recs && data.Recomenations !== _recs) updateData.Recomenations = _recs;
+    if (_sex && data.Sex !== _sex) updateData.Sex = _sex;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+      console.log('Document written with ID: ', docRef.id);
+    }
+  }
+};
 
 
+export const updateClient = async (
+  _id: string,
+  _name?: string,
+  _lastname?: string,
+  _address?: string,
+  _phone?: string,
+  _suburb?: string,
+  _pets?: string[],
+) => {
+  const docRef = doc(db, 'clientes', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_name && data.Name !== _name) updateData.Name = _name;
+    if (_lastname && data.Lastname !== _lastname) updateData.Lastname = _lastname;
+    if (_address && data.Address !== _address) updateData.Address = _address;
+    if (_phone && data.Phone !== _phone) updateData.Phone = _phone;
+    if (_suburb && data.Suburb !== _suburb) updateData.Suburb = _suburb;
+    if (_pets && JSON.stringify(data.PetID) !== JSON.stringify(_pets)) updateData.PetID = _pets;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updateExpense = async (
+  _id: string,
+  _expenditure?: string,
+  _total?: number,
+  _paymentMethod?: string,
+) => {
+  const docRef = doc(db, 'egresos', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_expenditure && data.Expenditure !== _expenditure) updateData.Expenditure = _expenditure;
+    if (_total && data.Total !== _total) updateData.Total = _total;
+    if (_paymentMethod && data.PaymentMethod !== _paymentMethod) updateData.PaymentMethod = _paymentMethod;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updateSale = async (
+  _id: string,
+  _total?: number,
+  _paymentMethod?: string,
+  _clientId?: string,
+  _lodgingId?: string,
+  _services?: string[],
+) => {
+  const docRef = doc(db, 'ventas', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_total && data.Total !== _total) updateData.Total = _total;
+    if (_paymentMethod && data.PaymentMethod !== _paymentMethod) updateData.PaymentMethod = _paymentMethod;
+    if (_clientId && data.ClientID !== _clientId) updateData.ClientID = _clientId;
+    if (_lodgingId && data.HospedajeID !== _lodgingId) updateData.HospedajeID = _lodgingId;
+    if (_services && JSON.stringify(data.Services) !== JSON.stringify(_services)) updateData.Services = _services;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updateDogBox = async (
+  _id: string,
+  _size?: string,
+  _qty?: number,
+) => {
+  const docRef = doc(db, 'dogBoxes', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_size && data.Size !== _size) updateData.Size = _size;
+    if (_qty && data.Quantity !== _qty) updateData.Quantity = _qty;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updateCatBox = async (
+  _id: string,
+  _size?: string,
+  _qty?: number,
+) => {
+  const docRef = doc(db, 'gateros', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_size && data.Size !== _size) updateData.Size = _size;
+    if (_qty && data.Quantity !== _qty) updateData.Quantity = _qty;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+export const updateInventoryItem = async (
+  _id: string,
+  _product?: string,
+  _qty?: number,
+) => {
+  const docRef = doc(db, 'inventario', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_product && data.Product !== _product) updateData.Product = _product;
+    if (_qty && data.Quantity !== _qty) updateData.Quantity = _qty;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};

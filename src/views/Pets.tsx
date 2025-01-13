@@ -30,8 +30,8 @@ const createStyles = () =>
       backgroundColor: 'white',
     },
     carouselSection: {
-      width: 1100,
-      height: 450,
+      width: '55%',
+      height: '60%',
       marginHorizontal: 50,
       alignItems: 'center',
       justifyContent: 'center',
@@ -39,6 +39,13 @@ const createStyles = () =>
     imageBackgorund: {
       justifyContent: 'center',
       height: '100%',
+    },
+    row: {
+      paddingVertical: 10,
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      paddingLeft: 0,
+      alignItems: 'center',
     },
   });
 
@@ -53,6 +60,11 @@ function Pets({title}: PetsProps): React.JSX.Element {
           resizeMode="cover"
           style={styles.imageBackgorund}>
           <Navbar title="" />
+          <View style={styles.row}>
+            <Button color="#d1507e" title="Nueva Mascota" onPress={() => {}} />
+            <Button color="#03bdbf" title="Nuevo Cliente" onPress={() => {}} />
+          </View>
+
           <View style={styles.carouselSection}>
             <PetList title={''} />
           </View>

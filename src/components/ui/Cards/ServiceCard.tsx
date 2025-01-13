@@ -27,6 +27,8 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       marginVertical: 25,
       marginHorizontal: 30,
       flexDirection: 'row',
+      borderWidth: 2,
+      borderColor: '#2e2e2e',
       opacity: _isPressing ? .2 : 1
     },
     imageView: {

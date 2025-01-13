@@ -18,42 +18,36 @@ import ExpensesCard from '../Cards/ExpensesCard';
 const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingTop: 10,
       width: '100%',
       height: '100%',
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 10,
-    },
-    salesContainer: {
-      alignSelf: 'center',
-      width: 1100,
-      height: 25,
-      alignContent: 'flex-start',
-      justifyContent: 'center',
-      backgroundColor: '#eeeeee',
-      borderRadius: 10,
-      flexDirection: 'row',
+      borderRadius: 5,
+      backgroundColor: '#ffffff',
+      borderWidth: 6,
+      borderColor: '#2e2e2e'
     },
     rowTile: {
+      height: '20%',
       flexDirection: 'row',
       alignItems: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-      marginBottom: 5,
+      backgroundColor: '#88b764',
+      paddingHorizontal: 40,
+      borderBottomWidth: 6,
+      borderColor: '#2e2e2e',
     },
     image: {
       width: 100,
       height: 100,
     },
     pageTitle: {
-      // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
-      // TitleLargeTextBlockStyle
       fontSize: 16,
       fontWeight: 'bold', // SemiBold
-      color: 'blue',
+      color: '#2e2e2e',
       flex: 1,
     },
   });
@@ -87,8 +81,11 @@ function SalesList(props: SalesListProps): React.JSX.Element {
         </View>
         <FlatList
           data={sales}
+          showsHorizontalScrollIndicator={true}
+          showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
             <SalesCard 
+            id={item.id}
               name={clientsList.find((e) => e.id == item.clientId).name}
               phone={clientsList.find((e) => e.id == item.clientId).phone}
               service={item.services}

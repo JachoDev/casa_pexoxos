@@ -1,5 +1,5 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -21,11 +21,13 @@ const createStyles = () =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 10,
+      borderWidth: 6,
+      borderColor: '#2e2e2e'
     },
     daysBar:{
       flexDirection: 'row',
       width: '100%',
-      height: 'auto',
+      height: 70,
       backgroundColor: '#03bdbf',
       alignItems: 'center',
       alignContent: 'center',
@@ -33,6 +35,8 @@ const createStyles = () =>
       justifyContent: 'center',
       paddingHorizontal: 5,
       paddingTop: 5,
+      borderBottomWidth: 6,
+      borderColor: '#2e2e2e',
     },
     daysList: {
       width: '100%',
@@ -45,7 +49,7 @@ const createStyles = () =>
     },
   });
 
-  const days = Array.from({ length: 18 }, (_, i) => {
+  const days = Array.from({ length: 28 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() + i);
     return {
@@ -64,7 +68,8 @@ type ServiceListProps = PropsWithChildren<{
 function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const today = new Date(Date.now() - 18000000);
+  const today = useMemo(() => new Date(Date.now() - 18000000), []);
+  const [cuts, setCuts] = useState(cutsList);
   const filteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
   const filterByState = filteredData.filter((e) => e.state != "Cobrado" && e.state != "Cancelado")
   const [services, setServices] = useState(filterByState.sort((a, b) => b.checkIn - a.checkIn));
@@ -96,7 +101,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
     return () => {
       // cleanup code here if needed
     };
-  }, []);
+  }, [cuts, today]);
 
   return (
     <>

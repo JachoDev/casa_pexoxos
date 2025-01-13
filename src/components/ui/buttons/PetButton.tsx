@@ -151,6 +151,7 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
                 onHoverOut={() => setIsDogHovered(false)}
                 onPressIn={() => setIsDogPressing(true)}
                 onPressOut={() => setIsDogPressing(false)}
+                hitSlop={0}
               >
                 <Image style={styles.dogImage} source={dog} resizeMode='cover'/>
                 <Text style={styles.iconTitle}> Perros </Text>

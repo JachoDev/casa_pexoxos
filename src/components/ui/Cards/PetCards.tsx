@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Flyout } from 'react-native-windows';
 import PetForm from '../forms/PetForm';
+import { clientsList, petList } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -23,10 +24,12 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       backgroundColor: '#eeeeee',
       borderRadius: 10,
       marginVertical: 30,
-      marginHorizontal: 35,
+      marginHorizontal: 50,
       paddingTop: 5,
       flexDirection: 'row',
       opacity: _isPressing ? 0.2 : 1,
+      borderWidth: 2,
+      borderColor: '#2e2e2e',
     },
     image: {
       width: isHovered ? 130 : 100,
@@ -57,15 +60,18 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   });
 
 type PetCardProps = PropsWithChildren<{
-  name: string;
+  petId: string;
   image: string;
 }>;
 
 function PetCard(props: PetCardProps): React.JSX.Element {
+  const pet = petList.find(e => e.id == props.petId);
+  const client = clientsList.find(e => e.id == pet.clientId);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
+  const clientName = client ? client.name + ' ' + client.lastname : 'No asignado';
 
   return (
     <>
@@ -77,8 +83,8 @@ function PetCard(props: PetCardProps): React.JSX.Element {
         isOverlayEnabled={true}
         placement="bottom">
         <View style={[styles.flyer]}>
-          <Text style={styles.textStyle}>Agendar cita</Text>
-          <PetForm title={''} onSend={() => setShowFlyout(false)} />
+          <Text style={styles.textStyle}>Modificar información</Text>
+          <PetForm onSend={() => setShowFlyout(false)} id={props.petId} />
         </View>
       </Flyout>
       <Pressable
@@ -94,7 +100,7 @@ function PetCard(props: PetCardProps): React.JSX.Element {
               source={require('../../../assets/images/dog.png')}
               resizeMode="stretch"
             />
-            <Text style={styles.pageTitle}>{props.name}</Text>
+            <Text style={styles.pageTitle}>{pet.name}</Text>
           </View>
         </View>
       </Pressable>
