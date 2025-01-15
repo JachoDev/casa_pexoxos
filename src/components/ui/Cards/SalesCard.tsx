@@ -1,5 +1,5 @@
 import {useTheme} from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -8,10 +8,12 @@ import {
   Pressable,
   Text,
   View,
+  GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import {Flyout} from 'react-native-windows';
 import SaleForm from '../forms/SaleForm';
-import { salesList } from '../../../services/firebase/firestore/firestoreService';
+import {salesList} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -71,13 +73,14 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   });
 
 type SalesCardProps = PropsWithChildren<{
-  id: string,
+  id: string;
   name: string;
   phone: string;
   date: string;
   service: string;
   paymentMethod: string;
   total: string;
+  onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function SalesCard(props: SalesCardProps): React.JSX.Element {
@@ -85,6 +88,37 @@ function SalesCard(props: SalesCardProps): React.JSX.Element {
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
+
+  const onLongPress = () => {
+    Alert.alert(
+      'Eliminar',
+      '¿Estás seguro de que deseas eliminar este elemento?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              props.onReset?.({} as GestureResponderEvent);
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
+      ],
+    );
+  };
+
+  const onSend = () => {
+    setShowFlyout(false);
+    props.onReset?.({} as GestureResponderEvent);
+  };
 
   return (
     <>
@@ -97,13 +131,14 @@ function SalesCard(props: SalesCardProps): React.JSX.Element {
         placement="bottom">
         <View style={[styles.flyer]}>
           <Text style={styles.textStyle}>Modificar información</Text>
-          <SaleForm onSend={() => setShowFlyout(false)} id={props.id}/>
+          <SaleForm onSend={onSend} id={props.id} />
         </View>
       </Flyout>
       <Pressable
         onPress={() => {
           setShowFlyout(true);
         }}
+        onLongPress={onLongPress}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}

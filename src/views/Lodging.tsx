@@ -44,20 +44,22 @@ const createStyles = () =>
     imageTitle: {
       width: 300,
       height: 100,
-      marginBottom: -40,
+      marginBottom: 20,
+      marginLeft: 100,
     },
     carouselSection: {
-      width: 'auto',
+      width: '80%',
       height: '50%',
       marginHorizontal: 50,
       alignItems: 'center',
       justifyContent: 'center',
+      alignContent: 'center',
+      alignSelf: 'center',
     },
     homeView: {
       flexDirection: 'row',
-      marginTop: 10,
-      alignSelf: 'stretch',
-      alignItems: 'stretch',
+      alignSelf: 'center',
+      alignItems: 'center',
       alignContent: 'space-between',
       justifyContent: 'space-between',
     },
@@ -81,7 +83,6 @@ function Lodging({title}: LodgingProps): React.JSX.Element {
             <View style={styles.homeSection}>
               <View style={styles.buttonSection}>
                 <Image source={lodging} style={styles.imageTitle} />
-                <PetButton title={''} />
               </View>
             </View>
           </View>

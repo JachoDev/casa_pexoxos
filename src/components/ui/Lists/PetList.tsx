@@ -24,7 +24,7 @@ const createStyles = () =>
       alignItems: 'center',
       borderRadius: 10,
       borderWidth: 6,
-      borderColor: '#2e2e2e'
+      borderColor: '#2e2e2e',
     },
     lettersBar: {
       flexDirection: 'row',
@@ -72,22 +72,30 @@ function PetList(props: PetListProps): React.JSX.Element {
 
   const [filteredPets, setFilteredPets] = useState(filterPets(petList, 'a'));
 
-  const renderItem = ({item}: {id: string, letter: string}) => {
+  const renderItem = ({item}: {id: string; letter: string}) => {
     const isSelected = selectedLetter === item.id;
 
     return (
-      <LetterItem letter={item.letter} onPress={() => onSelectLetter(item.id, item.letter)} isSelected={isSelected}/>
+      <LetterItem
+        letter={item.letter}
+        onPress={() => onSelectLetter(item.id, item.letter)}
+        isSelected={isSelected}
+      />
     );
   };
 
   const onSelectLetter = (id: string, letter: string) => {
-      setSelectedLetter(id);
-      setFilteredPets(filterPets(petList, letter));
-    };
+    setSelectedLetter(id);
+    setFilteredPets(filterPets(petList, letter));
+  };
+
+  const update = () => {
+    //setFilteredPets([]);
+  };
 
   useEffect(() => {
     setFilteredPets(filterPets(petList, 'a'));
-  }, [pets]);
+  }, []);
 
   return (
     <>
@@ -107,8 +115,10 @@ function PetList(props: PetListProps): React.JSX.Element {
         <FlatList
           data={filteredPets}
           showsVerticalScrollIndicator={false}
-          renderItem={({item}) => <PetCard petId={item.id} image={''} />}
-          numColumns={3}
+          renderItem={({item}) => (
+            <PetCard petId={item.id} name={item.name} image={''} onReset={update}/>
+          )}
+          numColumns={4}
         />
       </View>
     </>

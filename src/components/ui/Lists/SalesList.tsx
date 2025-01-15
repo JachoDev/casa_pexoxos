@@ -62,6 +62,10 @@ function SalesList(props: SalesListProps): React.JSX.Element {
   const today = new Date();
   const [sales, setSales] = useState(salesList.sort((a, b) => b.date - a.date));
 
+  const update = () => {
+    setSales([]);
+  };
+
   useEffect(() => {
     setSales(salesList.sort((a, b) => b.date - a.date));
     console.log(sales);
@@ -85,13 +89,14 @@ function SalesList(props: SalesListProps): React.JSX.Element {
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
             <SalesCard 
-            id={item.id}
+              id={item.id}
               name={clientsList.find((e) => e.id == item.clientId).name}
               phone={clientsList.find((e) => e.id == item.clientId).phone}
               service={item.services}
               paymentMethod={item.paymentMethod}
               date={item.date.toDate().toUTCString()}
               total={' $' + item.total}
+              onReset={update}
             />
           )}
         />

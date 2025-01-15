@@ -9,9 +9,9 @@ import {
   Image,
   Pressable,
 } from 'react-native';
-import cat from '../../../assets/images/gatoicon.png';
-import dog from '../../../assets/images/perroicon.png';
-import bird from '../../../assets/images/tusyicon.png';
+import cat from '../../../assets/images/icons/cat.png';
+import dog from '../../../assets/images/icons/dog.png';
+import bird from '../../../assets/images/icons/bird.png';
 
 const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelected: boolean, isCatHovered: boolean, isCatPressing: boolean, isCatSelected: boolean, isBirdHovered: boolean, isBirdPressing: boolean, isBirdSelected: boolean) =>
   StyleSheet.create({
@@ -36,40 +36,45 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       fontSize: 12,
     },
     iconTitle: {
-      color: 'black',
+      color: '#2e2e2e',
       alignSelf: 'center',
       fontSize: 12,
       fontWeight: 'bold',
     },
     catImage: {
-      width: isCatSelected ? 320 : isCatHovered ? 250 : 240,
-      height: isCatHovered ? 60 : 50,
-      marginRight: isCatSelected ? 130 : 100,
+      alignSelf: 'center',
+      width: isCatSelected ? 60 : isCatHovered ? 50 : 40,
+      height: isCatSelected ? 60 : isCatHovered ? 50 : 40,
       opacity: isCatPressing ? 0.2 : 1,
     },
     dogImage: {
-      width: isDogSelected ? 280 : isDogHovered ? 225 : 220,
-      height: isDogHovered ? 65 : 60,
+      alignSelf: 'center',
+      width: isDogSelected ? 60 : isDogHovered ? 50 : 40,
+      height: isDogSelected ? 60 : isDogHovered ? 50 : 40,
       opacity: isDogPressing ? 0.2 : 1,
-      marginLeft: 10,
-      position: 'relative',
     },
     birdImage: {
-      width: isBirdSelected ? 330 : isBirdHovered ? 260 : 250,
-      height: isBirdHovered ? 60 : 50,
-      marginLeft: isBirdSelected ? 150 : 100,
+      alignSelf: 'center',
+      width: isBirdSelected ? 60 : isBirdHovered ? 50 : 40,
+      height: isBirdSelected ? 60 : isBirdHovered ? 50 : 40,
       opacity: isBirdPressing ? 0.2 : 1,
     },
     dogButton: {
-      backgroundColor: !isDogSelected ? '#cbc5c5' : '#ff66c4',
+      backgroundColor: !isDogSelected ? '#cbc5c5' : '#cc519c',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isDogSelected ? 10 : 0,
       width: isDogSelected ? 100 : 80,
       height: isDogSelected ? 120 : 100,
+      borderBottomWidth: 2,
+      borderTopWidth: 2,
+      borderRightWidth: isCatSelected || isDogSelected ? 2 : 0,
+      borderLeftWidth: isDogSelected || isBirdSelected ? 2 : 0,
+      borderWidth: isDogSelected ? 2 : 0,
+      borderColor: '#2e2e2e',
     },
     catButton: {
-      backgroundColor: !isCatSelected ? '#cbc5c5' : '#38b6ff',
+      backgroundColor: !isCatSelected ? '#cbc5c5' : '#38a8ff',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isCatSelected ? 10 : 0,
@@ -77,16 +82,24 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
       borderBottomLeftRadius: 10,
       width: isCatSelected ? 100 : 80,
       height: isCatSelected ? 120 : 100,
+      borderRightWidth: isCatSelected ? 2 : 0,
+      borderWidth: 2,
+      borderColor: '#2e2e2e',
     },
     birdButton: {
-      backgroundColor: !isBirdSelected ? '#cbc5c5' : '#ff3131',
+      backgroundColor: !isBirdSelected ? '#cbc5c5' : '#e94b57',
       alignItems: 'center',
       justifyContent: 'center',
+      alignContent: 'center',
+      alignSelf: 'center',
       borderRadius: isBirdSelected ? 10 : 0,
       borderTopRightRadius: 10,
       borderBottomRightRadius: 10,
       width: isBirdSelected ? 100 : 80,
       height: isBirdSelected ? 120 : 100,
+      borderLeftWidth: isBirdSelected ? 2 : 0,
+      borderWidth: 2,
+      borderColor: '#2e2e2e',
     },
   });
 
@@ -155,6 +168,18 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
               >
                 <Image style={styles.dogImage} source={dog} resizeMode='cover'/>
                 <Text style={styles.iconTitle}> Perros </Text>
+              </Pressable>
+            </View>
+            <View style={styles.birdButton}>
+              <Pressable
+                onPress={onBirdPress}
+                onHoverIn={() => setIsBirdHovered(true)}
+                onHoverOut={() => setIsBirdHovered(false)}
+                onPressIn={() => setIsBirdPressing(true)}
+                onPressOut={() => setIsBirdPressing(false)}
+              >
+                <Image style={styles.birdImage} source={bird} resizeMode='contain'/>
+                <Text style={styles.iconTitle}> Razas Pequeñas </Text>
               </Pressable>
             </View>
           </View>

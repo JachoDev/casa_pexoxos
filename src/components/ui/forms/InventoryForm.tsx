@@ -16,6 +16,8 @@ import {Picker} from '@react-native-picker/picker';
 import {
 	inventory,
 	addInventoryItem,
+  updateInventory,
+  updateInventoryItem,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
@@ -29,10 +31,10 @@ const createStyles = () =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 10,
-      backgroundColor: '#762776df',
+      backgroundColor: '#b53a43df',
     },
     textInputL: {
-      borderColor: '#762776',
+      borderColor: '#b53a43',
       borderRadius: 4,
       color: 'white',
       paddingTop: 8,
@@ -41,7 +43,7 @@ const createStyles = () =>
       height: 75,
     },
     textInput: {
-      borderColor: '#762776',
+      borderColor: '#b53a43',
       borderRadius: 4,
       color: 'white',
       paddingTop: 8,
@@ -77,23 +79,26 @@ type InventoryFormProps = PropsWithChildren<{
 
 function InventoryForm(props: InventoryFormProps): React.JSX.Element {
   const styles = createStyles();
-  const today = new Date(Date.now() - 18000000);
 	const item = inventory.find(e => e.id == props.id);
 	const [isNew, setIsNew] = useState(props.isNew ?? false);
-	const [product, setProduct] = useState(props.isNew ? '' : item.product);
-	const [quantity, setQuantity] = useState(props.isNew ? 0 : item.qty);
+	const [product, setProduct] = useState(item ? item.product : '');
+	const [quantity, setQuantity] = useState(item ? item.qty : 0);
 
 
-  const onSend = () => {
+  const onSend = async () => {
     try {
 			if (isNew) {
-				addInventoryItem()
-			}
+				await addInventoryItem(product, quantity);
+        await updateInventory();
+			} else {
+        await updateInventoryItem(item.id, product, quantity);
+        await updateInventory();
+      }
 
     } catch (e) {
       console.log(e);
     }
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {
@@ -117,7 +122,7 @@ function InventoryForm(props: InventoryFormProps): React.JSX.Element {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.titleText}>Especie</Text>
+            <Text style={styles.titleText}>Cantidad</Text>
             <Picker
               accessibilityLabel="Disabled Example"
               style={{height: 50, width: 200, margin: 5, color: 'white'}}
@@ -132,7 +137,7 @@ function InventoryForm(props: InventoryFormProps): React.JSX.Element {
               ))}
             </Picker>
           </View>
-          <Button color="#03bdbf" title="Modificar" onPress={onSend} />
+          <Button color="#627489" title={isNew ? 'Crear' : 'Modificar'} onPress={onSend} />
         </View>
       </View>
     </>

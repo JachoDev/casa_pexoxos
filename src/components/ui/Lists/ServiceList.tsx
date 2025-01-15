@@ -9,6 +9,7 @@ import {
 import ServiceCard from '../Cards/ServiceCard';
 import { cutsList, petList } from '../../../services/firebase/firestore/firestoreService';
 import DayItem from '../items/DayItem';
+import PetButton from '../buttons/PetButton';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -93,6 +94,9 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
     console.log(services);
   };
 
+  const update = () => {
+    //setServices([]);
+  };
 
   useEffect(() => {
     const updatedFilteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
@@ -101,10 +105,11 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
     return () => {
       // cleanup code here if needed
     };
-  }, [cuts, today]);
+  }, []);
 
   return (
     <>
+      <PetButton title={''} />
 			<View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
@@ -126,9 +131,11 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
             date={item.checkIn.toDate().toDateString()}
             time={item.checkIn.toDate().toLocaleTimeString()}
             color={item.color}
-            petImage={item.petImage} petId={item.petId}  />
+            petImage={item.petImage} petId={item.petId}
+            onReset={update}
+            />
           }
-          numColumns={4}
+          numColumns={3}
         />
 			</View>
 		</>

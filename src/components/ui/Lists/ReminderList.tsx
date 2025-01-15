@@ -12,18 +12,20 @@ import SalesCard from '../Cards/SalesCard';
 import ExpensesCard from '../Cards/ExpensesCard';
 import InventoryCard from '../Cards/InventoryCard';
 import {inventory} from '../../../services/firebase/firestore/firestoreService';
+import ReminderCard from '../Cards/ReminderCard';
+import { reminders } from '../../../services/local/reminders/remindersService';
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
       width: '100%',
-      height: '100%',
+      height: '90%',
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
       alignItems: 'center',
-      borderRadius: 5,
-      backgroundColor: '#ffffff',
+      borderBottomLeftRadius: 5,
+      borderBottomRightRadius: 5,
       borderWidth: 6,
       borderColor: '#2e2e2e',
     },
@@ -52,39 +54,38 @@ const createStyles = () =>
     },
   });
 
-type InventoryListProps = PropsWithChildren<{
+type ReminderListProps = PropsWithChildren<{
   title: string;
 }>;
 
-function InventoryList(props: InventoryListProps): React.JSX.Element {
+function ReminderList(props: ReminderListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const [list, setList] = useState(
-    inventory.sort((a, b) => a.product.localeCompare(b.product)),
-  );
+  const [list, setList] = useState(reminders);
 
   const update = () => {
     setList([]);
   };
 
   useEffect(() => {
-    setList(inventory.sort((a, b) => a.product.localeCompare(b.product)));
-    console.log(list);
+    setList(reminders);
+    console.log(reminders);
     return (cleanUp = () => {});
   }, [list]);
 
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.rowTile}>
-          <Text style={styles.pageTitle}>Producto</Text>
-          <Text style={styles.pageTitle}>Cantidad</Text>
-        </View>
         <FlatList
           data={list}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
-            <InventoryCard id={item.id} product={item.product} qty={item.qty} onReset={update}/>
+            <ReminderCard
+              id={item.id}
+              petId={item.petId}
+              checkIn={item.checkIn}
+              grooming={item.groomming}
+            />
           )}
         />
       </View>
@@ -92,4 +93,4 @@ function InventoryList(props: InventoryListProps): React.JSX.Element {
   );
 }
 
-export default InventoryList;
+export default ReminderList;

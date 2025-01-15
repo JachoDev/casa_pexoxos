@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Image,
@@ -8,10 +8,12 @@ import {
   Text,
   View,
   Pressable,
+  GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import CutSaleForm from '../forms/CutSaleForm';
-import { Flyout } from 'react-native-windows';
-import { petList } from '../../../services/firebase/firestore/firestoreService';
+import {Flyout} from 'react-native-windows';
+import {petList} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -29,7 +31,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       flexDirection: 'row',
       borderWidth: 2,
       borderColor: '#2e2e2e',
-      opacity: _isPressing ? .2 : 1
+      opacity: _isPressing ? 0.2 : 1,
     },
     imageView: {
       flex: 6,
@@ -87,7 +89,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
       fontSize: 14,
       fontWeight: '600', // SemiBold
       paddingLeft: 36,
-      color: '#000000'
+      color: '#000000',
     },
     textFlyer: {
       color: 'black',
@@ -104,84 +106,114 @@ type ServiceProps = PropsWithChildren<{
   recomendations: string;
   petImage: string;
   color: string;
+  onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
-function ServiceCard({ name, service, date, time, color, petImage, recomendations, petId, serviceId }: ServiceProps): React.JSX.Element {
+function ServiceCard(props: ServiceProps): React.JSX.Element {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
-  const clientId = petList.find((e) => e.id == petId).clientId
+  const clientId = petList.find(e => e.id == props.petId).clientId;
+
+  const onLongPress = () => {
+    Alert.alert(
+      'Eliminar',
+      '¿Estás seguro de que deseas eliminar este elemento?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              props.onReset?.({} as GestureResponderEvent);
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
+      ],
+    );
+  };
+
+  const onSend = () => {
+    setShowFlyout(false);
+    props.onReset?.({} as GestureResponderEvent);
+  };
 
   return (
     <>
-      <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} showMode='transient' isLightDismissEnabled={true} isOverlayEnabled={true} placement='bottom' >
-        <View
-          style={[styles.flyer]}>
+      <Flyout
+        isOpen={showFlyout}
+        onDismiss={() => setShowFlyout(false)}
+        showMode="transient"
+        isLightDismissEnabled={true}
+        isOverlayEnabled={true}
+        placement="bottom">
+        <View style={[styles.flyer]}>
           <Text style={styles.textFlyer}>Cobrar servicio</Text>
-          <CutSaleForm title={''} clientId={clientId} services={service} pets={name} onSend={() => setShowFlyout(false)} serviceId={serviceId}/>
+          <CutSaleForm
+            title={''}
+            clientId={clientId}
+            services={props.service}
+            pets={props.name}
+            onSend={onSend}
+            serviceId={props.serviceId}
+          />
         </View>
       </Flyout>
       <Pressable
-        onPress={() => {setShowFlyout(true)}}
+        onPress={() => {
+          setShowFlyout(true);
+        }}
+        onLongPress={onLongPress}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
-        onPressOut={() => setIsPressing(false)}
-      >
+        onPressOut={() => setIsPressing(false)}>
         <View style={styles.container}>
           <View style={styles.imageView}>
             <View style={styles.imageCircle}>
-              <Image style={styles.image} source={require('../../../assets/images/dog.png')} resizeMode='stretch'/>
+              <Image
+                style={styles.image}
+                source={require('../../../assets/images/icons/dog.png')}
+                resizeMode="stretch"
+              />
             </View>
           </View>
           <View style={styles.textView}>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Mascota:
-              </Text>
-              <Text style={styles.textStyle}>
-                {name}
-              </Text>
+              <Text style={styles.textTag}>Mascota:</Text>
+              <Text style={styles.textStyle}>{props.name}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Servicio:
-              </Text>
-              <Text style={styles.textStyle}>
-                {service}
-              </Text>
+              <Text style={styles.textTag}>Servicio:</Text>
+              <Text style={styles.textStyle}>{props.service}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Sugerencias:
-              </Text>
-              <Text style={styles.textStyle}>
-                {recomendations}
-              </Text>
+              <Text style={styles.textTag}>Sugerencias:</Text>
+              <Text style={styles.textStyle}>{props.recomendations}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Fecha:
-              </Text>
-              <Text style={styles.textStyle}>
-                {date}
-              </Text>
+              <Text style={styles.textTag}>Fecha:</Text>
+              <Text style={styles.textStyle}>{props.date}</Text>
             </View>
             <View style={styles.textRow}>
-              <Text style={styles.textTag}>
-                Hora:
-              </Text>
-              <Text style={styles.textStyle}>
-                {time}
-              </Text>
+              <Text style={styles.textTag}>Hora:</Text>
+              <Text style={styles.textStyle}>{props.time}</Text>
             </View>
           </View>
-          <View style={[styles.arrowView, {backgroundColor: color}]}>
-          </View>
+          <View
+            style={[styles.arrowView, {backgroundColor: props.color}]}></View>
         </View>
       </Pressable>
-		</>
+    </>
   );
 }
 

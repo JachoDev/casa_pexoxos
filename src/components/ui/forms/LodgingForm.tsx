@@ -108,7 +108,7 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
   const [isSpecieSelected, setIsSpecieSelected] = useState(false);
   const [sizeList, setSizeList] = useState([]);
 
-  const onSend = () => {
+  const onSend = async () => {
     const checkIn = new Date(
       date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1],
     );
@@ -119,12 +119,12 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
     );
 
     try {
-      addLodging(checkIn, checkOut, client, pet, size, spec);
-      updateLodgingList();
+      await addLodging(checkIn, checkOut, client, pet, size, spec);
+      await updateLodgingList();
     } catch (e) {
       console.log(e);
     }
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   const onSpecieSelect = e => {

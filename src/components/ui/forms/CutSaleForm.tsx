@@ -10,11 +10,20 @@ import {
   Button,
   TextInput,
   GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RNPrint from 'react-native-print';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import { clientsList, salesList, cutsList, addSale, updateCutState, updateCutsList, updateSalesList } from '../../../services/firebase/firestore/firestoreService';
+import {
+  clientsList,
+  salesList,
+  cutsList,
+  addSale,
+  updateCutState,
+  updateCutsList,
+  updateSalesList,
+} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -101,17 +110,27 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
   };
 
   const onSend = async () => {
+    if (!pickerValue) {
+      Alert.alert('Error', 'Seleccione un método de pago');
+      //alert('Seleccione un método de pago');
+      return;
+    }
+    if (total === undefined || isNaN(+total)) {
+      Alert.alert('Error', 'Total no es un número válido');
+      //alert('Total no es un número válido');
+      return;
+    }
     try {
-      addSale(+total, pickerValue, client.id, '',[props.services]);
-      updateCutState(props.serviceId, 'Cobrado');
-      updateCutsList();
-      updateSalesList();
+      await addSale(+total, pickerValue, client.id, '', [props.services]);
+      await updateCutState(props.serviceId, 'Cobrado');
+      await updateCutsList();
+      await updateSalesList();
       printRemotePDF();
     } catch (e) {
       console.log(e);
     }
     console.log('sale close');
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {

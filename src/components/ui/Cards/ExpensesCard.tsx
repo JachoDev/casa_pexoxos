@@ -8,8 +8,11 @@ import {
   Pressable,
   Text,
   View,
+  GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import {Flyout} from 'react-native-windows';
+import ExpenseForm from '../forms/ExpenseForm';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -69,10 +72,12 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   });
 
 type ExpensesCardProps = PropsWithChildren<{
+  id: string;
   date: string;
   paymentMethod: string;
   service: string;
   total: string;
+  onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
@@ -80,6 +85,37 @@ function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
+
+  const onLongPress = () => {
+    Alert.alert(
+      'Eliminar',
+      '¿Estás seguro de que deseas eliminar este elemento?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              props.onReset?.({} as GestureResponderEvent);
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
+      ],
+    );
+  };
+
+  const onSend = () => {
+    setShowFlyout(false);
+    props.onReset?.({} as GestureResponderEvent);
+  };
 
   return (
     <>
@@ -92,12 +128,14 @@ function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
         placement="bottom">
         <View style={[styles.flyer]}>
           <Text style={styles.textStyle}>Modificar información</Text>
+          <ExpenseForm onSend={onSend} id={props.id} />
         </View>
       </Flyout>
       <Pressable
         onPress={() => {
           setShowFlyout(true);
         }}
+        onLongPress={onLongPress}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}

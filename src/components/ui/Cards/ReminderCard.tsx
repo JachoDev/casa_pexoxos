@@ -1,11 +1,12 @@
 import {useTheme} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   Alert,
   GestureResponderEvent,
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   //SafeAreaView,
   Text,
@@ -14,7 +15,9 @@ import {
 import {Flyout} from 'react-native-windows';
 import InventoryForm from '../forms/InventoryForm';
 import {
+  clientsList,
   deleteInventoryItem,
+  petList,
   updateInventory,
 } from '../../../services/firebase/firestore/firestoreService';
 
@@ -22,13 +25,12 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: isHovered ? 460 : 450,
+      width: isHovered ? 270 : 265,
       height: isHovered ? 55 : 50,
       alignContent: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#d0dee2',
       borderRadius: 2,
-      paddingHorizontal: 15,
       marginHorizontal: 5,
       marginVertical: 5,
       borderWidth: 2,
@@ -48,11 +50,13 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
       // TitleLargeTextBlockStyle
-      fontSize: 16,
-      fontWeight: '600', // SemiBold
+      width: 'auto',
+      fontSize: 18,
+      fontWeight: '700', // SemiBold
       color: '#363e4c',
+      paddingHorizontal: 5,
       alignSelf: 'center',
-      flex: 1,
+      backgroundColor: '#ffffff69',
     },
     flyer: {
       width: 700,
@@ -70,18 +74,22 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
     },
   });
 
-type InventoryCardProps = PropsWithChildren<{
+type ReminderCardProps = PropsWithChildren<{
   id: string;
-  product: string;
-  qty: string;
+  petId: string;
+  checkIn: string;
+  grooming: string;
   onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
-function InventoryCard(props: InventoryCardProps): React.JSX.Element {
+function ReminderCard(props: ReminderCardProps): React.JSX.Element {
+  const pet = petList.find(e => e.id == props.petId);
+  const client = clientsList.find(e => e.id == pet?.clientId);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
 
   const onLongPress = () => {
     Alert.alert(
@@ -118,36 +126,29 @@ function InventoryCard(props: InventoryCardProps): React.JSX.Element {
 
   return (
     <>
-      <Flyout
-        isOpen={showFlyout}
-        onDismiss={() => setShowFlyout(false)}
-        showMode="transient"
-        isLightDismissEnabled={true}
-        isOverlayEnabled={true}
-        placement="bottom">
-        <View style={[styles.flyer]}>
-          <Text style={styles.textStyle}>Modificar información</Text>
-          <InventoryForm onSend={onSend} id={props.id} />
-        </View>
-      </Flyout>
       <Pressable
         onPress={() => {
           setShowFlyout(true);
         }}
         onLongPress={onLongPress}
-        onHoverIn={() => setIsHovered(true)}
-        onHoverOut={() => setIsHovered(false)}
+        onHoverIn={() => {setIsHovered(true)}}
+        onHoverOut={() => {setIsHovered(false); scrollRef.current?.scrollTo({x: 0, y: 0, animated: true});}}
         onPressIn={() => setIsPressing(true)}
         onPressOut={() => setIsPressing(false)}>
         <View style={styles.container}>
-          <View style={styles.rowTile}>
-            <Text style={styles.pageTitle}>{props.product}</Text>
-            <Text style={styles.pageTitle}>{props.qty}</Text>
-          </View>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <Text style={styles.pageTitle}>{client.name + ' ' + client.lastname}</Text>
+            <Text style={styles.pageTitle}>{client.phone}</Text>
+            <Text style={styles.pageTitle}>{pet.name}</Text>
+            <Text style={styles.pageTitle}>{pet.specie}</Text>
+            <Text style={styles.pageTitle}>{props.grooming}</Text>
+            <Text style={styles.pageTitle}>{props.checkIn.toDate().toDateString()}</Text>
+            
+          </ScrollView>
         </View>
       </Pressable>
     </>
   );
 }
 
-export default InventoryCard;
+export default ReminderCard;

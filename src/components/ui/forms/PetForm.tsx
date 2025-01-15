@@ -22,6 +22,7 @@ import {
   updatePet,
   setPet,
   updatePetList,
+  addPet,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
@@ -35,10 +36,10 @@ const createStyles = () =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 10,
-      backgroundColor: '#762776df',
+      backgroundColor: '#9e3c5fdf',
     },
     textInputL: {
-      borderColor: '#762776',
+      borderColor: '#9e3c5f',
       borderRadius: 4,
       color: 'white',
       paddingTop: 8,
@@ -47,7 +48,7 @@ const createStyles = () =>
       height: 75,
     },
     textInput: {
-      borderColor: '#762776',
+      borderColor: '#9e3c5f',
       borderRadius: 4,
       color: 'white',
       paddingTop: 8,
@@ -72,32 +73,39 @@ const sexs = ['Macho', 'Hembra'];
 
 type PetFormProps = PropsWithChildren<{
   id?: string;
+  isNew?: boolean;
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function PetForm(props: PetFormProps): React.JSX.Element {
-  const pet = petList.find(e => e.id == props.id);
-  const client = clientsList.find(e => e.id == pet.clientId);
-  const clientName = client ? client.name + ' ' + client.lastname : 'No asignado';
+  const pet = props.id ? petList.find(e => e.id == props.id) : null;
+  const [isNew, setIsNew] = useState(props.isNew ?? false);
+  const _client = pet ? clientsList.find(e => e.id == pet.clientId) : null;
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const today = new Date(Date.now() - 18000000);
-  const [clientId, setClientId] = useState(pet.clientId ?? '');
-  const [name, setName] = useState(pet.name ?? '');
-  const [specie, setSpecie] = useState(pet.specie ?? '');
-  const [breed, setBreed] = useState(pet.breed ?? '');
-  const [sex, setSex] = useState(pet.sex ?? '');
-  const [recs, setRecs] = useState(pet.recs ?? '');
-  const [owner, setOwner] = useState(clientName ?? '');
+  const [name, setName] = useState(pet ? pet.name : '');
+  const [specie, setSpecie] = useState(pet ? pet.specie : '');
+  const [breed, setBreed] = useState(pet ? pet.breed : '');
+  const [sex, setSex] = useState(pet ? pet.sex : '');
+  const [recs, setRecs] = useState(pet ? pet.recs : '');
+  const [clientListO, setClientListO] = useState(
+    clientsList.sort((a, b) => a.name.localeCompare(b.name)),
+  );
+  const [client, setClient] = useState(_client ? _client.id : '');
 
-  const onSend = () => {
+  const onSend = async () => {
     try {
-      updatePet(props.id, name, specie, breed, clientId, recs, sex);
-      updatePetList();
+      if (isNew) {
+        await addPet(breed, client, name, recs, sex, specie);
+        await updatePetList();
+      } else {
+        await updatePet(props.id, name, specie, breed, client, recs, sex);
+        await updatePetList();
+      }
     } catch (e) {
       console.log(e);
     }
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {
@@ -108,8 +116,31 @@ function PetForm(props: PetFormProps): React.JSX.Element {
     <>
       <View style={styles.container}>
         <View>
-          <Text>Dueño: {owner}</Text>
           <Button color="#03bdbf" title="Agregar imagen" onPress={onSend} />
+          <View style={styles.inputGroup}>
+            <Text>Buscar Cliente</Text>
+            <Picker
+              accessibilityLabel="Disabled Example"
+              style={{height: 50, width: 200, margin: 5, color: 'white'}}
+              enabled={isNew}
+              prompt="this prompt"
+              mode="dialog"
+              selectedValue={client}
+              onValueChange={setClient}
+              itemStyle={{color: 'white'}}>
+              {clientListO.map(item => (
+                <Picker.Item
+                  value={item.id}
+                  label={
+                    item.name != '' || item.lastname != ''
+                      ? item.name + ' ' + item.lastname
+                      : item.phone
+                  }
+                  key={item.id}
+                />
+              ))}
+            </Picker>
+          </View>
           <View style={styles.inputGroup}>
             <Text>Nombre </Text>
             <TextInput
@@ -121,7 +152,6 @@ function PetForm(props: PetFormProps): React.JSX.Element {
               placeholderTextColor="gray"
             />
           </View>
-
           <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Especie</Text>
             <Picker
@@ -138,7 +168,6 @@ function PetForm(props: PetFormProps): React.JSX.Element {
               ))}
             </Picker>
           </View>
-
           <View style={styles.inputGroup}>
             <Text>Raza </Text>
             <TextInput
@@ -177,7 +206,7 @@ function PetForm(props: PetFormProps): React.JSX.Element {
               placeholderTextColor="gray"
             />
           </View>
-          <Button color="#03bdbf" title="Modificar" onPress={onSend} />
+          <Button color="#627489" title={isNew ? 'Crear' : 'Modificar'} onPress={onSend} />
         </View>
       </View>
     </>

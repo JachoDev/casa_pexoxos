@@ -17,6 +17,7 @@ import {
   petList,
 } from '../../../services/firebase/firestore/firestoreService';
 import DayItem from '../items/DayItem';
+import PetButton from '../buttons/PetButton';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -106,6 +107,10 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     console.log(lodging);
   };
 
+  const update = () => {
+    setLodging([]);
+  };
+
   useEffect(() => {
     const updatedFilteredData = lodgingList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
     const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
@@ -116,10 +121,11 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     console.log(lodging);
 
     return (cleanUp = () => {});
-  }, []);
+  }, [lodging, pets, today]);
 
   return (
     <>
+    <PetButton title={''} />
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
@@ -145,6 +151,7 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
               petId={item.petId[0]}
               color={''}
               petImage={''}
+              onReset={update}
             />
           )}
           numColumns={4}

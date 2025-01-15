@@ -14,7 +14,7 @@ import lodging from '../../assets/images/icons/lodging.png'
 import payday from '../../assets/images/icons/payday.png'
 import petGrooming from '../../assets/images/icons/pet-grooming.png'
 import user from '../../assets/images/icons/user.png'
-import logo from '../../assets/images/image_banner.png'
+import logo from '../../assets/images/image_banner2.png'
 import NavButton from '../ui/buttons/NavButton';
 
 const createStyles = () =>

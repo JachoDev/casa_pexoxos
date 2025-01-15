@@ -7,8 +7,8 @@ import {
   Text,
   View,
   FlatList,
+  Button,
 } from 'react-native';
-import SalesCard from '../Cards/SalesCard';
 import ExpensesCard from '../Cards/ExpensesCard';
 import {expensesList} from '../../../services/firebase/firestore/firestoreService';
 
@@ -24,7 +24,7 @@ const createStyles = () =>
       borderRadius: 5,
       backgroundColor: '#ffffff',
       borderWidth: 6,
-      borderColor: '#2e2e2e'
+      borderColor: '#2e2e2e',
     },
     rowTile: {
       height: '20%',
@@ -56,17 +56,20 @@ type ExpensesListProps = PropsWithChildren<{
 }>;
 
 function ExpensesList(props: ExpensesListProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
-  const [sales, setSales] = useState(
-    expensesList.sort((a, b) => b.date - a.date)
+  const styles = createStyles();
+  const [expenses, setExpenses] = useState(
+    expensesList.sort((a, b) => b.date - a.date),
   );
 
+  const update = () => {
+    setExpenses([]);
+  };
+
   useEffect(() => {
-    setSales(expensesList.sort((a, b) => b.date - a.date));
-    console.log(sales);
+    setExpenses(expensesList.sort((a, b) => b.date - a.date));
+    console.log(expenses);
     return () => {};
-  }, [sales]);
+  }, [expenses]);
 
   return (
     <>
@@ -78,13 +81,15 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
           <Text style={styles.pageTitle}>Total</Text>
         </View>
         <FlatList
-          data={sales}
+          data={expenses}
           renderItem={({item}) => (
             <ExpensesCard
+              id={item.id}
               service={item.expenditure}
               paymentMethod={item.paymentMethod}
               date={item.date.toDate().toUTCString()}
               total={' $' + item.total}
+              onReset={update}
             />
           )}
         />

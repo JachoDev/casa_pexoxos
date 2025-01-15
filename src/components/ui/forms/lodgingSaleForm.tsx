@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RNPrint from 'react-native-print';
@@ -111,17 +112,27 @@ function LodgingSaleForm(props: LodgingSaleFormProps): React.JSX.Element {
   };
 
   const onSend = async () => {
+    if (!pickerValue) {
+          Alert.alert('Error', 'Seleccione un método de pago');
+          //alert('Seleccione un método de pago');
+          return;
+        }
+        if (total === undefined || isNaN(+total)) {
+          Alert.alert('Error', 'Total no es un número válido');
+          //alert('Total no es un número válido');
+          return;
+        }
     try {
-      addSale(+total, pickerValue, client.id, '', [props.services]);
-      updateLodgingState(props.serviceId, 'Cobrado');
-      updateLodgingList();
-      updateSalesList();
+      await addSale(+total, pickerValue, client.id, '', [props.services]);
+      await updateLodgingState(props.serviceId, 'Cobrado');
+      await updateLodgingList();
+      await updateSalesList();
       printRemotePDF();
     } catch (e) {
       console.log(e);
     }
     console.log('sale close');
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {

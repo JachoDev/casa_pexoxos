@@ -7,6 +7,7 @@ import {
   addDoc,
   updateDoc,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import {db} from '../../../../firebaseConfig';
 
@@ -19,6 +20,7 @@ export const cutsList = [];
 export const inventory = [];
 export const dogBoxes = [];
 export const catBoxes = [];
+export const users = [];
 
 //Firebase Firestore fast functions
 //Read data from Firestore Section
@@ -208,6 +210,24 @@ export const getInventory = async () => {
     });
   }
 };
+export const getUsers = async () => {
+  if (users.length === 0) {
+    const queryUsers = collection(db, 'usuarios');
+    const querySnapshotUsers = await getDocs(queryUsers);
+    querySnapshotUsers.forEach(doc => {
+      if (!users.find(e => e.id === doc.id)) {
+        const _doc = {
+          id: doc.id,
+          username: doc.data().Name,
+          password: doc.data().Password,
+          role: doc.data().Rol,
+        };
+        users.push(_doc);
+      }
+      //console.log(doc.id, '=>', doc.data());
+    });
+  }
+};
 
 export const getAll = async () => {
   await getPets();
@@ -219,6 +239,7 @@ export const getAll = async () => {
   await getDogBoxes();
   await getCatBoxes();
   await getInventory();
+  await getUsers();
 };
 
 //Addition functions to Firestore Section
@@ -322,7 +343,7 @@ export const addLodging = async (
 };
 
 export const addDogBox = async (_size: string, _qty: number) => {
-  const newDoc = await addDoc(collection(db, 'dogBoxes'), {
+  const newDoc = await addDoc(collection(db, 'cuartos'), {
     Quantity: _qty,
     Size: _size,
   });
@@ -433,47 +454,47 @@ export const clearAll = () => {
 
 export const updatePetList = async () => {
   clearPetList();
-  getPets();
+  await getPets();
 };
 
 export const updateClientsList = async () => {
   clearClientsList();
-  getClients();
+  await getClients();
 };
 
 export const updateExpensesList = async () => {
   clearExpensesList();
-  getExpenses();
+  await getExpenses();
 };
 
 export const updateSalesList = async () => {
   clearSalesList();
-  getSales();
+  await getSales();
 };
 
 export const updateLodgingList = async () => {
   clearLodgingList();
-  getLodging();
+  await getLodging();
 };
 
 export const updateCutsList = async () => {
   clearCutsList();
-  getCuts();
+  await getCuts();
 };
 
 export const updateDogBoxes = async () => {
   clearDogBoxes();
-  getDogBoxes();
+  await getDogBoxes();
 };
 
 export const updateCatBoxes = async () => {
   clearCatBoxes();
-  getCatBoxes();
+  await getCatBoxes();
 };
 
 export const updateInventory = async () => {
   clearInventory();
-  getInventory();
+  await getInventory();
 };
 
 export const updateLists = async () => {
@@ -657,7 +678,7 @@ export const updateDogBox = async (
   _size?: string,
   _qty?: number,
 ) => {
-  const docRef = doc(db, 'dogBoxes', _id);
+  const docRef = doc(db, 'cuartos', _id);
   const docSnap = await getDoc(docRef);
   const updateData: any = {};
 
@@ -714,3 +735,80 @@ export const updateInventoryItem = async (
     }
   }
 };
+
+export const updateUser = async (
+  _id: string,
+  _username?: string,
+  _password?: string,
+  _role?: string,
+) => {
+  const docRef = doc(db, 'usuarios', _id);
+  const docSnap = await getDoc(docRef);
+  const updateData: any = {};
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    if (_username && data.Name !== _username) updateData.Name = _username;
+    if (_password && data.Password !== _password) updateData.Password = _password;
+    if (_role && data.Rol !== _role) updateData.Rol = _role;
+
+    if (Object.keys(updateData).length > 0) {
+      await updateDoc(docRef, updateData);
+    }
+  }
+};
+
+//Delete functions to Firestore Section
+
+export const deletePet = async (_id: string) => {
+  const docRef = doc(db, 'mascotas', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteClient = async (_id: string) => {
+  const docRef = doc(db, 'clientes', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteExpense = async (_id: string) => {
+  const docRef = doc(db, 'egresos', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteSale = async (_id: string) => {
+  const docRef = doc(db, 'ventas', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteLodging = async (_id: string) => {
+  const docRef = doc(db, 'hospedaje', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteCut = async (_id: string) => {
+  const docRef = doc(db, 'cortes', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteDogBox = async (_id: string) => {
+  const docRef = doc(db, 'cuartos', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteCatBox = async (_id: string) => {
+  const docRef = doc(db, 'gateros', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteInventoryItem = async (_id: string) => {
+  const docRef = doc(db, 'inventario', _id);
+  await deleteDoc(docRef);
+};
+
+export const deleteUser = async (_id: string) => {
+  const docRef = doc(db, 'usuarios', _id);
+  await deleteDoc(docRef);
+};
+
+

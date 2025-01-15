@@ -55,6 +55,7 @@ const createStyles = () =>
   });
 
 const cuts = [
+  'Baño',
   'Corte tipo Schnauzer',
   'Corte tipo Scottish',
   'Corte completo con 10',
@@ -91,19 +92,19 @@ function DateForm( props : DateFormProps): React.JSX.Element {
   const [recs, setRecs] = useState('');
   const [cut, setCut] = useState();
 
-  const onSend = () => {
+  const onSend = async () => {
     
     console.log(date.toISOString().split('T')[0]);
     console.log(time.toTimeString());
     const checkIn = new Date(date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1]);
     console.log(checkIn.toUTCString());
     try {
-      addCut(checkIn, cut, pet, recs);
-      updateCutsList();
+      await addCut(checkIn, cut, pet, recs);
+      await updateCutsList();
     } catch (e) {
       console.log(e);
     }
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {

@@ -8,14 +8,16 @@ import {
   Text,
   View,
   Pressable,
+  GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import Svg, {Path, SvgXml} from 'react-native-svg';
 import arrow from '../../../assets/images/arrow.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { petList } from '../../../services/firebase/firestore/firestoreService';
+import {petList} from '../../../services/firebase/firestore/firestoreService';
 import CutSaleForm from '../forms/CutSaleForm';
 import LodgingSaleForm from '../forms/lodgingSaleForm';
-import { Flyout } from 'react-native-windows';
+import {Flyout} from 'react-native-windows';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -109,6 +111,7 @@ type LodgingCardProps = PropsWithChildren<{
   time: string;
   petImage: string;
   color: string;
+  onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function LodgingCard(props: LodgingCardProps): React.JSX.Element {
@@ -117,6 +120,38 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
   const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const clientId = petList.find(e => e.id == props.petId).clientId;
+
+  const onLongPress = () => {
+    Alert.alert(
+      'Eliminar',
+      '¿Estás seguro de que deseas eliminar este elemento?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              props.onReset?.({} as GestureResponderEvent);
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
+      ],
+    );
+  };
+
+  const onSend = () => {
+    setShowFlyout(false);
+    props.onReset?.({} as GestureResponderEvent);
+  };
+
   return (
     <>
       <Flyout
@@ -133,13 +168,16 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
             clientId={clientId}
             services={'Hospedaje'}
             pets={props.name}
-            onSend={() => setShowFlyout(false)}
+            onSend={onSend}
             serviceId={props.lodgingId}
           />
         </View>
       </Flyout>
       <Pressable
-        onPress={() => {setShowFlyout(true)}}
+        onPress={() => {
+          setShowFlyout(true);
+        }}
+        onLongPress={onLongPress}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
@@ -149,7 +187,7 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
-                source={require('../../../assets/images/dog.png')}
+                source={require('../../../assets/images/icons/dog.png')}
                 resizeMode="stretch"
               />
             </View>

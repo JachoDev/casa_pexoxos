@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -12,7 +12,7 @@ import {
   Pressable,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
-import { useTheme } from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
 import SearchBar from '../components/sections/SearchBar';
 import PetButton from '../components/ui/buttons/PetButton';
 import logo from '../assets/images/image_banner.png';
@@ -20,8 +20,12 @@ import pexoxos from '../assets/images/pexoxos.png';
 import animals from '../assets/images/animals.png';
 import background from '../assets/images/orange_background.png';
 import ServiceList from '../components/ui/Lists/ServiceList';
-import { Flyout } from 'react-native-windows';
-import { clientsList, salesList } from '../services/firebase/firestore/firestoreService';
+import {Flyout} from 'react-native-windows';
+import {
+  clientsList,
+  salesList,
+} from '../services/firebase/firestore/firestoreService';
+import ReminderList from '../components/ui/Lists/ReminderList';
 
 type HomeProps = PropsWithChildren<{
   title: string;
@@ -52,7 +56,7 @@ const createStyles = () =>
       marginTop: 20,
     },
     carouselSection: {
-      width: 'auto',
+      width: '72%',
       height: '100%',
       marginHorizontal: 50,
       alignItems: 'center',
@@ -61,8 +65,9 @@ const createStyles = () =>
     homeView: {
       width: '100%',
       height: '50%',
+      flexDirection: 'row',
       paddingHorizontal: 20,
-      marginTop: 10,
+      marginTop: 90,
       alignSelf: 'center',
       alignContent: 'center',
       justifyContent: 'center',
@@ -70,10 +75,11 @@ const createStyles = () =>
     textStyl: {
       color: 'white',
       fontSize: 18,
+      fontWeight: 'condensed',
     },
     notificationBox: {
-      width: '100%',
-      height: 150,
+      width: '20%',
+      height: '120%',
       backgroundColor: '#0000007f',
       borderRadius: 10,
       alignItems: 'center',
@@ -88,6 +94,13 @@ const createStyles = () =>
       color: 'black',
       fontSize: 18,
     },
+    title: {
+      width: '100%',
+      height: '10%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#2e2e2e',
+    },
   });
 
 function Home({children, title}: HomeProps): React.JSX.Element {
@@ -98,28 +111,36 @@ function Home({children, title}: HomeProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Flyout isOpen={showFlyout} onDismiss={() => setShowFlyout(false)} horizontalOffset={600} verticalOffset={600} >
-              <Pressable
-                style={[styles.flyer]}
-                onPress={() => setShowFlyout(false)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
+        <Flyout
+          isOpen={showFlyout}
+          onDismiss={() => setShowFlyout(false)}
+          horizontalOffset={600}
+          verticalOffset={600}>
+          <Pressable
+            style={[styles.flyer]}
+            onPress={() => setShowFlyout(false)}>
+            <Text style={styles.textStyle}>Hide Modal</Text>
+          </Pressable>
         </Flyout>
-        <ImageBackground source={background} resizeMode='cover' style={styles.imageBackgorund} >
-          <Navbar title='' />
-          <View style={styles.homeSection}>
-            <View style={styles.notificationBox}>
-              <Text style={styles.textStyl}> Notificaciones</Text>
-            </View>
-          </View>
+        <ImageBackground
+          source={background}
+          resizeMode="cover"
+          style={styles.imageBackgorund}>
+          <Navbar title="" />
           <View style={styles.homeView}>
-              <View style={styles.carouselSection}>
-                <ServiceList title={''} />
+            <View style={styles.carouselSection}>
+              <ServiceList title={''} />
+            </View>
+            <View style={styles.notificationBox}>
+              <View style={styles.title}>
+                <Text style={styles.textStyl}>Recordatorios</Text>
               </View>
+              <ReminderList title={''} />
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
-		</>
+    </>
   );
 }
 

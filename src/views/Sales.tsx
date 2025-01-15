@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -15,7 +15,10 @@ import SalesList from '../components/ui/Lists/SalesList';
 import Searchbar from '../components/sections/SearchBar';
 import ExpensesList from '../components/ui/Lists/ExpensesList';
 import RNPrint from 'react-native-print';
-const { jsPDF } = require("jspdf");
+import {Flyout} from 'react-native-windows';
+import SaleForm from '../components/ui/forms/SaleForm';
+import ExpenseForm from '../components/ui/forms/ExpenseForm';
+const {jsPDF} = require('jspdf');
 
 type SalesProps = PropsWithChildren<{
   title: string;
@@ -53,10 +56,26 @@ const createStyles = () =>
       borderRadius: 5,
       marginVertical: 10,
     },
+    flyer: {
+      width: 700,
+      height: 650,
+      backgroundColor: '#ffffffe0',
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      alignContent: 'center',
+      alignSelf: 'center',
+      verticalAlign: 'middle',
+    },
+    textStyle: {
+      color: 'black',
+    },
   });
 
 function Sales({title}: SalesProps): React.JSX.Element {
   const styles = createStyles();
+  const [showSaleFlyout, setShowSaleFlyout] = useState(false);
+  const [showExpenseFlyout, setShowExpenseFlyout] = useState(false);
   //\Users\javie\OneDrive\Documentos\1.pdf
   //src/views/1.pdf
 
@@ -67,7 +86,7 @@ function Sales({title}: SalesProps): React.JSX.Element {
     doc.text('This is client-side Javascript, pumping out a PDF.', 10, 20);
 
     //.save('a4.pdf');
-     console.log('PDF created: ', doc.save());
+    console.log('PDF created: ', doc.save());
     // await RNPrint.print({
     //   filePath:
     //     'data:application/pdf',
@@ -77,6 +96,33 @@ function Sales({title}: SalesProps): React.JSX.Element {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <Flyout
+          isOpen={showSaleFlyout}
+          onDismiss={() => setShowSaleFlyout(false)}
+          showMode="transient"
+          isLightDismissEnabled={true}
+          isOverlayEnabled={true}
+          placement="bottom">
+          <View style={[styles.flyer]}>
+            <Text style={styles.textStyle}>Modificar información</Text>
+            <SaleForm onSend={() => setShowSaleFlyout(false)} isNew={true} />
+          </View>
+        </Flyout>
+        <Flyout
+          isOpen={showExpenseFlyout}
+          onDismiss={() => setShowExpenseFlyout(false)}
+          showMode="transient"
+          isLightDismissEnabled={true}
+          isOverlayEnabled={true}
+          placement="bottom">
+          <View style={[styles.flyer]}>
+            <Text style={styles.textStyle}>Modificar información</Text>
+            <ExpenseForm
+              onSend={() => setShowExpenseFlyout(false) }
+              isNew={true}
+            />
+          </View>
+        </Flyout>
         <ImageBackground
           source={background}
           resizeMode="cover"
@@ -88,7 +134,7 @@ function Sales({title}: SalesProps): React.JSX.Element {
               title="Crear venta"
               color={'#88b764'}
               onPress={() => {
-                printRemotePDF();
+                setShowSaleFlyout(true);
               }}
             />
           </View>
@@ -96,7 +142,7 @@ function Sales({title}: SalesProps): React.JSX.Element {
             <SalesList title="" />
           </View>
           <View style={styles.button}>
-            <Button title="Crear egreso" onPress={() => {}} color={'#d35c50'}/>
+            <Button title="Crear egreso" onPress={() => {setShowExpenseFlyout(true)}} color={'#d35c50'} />
           </View>
           <View style={styles.salesListView}>
             <ExpensesList title="" />

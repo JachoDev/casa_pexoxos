@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RNPrint from 'react-native-print';
@@ -22,6 +23,7 @@ import {
   updateCutState,
   updateCutsList,
   updateSalesList,
+  updateSale,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
@@ -35,10 +37,10 @@ const createStyles = () =>
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 10,
-      backgroundColor: '#03bdbfdf',
+      backgroundColor: '#628348df',
     },
     textInput: {
-      borderColor: '#03bdbf',
+      borderColor: '#628348',
       borderRadius: 4,
       paddingTop: 8,
       paddingLeft: 10,
@@ -86,15 +88,17 @@ type SaleFormProps = PropsWithChildren<{
 
 function SaleForm(props: SaleFormProps): React.JSX.Element {
   const styles = createStyles();
-  const sale = salesList.find(e => e.id == props.id);
+  const sale = props.id ? salesList.find(e => e.id == props.id) : null;
   const [isNew, setIsNew] = useState(props.isNew ?? false);
-  const _client = clientsList.find(e => e.id == sale.clientId);
-  const [pickerValue, setPickerValue] = useState(isNew ? '' : sale.paymentMethod);
-  const [total, setTotal] = useState(isNew ? '0' : sale.total.toString());
+  const [pickerValue, setPickerValue] = useState(
+    sale ? sale.paymentMethod : 'Efectivo',
+  );
+  const [total, setTotal] = useState(sale ? sale.total.toString() : '');
   const [clientListO, setClientListO] = useState(
-      clientsList.sort((a, b) => a.name.localeCompare(b.name)),
-    );
-    const [client, setClient] = useState(isNew ? '' : _client.id);
+    clientsList.sort((a, b) => a.name.localeCompare(b.name)),
+  );
+  const [client, setClient] = useState(sale ? sale.clientId : '');
+  const [services, setServices] = useState(sale ? sale.services[0] : '');
 
   useEffect(() => {
     return (cleanUp = () => {});
@@ -108,17 +112,30 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
   };
 
   const onSend = async () => {
+    if (!pickerValue) {
+          Alert.alert('Error', 'Seleccione un método de pago');
+          //alert('Seleccione un método de pago');
+          return;
+        }
+        if (total === undefined || isNaN(+total)) {
+          Alert.alert('Error', 'Total no es un número válido');
+          //alert('Total no es un número válido');
+          return;
+        }
     try {
-      addSale(+total, pickerValue, client.id, '', [props.services]);
-      updateCutState(props.serviceId, 'Cobrado');
-      updateCutsList();
-      updateSalesList();
-      printRemotePDF();
+      if (isNew) {
+        await addSale(+total, pickerValue, client, '', [services]);
+        await updateSalesList();
+        printRemotePDF();
+      } else {
+        await updateSale(sale.id, +total, pickerValue, client, '', [services]);
+        await updateSalesList();
+      }
     } catch (e) {
       console.log(e);
     }
     console.log('sale close');
-    props.onSend();
+    props.onSend?.({} as GestureResponderEvent);
   };
 
   useEffect(() => {
@@ -130,36 +147,36 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
       <View style={styles.container}>
         <View>
           <View style={styles.inputGroup}>
-            <Text>Cliente</Text>
-            <TextInput
-              style={styles.textInput}
-              editable={false}
-              value={client.name + ' ' + client.lastname}
-              placeholder="Nombre"
-              placeholderTextColor="gray"
-            />
-            <Text>Mascotas: {props.pets}</Text>
-          </View>
-          <View style={styles.inputGroup}>
-            <Text>Número de teléfono</Text>
-            <TextInput
-              style={styles.textInput}
-              editable={false}
-              value={client.phone}
-              placeholder="000-000-0000"
-              dataDetectorTypes={'phoneNumber'}
-              inputMode="tel"
-              keyboardType="number-pad"
-              keyboardAppearance="dark"
-              placeholderTextColor="gray"
-            />
+            <Text>Buscar Cliente</Text>
+            <Picker
+              accessibilityLabel="Disabled Example"
+              style={{height: 50, width: 200, margin: 5, color: 'white'}}
+              enabled={isNew}
+              prompt="this prompt"
+              mode="dialog"
+              selectedValue={client}
+              onValueChange={setClient}
+              itemStyle={{color: 'white'}}>
+              {clientListO.map(item => (
+                <Picker.Item
+                  value={item.id}
+                  label={
+                    item.name != '' || item.lastname != ''
+                      ? item.name + ' ' + item.lastname
+                      : item.phone
+                  }
+                  key={item.id}
+                />
+              ))}
+            </Picker>
           </View>
           <View style={styles.inputGroup}>
             <Text>Servicios</Text>
             <TextInput
               style={styles.textInput}
-              value={props.services}
-              editable={false}
+              value={services}
+              onChangeText={setServices}
+              editable={isNew}
               placeholder="Corte"
               placeholderTextColor="gray"
             />
@@ -195,7 +212,7 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
             />
           </View>
           <View style={styles.textInput} />
-          <Button color="#762776" title="Cobrar" onPress={onSend} />
+          <Button color="#627489" title={isNew ? 'Crear' : 'Modificar'} onPress={onSend} />
         </View>
       </View>
     </>

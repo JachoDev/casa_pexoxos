@@ -8,10 +8,15 @@ import {
   Text,
   View,
   Pressable,
+  GestureResponderEvent,
+  Alert,
 } from 'react-native';
-import { Flyout } from 'react-native-windows';
+import {Flyout} from 'react-native-windows';
 import PetForm from '../forms/PetForm';
-import { clientsList, petList } from '../../../services/firebase/firestore/firestoreService';
+import {
+  clientsList,
+  petList,
+} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -61,17 +66,48 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
 
 type PetCardProps = PropsWithChildren<{
   petId: string;
+  name: string;
   image: string;
+  onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function PetCard(props: PetCardProps): React.JSX.Element {
   const pet = petList.find(e => e.id == props.petId);
-  const client = clientsList.find(e => e.id == pet.clientId);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
-  const clientName = client ? client.name + ' ' + client.lastname : 'No asignado';
+
+  const onLongPress = () => {
+    Alert.alert(
+      'Eliminar',
+      '¿Estás seguro de que deseas eliminar este elemento?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              props.onReset?.({} as GestureResponderEvent);
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
+      ],
+    );
+  };
+
+  const onSend = () => {
+    setShowFlyout(false);
+    props.onReset?.({} as GestureResponderEvent);
+  };
 
   return (
     <>
@@ -84,11 +120,14 @@ function PetCard(props: PetCardProps): React.JSX.Element {
         placement="bottom">
         <View style={[styles.flyer]}>
           <Text style={styles.textStyle}>Modificar información</Text>
-          <PetForm onSend={() => setShowFlyout(false)} id={props.petId} />
+          <PetForm onSend={onSend} id={props.petId} />
         </View>
       </Flyout>
       <Pressable
-        onPress={() => {setShowFlyout(true)}}
+        onPress={() => {
+          setShowFlyout(true);
+        }}
+        onLongPress={onLongPress}
         onHoverIn={() => setIsHovered(true)}
         onHoverOut={() => setIsHovered(false)}
         onPressIn={() => setIsPressing(true)}
@@ -97,10 +136,10 @@ function PetCard(props: PetCardProps): React.JSX.Element {
           <View>
             <Image
               style={styles.image}
-              source={require('../../../assets/images/dog.png')}
+              source={require('../../../assets/images/icons/dog.png')}
               resizeMode="stretch"
             />
-            <Text style={styles.pageTitle}>{pet.name}</Text>
+            <Text style={styles.pageTitle}>{props.name}</Text>
           </View>
         </View>
       </Pressable>
