@@ -256,7 +256,7 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
                   itemStyle={{color: 'white'}}>
                   {sizeList.map(item => (
                     <Picker.Item
-                      value={item.id}
+                      value={item.box}
                       label={item.box}
                       key={item.id}
                     />

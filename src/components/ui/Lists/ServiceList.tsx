@@ -51,7 +51,7 @@ const createStyles = () =>
   });
 
   const days = Array.from({ length: 28 }, (_, i) => {
-    const date = new Date();
+    const date = new Date(Date.now() - 18000000);
     date.setDate(date.getDate() + i);
     return {
       id: i + 1,
@@ -69,7 +69,7 @@ type ServiceListProps = PropsWithChildren<{
 function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
-  const today = useMemo(() => new Date(Date.now() - 18000000), []);
+  const today = useMemo(() => new Date(), []);
   const [cuts, setCuts] = useState(cutsList);
   const filteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
   const filterByState = filteredData.filter((e) => e.state != "Cobrado" && e.state != "Cancelado")
@@ -78,9 +78,10 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
 
   const renderItem = ({item}: {id: string, name: string, date: string}) => {
     const isSelected = selectedDay === item.id;
+    const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${item.date.split('-')[1]}`;
 
     return (
-      <DayItem day={item.name} onPress={() => onSelectDay(item.id, item.date)} isSelected={isSelected}/>
+      <DayItem day={day} onPress={() => onSelectDay(item.id, item.date)} isSelected={isSelected}/>
     );
   };
 
@@ -129,7 +130,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
             service={item.groomming}
             recomendations={item.recomendations}
             date={item.checkIn.toDate().toDateString()}
-            time={item.checkIn.toDate().toLocaleTimeString()}
+            time={item.checkIn.toDate().toTimeString()}
             color={item.color}
             petImage={item.petImage} petId={item.petId}
             onReset={update}

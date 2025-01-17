@@ -102,6 +102,9 @@
           "Microsoft.UI.Xaml": "[2.8.0, )"
         }
       },
+      "rnfs": {
+        "type": "Project"
+      },
       "rnprint": {
         "type": "Project",
         "dependencies": {

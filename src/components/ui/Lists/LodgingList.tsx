@@ -59,7 +59,7 @@ const createStyles = () =>
   });
 
   const days = Array.from({ length: 28 }, (_, i) => {
-    const date = new Date();
+    const date = new Date(Date.now() - 18000000);
     date.setDate(date.getDate() + i);
     return {
       id: i + 1,
@@ -92,19 +92,20 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
   const renderItem = ({item}: {id: string, name: string, date: string}) => {
     const isSelected = selectedDay === item.id;
 
+    const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${item.date.split('-')[1]}`;
     return (
-      <DayItem day={item.name} onPress={() => onSelectDay(item.id, item.date)} isSelected={isSelected}/>
+      <DayItem day={day} onPress={() => onSelectDay(item.id, item.date)} isSelected={isSelected}/>
     );
   };
 
   const onSelectDay = (day: string, date: string) => {
     setSelectedDay(day);
-    const updatedFilteredData = lodgingList.filter((e) => e.checkIn.toDate().toDateString() == new Date(date).toDateString());
+    const updatedFilteredData = lodgingList.filter((e) => new Date(e.checkIn.toDate() - 18000000).toDateString() == new Date(date).toDateString());
     const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
     setLodging(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
     console.log(day);
     console.log(date);
-    console.log(lodging);
+    console.log('check');
   };
 
   const update = () => {
@@ -121,7 +122,7 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     console.log(lodging);
 
     return (cleanUp = () => {});
-  }, [lodging, pets, today]);
+  }, []);
 
   return (
     <>
@@ -129,31 +130,40 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
-            <FlatList
-              data={days}
-              keyExtractor={item => item.id}
-              extraData={selectedDay}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              renderItem={renderItem}
-            />
+        <FlatList
+          data={days}
+          keyExtractor={item => item.id.toString()}
+          extraData={selectedDay}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={renderItem}
+        />
           </View>
         </View>
         <FlatList
           data={lodging}
-          renderItem={({item}) => (
-            <LodgingCard
-              name={petList.find(e => e.id == item.petId[0]).name}
-              lodgingId={item.id}
-              inDate={item.checkIn.toDate().toDateString()}
-              outDate={item.checkOut.toDate().toDateString()}
-              time={item.checkIn.toDate().toLocaleTimeString()}
-              petId={item.petId[0]}
-              color={''}
-              petImage={''}
-              onReset={update}
-            />
-          )}
+          renderItem={({item}) => {
+        const pet = petList.find(e => e.id == item.petId[0]);
+        const checkInDate = item.checkIn.toDate();
+        const checkOutDate = item.checkOut.toDate();
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const formattedCheckInDate = `${checkInDate.getDate()} de ${months[checkInDate.getMonth()]} de ${checkInDate.getFullYear()}`;
+        const formattedCheckOutDate = `${checkOutDate.getDate()} de ${months[checkOutDate.getMonth()]} de ${checkOutDate.getFullYear()}`;
+
+        return (
+          <LodgingCard
+            name={pet ? pet.name : 'Desconocido'}
+            lodgingId={item.id}
+            inDate={formattedCheckInDate}
+            outDate={formattedCheckOutDate}
+            time={checkInDate.toTimeString()}
+            petId={item.petId[0]}
+            color={''}
+            petImage={''}
+            onReset={update}
+          />
+        );
+          }}
           numColumns={4}
         />
       </View>

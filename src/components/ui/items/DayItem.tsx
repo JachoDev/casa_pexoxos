@@ -85,7 +85,7 @@ function DayItem(props: DayItemProps): React.JSX.Element {
   const [isPressing, setIsPressing] = useState(false);
   //const [isSelected, setIsSelected] = useState(props.isSelected ?? false);
   const styles = createStyles(isHovered, isPressing, props.isSelected);
-  const isSunday = props.day === 'Domingo';
+  const isSunday = props.day.substring(0, 3) === 'Dom';
 
   const onPress = () => {
     //setIsSelected(props.isSelected);
