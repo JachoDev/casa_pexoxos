@@ -70,7 +70,7 @@ const createStyles = () =>
 function User({title}: UserProps): React.JSX.Element {
   const styles = createStyles();
   const [showFlyout, setShowFlyout] = useState(false);
-
+//nuevo
   const printRemotePDF = async () => {
     const url = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
     const file = '\\\\1.pdf';
