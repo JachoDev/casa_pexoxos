@@ -51,7 +51,7 @@ const createStyles = () =>
   });
 
   const days = Array.from({ length: 28 }, (_, i) => {
-    const date = new Date(Date.now() - 18000000);
+    const date = new Date();
     date.setDate(date.getDate() + i);
     return {
       id: i + 1,
@@ -87,7 +87,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
 
   const onSelectDay = (day: string, date: string) => {
     setSelectedDay(day);
-    const updatedFilteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() == new Date(date).toDateString());
+    const updatedFilteredData = cutsList.filter((e) => e.checkIn.toDate().toLocaleDateString() == new Date(date).toLocaleDateString());
     const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
     setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
     console.log(day);
@@ -129,7 +129,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
             serviceId={item.id}
             service={item.groomming}
             recomendations={item.recomendations}
-            date={item.checkIn.toDate().toDateString()}
+            date={item.checkIn.toDate().toLocaleDateString()}
             time={item.checkIn.toDate().toTimeString()}
             color={item.color}
             petImage={item.petImage} petId={item.petId}

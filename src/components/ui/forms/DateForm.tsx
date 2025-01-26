@@ -99,7 +99,7 @@ function DateForm( props : DateFormProps): React.JSX.Element {
     const checkIn = new Date(date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1]);
     console.log(checkIn.toUTCString());
     try {
-      await addCut(checkIn, cut, pet, recs);
+      await addCut(new Date(checkIn.getTime() + 18000000), cut, pet, recs);
       await updateCutsList();
     } catch (e) {
       console.log(e);

@@ -6,19 +6,14 @@ import {
   Text,
   Button,
   View,
-  Image,
   ImageBackground,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/Red_Background.png';
-import ExpensesList from '../components/ui/Lists/ExpensesList';
 import InventoryList from '../components/ui/Lists/InventoryList';
 import RNPrint from 'react-native-print';
 import {Flyout} from 'react-native-windows';
 import InventoryForm from '../components/ui/forms/InventoryForm';
-
-const {jsPDF} = require('jspdf');
-var RNFS = require('react-native-fs');
 
 type UserProps = PropsWithChildren<{
   title: string;
@@ -70,11 +65,29 @@ const createStyles = () =>
 function User({title}: UserProps): React.JSX.Element {
   const styles = createStyles();
   const [showFlyout, setShowFlyout] = useState(false);
-//nuevo
+  //nuevo
   const printRemotePDF = async () => {
-    const url = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+    const url =
+      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
     const file = '\\\\1.pdf';
-    const results = await RNPrint.print({filePath: file});
+    const now = new Date();
+    const results = await RNPrint.printTicket({
+      name: 'Casa Pexoxos',
+      date: now.toDateString(),
+      time: now.toTimeString(),
+      items: [
+        {name: 'Corte', price: '100.00'},
+        {name: 'Baño', price: '250.00'},
+        {name: 'Corte de uñas', price: '150.00'},
+        {name: 'Vacunas', price: '200.00'},
+        {name: 'Desparasitación', price: '100.00'},
+        {name: 'Medicamentos', price: '200.00'},
+        {name: 'Alimento', price: '300.00'},
+        {name: 'Accesorios', price: '100.00'},
+      ],
+      total: '1600.00',
+      paymentMethod: 'Efectivo',
+    });
     console.log(results);
   };
 

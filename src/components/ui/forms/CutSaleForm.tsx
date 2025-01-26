@@ -89,23 +89,21 @@ type CutSaleFormProps = PropsWithChildren<{
 }>;
 
 function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
-  //const client = clientsList.find();
-  const [time, setTime] = useState(new Date(0));
+  const styles = createStyles();
   const [pickerValue, setPickerValue] = useState();
   const [total, setTotal] = useState();
-  const today = new Date();
-  const client = clientsList.find(item => item.id == props.clientId);
+  const client = clientsList.find(item => item.id === props.clientId);
 
-  useEffect(() => {
-    return (cleanUp = () => {});
-  }, []);
-
-  const printRemotePDF = async () => {
-    await RNPrint.print({
-      filePath:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+  const printRec = async () => {
+    const now = new Date();
+    await RNPrint.printTicket({
+      name: 'Casa Pexoxos',
+      date: now.toDateString(),
+      time: now.toTimeString(),
+      client: client.name + ' ' + client.lastname,
+      items: [{name: props.services, price: total}],
+      total: total,
+      paymentMethod: pickerValue,
     });
   };
 
@@ -125,7 +123,7 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
       await updateCutState(props.serviceId, 'Cobrado');
       await updateCutsList();
       await updateSalesList();
-      printRemotePDF();
+      await printRec();
     } catch (e) {
       console.log(e);
     }

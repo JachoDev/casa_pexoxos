@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
         "nativewind"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        ".fantomasignore": "ignore",
+        "optional": "cpp"
+    }
 }

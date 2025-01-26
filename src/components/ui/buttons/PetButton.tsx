@@ -1,5 +1,5 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
@@ -13,7 +13,17 @@ import cat from '../../../assets/images/icons/cat.png';
 import dog from '../../../assets/images/icons/dog.png';
 import bird from '../../../assets/images/icons/bird.png';
 
-const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelected: boolean, isCatHovered: boolean, isCatPressing: boolean, isCatSelected: boolean, isBirdHovered: boolean, isBirdPressing: boolean, isBirdSelected: boolean) =>
+const createStyles = (
+  isDogHovered: boolean,
+  isDogPressing: boolean,
+  isDogSelected: boolean,
+  isCatHovered: boolean,
+  isCatPressing: boolean,
+  isCatSelected: boolean,
+  isBirdHovered: boolean,
+  isBirdPressing: boolean,
+  isBirdSelected: boolean,
+) =>
   StyleSheet.create({
     container: {
       alignSelf: 'stretch',
@@ -26,7 +36,7 @@ const createStyles = (isDogHovered: boolean, isDogPressing: boolean, isDogSelect
     petBackground: {
       borderRadius: 10,
     },
-    petRow:{
+    petRow: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -117,7 +127,17 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
   const [isBirdHovered, setIsBirdHovered] = useState(false);
   const [isBirdPressing, setIsBirdPressing] = useState(false);
   const [isBirdSelected, setIsBirdSelected] = useState(false);
-  const styles = createStyles( isDogHovered, isDogPressing, isDogSelected, isCatHovered, isCatPressing, isCatSelected, isBirdHovered, isBirdPressing, isBirdSelected);
+  const styles = createStyles(
+    isDogHovered,
+    isDogPressing,
+    isDogSelected,
+    isCatHovered,
+    isCatPressing,
+    isCatSelected,
+    isBirdHovered,
+    isBirdPressing,
+    isBirdSelected,
+  );
   const onDogPress = () => {
     setIsDogSelected(true);
     setIsCatSelected(false);
@@ -130,7 +150,7 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
       setIsCatSelected(true);
       setIsBirdSelected(false);
     }
-    
+
     //Select cat filter
   };
   const onBirdPress = () => {
@@ -142,31 +162,37 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
 
   return (
     <>
-			<View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.petBackground}>
           <View style={styles.petRow}>
             <View style={styles.catButton}>
-              <Pressable 
+              <Pressable
                 onPress={onCatPress}
                 onHoverIn={() => setIsCatHovered(true)}
                 onHoverOut={() => setIsCatHovered(false)}
                 onPressIn={() => setIsCatPressing(true)}
-                onPressOut={() => setIsCatPressing(false)}
-              >
-                <Image style={styles.catImage} source={cat} resizeMode='cover'/>
+                onPressOut={() => setIsCatPressing(false)}>
+                <Image
+                  style={styles.catImage}
+                  source={cat}
+                  resizeMode="cover"
+                />
                 <Text style={styles.iconTitle}> Gatos </Text>
               </Pressable>
             </View>
             <View style={styles.dogButton}>
-              <Pressable 
+              <Pressable
                 onPress={onDogPress}
                 onHoverIn={() => setIsDogHovered(true)}
                 onHoverOut={() => setIsDogHovered(false)}
                 onPressIn={() => setIsDogPressing(true)}
                 onPressOut={() => setIsDogPressing(false)}
-                hitSlop={0}
-              >
-                <Image style={styles.dogImage} source={dog} resizeMode='cover'/>
+                hitSlop={0}>
+                <Image
+                  style={styles.dogImage}
+                  source={dog}
+                  resizeMode="cover"
+                />
                 <Text style={styles.iconTitle}> Perros </Text>
               </Pressable>
             </View>
@@ -176,16 +202,19 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
                 onHoverIn={() => setIsBirdHovered(true)}
                 onHoverOut={() => setIsBirdHovered(false)}
                 onPressIn={() => setIsBirdPressing(true)}
-                onPressOut={() => setIsBirdPressing(false)}
-              >
-                <Image style={styles.birdImage} source={bird} resizeMode='contain'/>
+                onPressOut={() => setIsBirdPressing(false)}>
+                <Image
+                  style={styles.birdImage}
+                  source={bird}
+                  resizeMode="contain"
+                />
                 <Text style={styles.iconTitle}> Razas Pequeñas </Text>
               </Pressable>
             </View>
           </View>
         </View>
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 

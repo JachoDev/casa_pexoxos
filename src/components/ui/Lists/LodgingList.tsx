@@ -59,7 +59,7 @@ const createStyles = () =>
   });
 
   const days = Array.from({ length: 28 }, (_, i) => {
-    const date = new Date(Date.now() - 18000000);
+    const date = new Date();
     date.setDate(date.getDate() + i);
     return {
       id: i + 1,
@@ -77,7 +77,7 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
   const styles = createStyles(colors);
   const [pets, setPets] = useState(petList);
   const [selectedDay, setSelectedDay] = useState();
-  const today = new Date(Date.now() - 18000000);
+  const today = new Date();
   const filteredData = lodgingList.filter(
     e => e.checkIn.toDate().toDateString() <= today.toDateString(),
   );
@@ -100,12 +100,12 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
 
   const onSelectDay = (day: string, date: string) => {
     setSelectedDay(day);
-    const updatedFilteredData = lodgingList.filter((e) => new Date(e.checkIn.toDate() - 18000000).toDateString() == new Date(date).toDateString());
+    const updatedFilteredData = lodgingList.filter((e) => new Date(e.checkIn.toDate()).toLocaleDateString() === new Date(date).toLocaleDateString());
     const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
     setLodging(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
     console.log(day);
     console.log(date);
-    console.log('check');
+    console.log(new Date(date).toLocaleDateString());
   };
 
   const update = () => {

@@ -10,7 +10,6 @@ export type Int64String = string;
 export type DateString = string;
 
 
-
 export interface Client_Key {
   id: UUIDString;
   __typename?: 'Client_Key';
@@ -83,21 +82,20 @@ export interface User_Key {
 }
 
 
-
 /* Allow users to create refs without passing in DataConnect */
 export function upsertUserRef(vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
 /* Allow users to pass in custom DataConnect instances */
-export function upsertUserRef(dc: DataConnect, vars: UpsertUserVariables): MutationRef<UpsertUserData,UpsertUserVariables>;
+export function upsertUserRef(dc: DataConnect, vars: UpsertUserVariables): MutationRef<UpsertUserData, UpsertUserVariables>;
 
 export function upsertUser(vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
-export function upsertUser(dc: DataConnect, vars: UpsertUserVariables): MutationPromise<UpsertUserData,UpsertUserVariables>;
+export function upsertUser(dc: DataConnect, vars: UpsertUserVariables): MutationPromise<UpsertUserData, UpsertUserVariables>;
 
 
 /* Allow users to create refs without passing in DataConnect */
-export function listUsersRef(): QueryRef<ListUsersData, undefined>;/* Allow users to pass in custom DataConnect instances */
-export function listUsersRef(dc: DataConnect): QueryRef<ListUsersData,undefined>;
+export function listUsersRef(): QueryRef<ListUsersData, undefined>;
+/* Allow users to pass in custom DataConnect instances */
+export function listUsersRef(dc: DataConnect): QueryRef<ListUsersData, undefined>;
 
 export function listUsers(): QueryPromise<ListUsersData, undefined>;
-export function listUsers(dc: DataConnect): QueryPromise<ListUsersData,undefined>;
-
+export function listUsers(dc: DataConnect): QueryPromise<ListUsersData, undefined>;
 

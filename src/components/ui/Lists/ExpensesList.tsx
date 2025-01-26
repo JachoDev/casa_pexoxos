@@ -87,8 +87,8 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
               id={item.id}
               service={item.expenditure}
               paymentMethod={item.paymentMethod}
-              date={item.date.toDate().toUTCString()}
-              total={' $' + item.total}
+              date={item.date.toDate().toLocaleDateString() + ' ' + item.date.toDate().toTimeString()}
+              total={' $' + item.total.toFixed(2)}
               onReset={update}
             />
           )}

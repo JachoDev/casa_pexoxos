@@ -90,44 +90,68 @@ type LodgingSaleFormProps = PropsWithChildren<{
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
+type itemProps = {
+  name: string;
+  price: string;
+};
+
 function LodgingSaleForm(props: LodgingSaleFormProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
-  //const client = clientsList.find();
-  const [time, setTime] = useState(new Date(0));
+  const styles = createStyles();
   const [pickerValue, setPickerValue] = useState();
   const [total, setTotal] = useState();
-  const today = new Date();
   const client = clientsList.find(item => item.id == props.clientId);
+  const [inputs, setInputs] = useState<itemProps[]>([]);
+  const [finalSum, setFinalSum] = useState(0);
 
-  useEffect(() => {
-    return (cleanUp = () => {});
-  }, []);
+  const addTextInput = (title: string, price: string) => {
+    setInputs([...inputs, {name: title, price: price}]);
+    setFinalSum(finalSum + +price);
 
-  const printRemotePDF = async () => {
-    await RNPrint.print({
-      filePath:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    console.log(title);
+    console.log(price);
+  };
+
+  const printRec = async () => {
+    const now = new Date();
+    await RNPrint.printTicket({
+      name: 'Casa Pexoxos',
+      date: now.toDateString(),
+      time: now.toTimeString(),
+      client: client.name + ' ' + client.lastname,
+      items: [{name: props.services, price: total}],
+      total: total,
+      paymentMethod: pickerValue,
     });
   };
 
+  const renderItem = (item: {id: string; item: itemProps}) => {
+      console.log(item.item);
+      return (
+        <View style={styles.listItem}>
+          <Text style={styles.titleText}>{item.item.name}</Text>
+          <Text style={styles.titleText}>{'$' + item.item.price}</Text>
+        </View>
+      );
+    };
+  
+
   const onSend = async () => {
     if (!pickerValue) {
-          Alert.alert('Error', 'Seleccione un método de pago');
-          //alert('Seleccione un método de pago');
-          return;
-        }
-        if (total === undefined || isNaN(+total)) {
-          Alert.alert('Error', 'Total no es un número válido');
-          //alert('Total no es un número válido');
-          return;
-        }
+      Alert.alert('Error', 'Seleccione un método de pago');
+      //alert('Seleccione un método de pago');
+      return;
+    }
+    if (total === undefined || isNaN(+total)) {
+      Alert.alert('Error', 'Total no es un número válido');
+      //alert('Total no es un número válido');
+      return;
+    }
     try {
       await addSale(+total, pickerValue, client.id, '', [props.services]);
       await updateLodgingState(props.serviceId, 'Cobrado');
       await updateLodgingList();
       await updateSalesList();
-      printRemotePDF();
+      await printRec();
     } catch (e) {
       console.log(e);
     }

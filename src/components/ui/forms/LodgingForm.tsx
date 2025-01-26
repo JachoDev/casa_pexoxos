@@ -119,7 +119,7 @@ function LodgingForm(props: LodgingFormProps): React.JSX.Element {
     );
 
     try {
-      await addLodging(checkIn, checkOut, client, pet, size, spec);
+      await addLodging(new Date(checkIn.getTime() + 18000000), new Date(checkOut.getTime() + 18000000), client, pet, size, spec);
       await updateLodgingList();
     } catch (e) {
       console.log(e);

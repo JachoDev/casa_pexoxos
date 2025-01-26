@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -40,7 +40,7 @@ const createStyles = () =>
     },
     salesListView: {
       width: '90%',
-      height: '30%',
+      height: '50%',
       backgroundColor: '#',
       alignSelf: 'center',
     },
@@ -76,6 +76,7 @@ function Sales({title}: SalesProps): React.JSX.Element {
   const styles = createStyles();
   const [showSaleFlyout, setShowSaleFlyout] = useState(false);
   const [showExpenseFlyout, setShowExpenseFlyout] = useState(false);
+  const [isSales, setIsSales] = useState(true);
   //\Users\javie\OneDrive\Documentos\1.pdf
   //src/views/1.pdf
 
@@ -118,7 +119,7 @@ function Sales({title}: SalesProps): React.JSX.Element {
           <View style={[styles.flyer]}>
             <Text style={styles.textStyle}>Modificar información</Text>
             <ExpenseForm
-              onSend={() => setShowExpenseFlyout(false) }
+              onSend={() => setShowExpenseFlyout(false)}
               isNew={true}
             />
           </View>
@@ -129,24 +130,37 @@ function Sales({title}: SalesProps): React.JSX.Element {
           style={styles.imageBackgorund}>
           <Navbar title="" />
 
-          <View style={styles.button}>
-            <Button
-              title="Crear venta"
-              color={'#88b764'}
-              onPress={() => {
-                setShowSaleFlyout(true);
-              }}
-            />
-          </View>
-          <View style={styles.salesListView}>
-            <SalesList title="" />
-          </View>
-          <View style={styles.button}>
-            <Button title="Crear egreso" onPress={() => {setShowExpenseFlyout(true)}} color={'#d35c50'} />
-          </View>
-          <View style={styles.salesListView}>
-            <ExpensesList title="" />
-          </View>
+          {isSales ? (
+            <>
+              <View style={styles.button}>
+                <Button
+                  title="Crear venta"
+                  color={'#88b764'}
+                  onPress={() => {
+                    setShowSaleFlyout(true);
+                  }}
+                />
+              </View>
+              <View style={styles.salesListView}>
+                <SalesList title="" />
+              </View>
+            </>
+          ) : (
+            <>
+              <View style={styles.button}>
+                <Button
+                  title="Crear egreso"
+                  onPress={() => {
+                    setShowExpenseFlyout(true);
+                  }}
+                  color={'#d35c50'}
+                />
+              </View>
+              <View style={styles.salesListView}>
+                <ExpensesList title="" />
+              </View>
+            </>
+          )}
         </ImageBackground>
       </SafeAreaView>
     </>

@@ -123,10 +123,10 @@ function ExpenseForm(props: ExpenseFormProps): React.JSX.Element {
     }
     try {
       if (isNew) {
-        await addExpense(concept, total, pickerValue);
+        await addExpense(concept, +total, pickerValue);
         await updateExpensesList();
       } else {
-        await updateExpense(expense.id, concept, total, pickerValue);
+        await updateExpense(expense.id, concept, +total, pickerValue);
         await updateExpensesList();
       }
     } catch (e) {
