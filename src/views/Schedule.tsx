@@ -38,7 +38,7 @@ const createStyles = () =>
       backgroundColor: 'white',
     },
     imageBackgorund: {
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       height: '100%',
     },
     imageAnimals: {

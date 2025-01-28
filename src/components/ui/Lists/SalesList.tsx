@@ -93,45 +93,117 @@ type SalesListProps = PropsWithChildren<{
 
 function SalesList(props: SalesListProps): React.JSX.Element {
   const styles = createStyles();
-  const [sales, setSales] = useState(salesList.sort((a, b) => b.date - a.date));
+  const now = new Date();
+  const [sales, setSales] = useState(
+    salesList
+      .sort((a, b) => b.date - a.date)
+      .filter(sale => sale.date.toDate().toDateString() === now.toDateString()),
+  );
   const [total, setTotal] = useState(0);
   const [filter, setFilter] = useState('day');
-  const now = new Date();
-  const daysInMonth = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0,
-  ).getDate();
+  const [day, setDay] = useState(now.getDate().toString());
+  const [week, setWeek] = useState();
+  const [month, setMonth] = useState();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const daysInMonth = endOfMonth.getDate();
   const daysArray = Array.from({length: daysInMonth}, (_, i) => i + 1);
+  const weekDaysArray = [
+    'Domingo',
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
+  ];
+  const monthsArray = [
+    'Enero',
+    'Febrero',
+    'Marzo',
+    'Abril',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
+  ];
+  const weeksArray: {start: Date; end: Date}[] = [];
+  let currentWeekStart = startOfMonth;
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() - startOfMonth.getDay() + 1,
+  );
+  while (currentWeekStart <= endOfMonth) {
+    const currentWeekEnd = new Date(currentWeekStart);
+    currentWeekEnd.setDate(
+      currentWeekStart.getDate() + 6 - startOfMonth.getDay(),
+    );
+    weeksArray.push({
+      start: new Date(currentWeekStart),
+      end: currentWeekEnd,
+    });
+    currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+  }
 
   const filterSales = (filter: string) => {
-    const now = new Date();
+    setFilter(filter);
+  };
+
+  const setFilteredDay = item => {
+    setDay(item);
+    const _startOfMonth = new Date(now.getFullYear(), now.getMonth(), item);
     let filteredSales = salesList;
-
-    if (filter === 'day') {
-      filteredSales = salesList.filter(
-        sale =>
-          sale.date.toDate().toLocaleDateString() === now.toLocaleDateString(),
-      );
-    } else if (filter === 'week') {
-      const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
-      filteredSales = salesList.filter(
-        sale => sale.date.toDate() >= startOfWeek,
-      );
-    } else if (filter === 'month') {
-      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-      filteredSales = salesList.filter(
-        sale => sale.date.toDate() >= startOfMonth,
-      );
-    }
-
-    console.log(now.toLocaleDateString());
-
+    filteredSales = salesList.filter(
+      sale =>
+        sale.date.toDate().toDateString() === _startOfMonth.toDateString(),
+    );
     setSales(filteredSales);
     let sum = 0;
-    filteredSales.forEach(i => {
-      sum += i.total;
-      console.log(i);
+    filteredSales.forEach(e => {
+      sum += e.total;
+      console.log(e);
+    });
+    setTotal(sum);
+  };
+
+  const setFilteredWeek = item => {
+    setWeek(item);
+    const startOfWeek = new Date(weeksArray[item].start);
+    const endOfWeek = new Date(weeksArray[item].end);
+    console.log(startOfWeek);
+    console.log(endOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 1);
+    let filteredSales = salesList;
+    filteredSales = salesList.filter(
+      sale =>
+        sale.date.toDate() >= startOfWeek && sale.date.toDate() <= endOfWeek,
+    );
+    setSales(filteredSales);
+    let sum = 0;
+    filteredSales.forEach(e => {
+      sum += e.total;
+      console.log(e);
+    });
+    setTotal(sum);
+  };
+
+  const setFilteredMonth = item => {
+    setMonth(item);
+    const _startOfMonth = new Date(now.getFullYear(), item, 1);
+    let filteredSales = salesList;
+    filteredSales = salesList.filter(
+      sale =>
+        sale.date.toDate().getMonth() === _startOfMonth.getMonth() &&
+        sale.date.toDate().getFullYear() === _startOfMonth.getFullYear(),
+    );
+    setSales(filteredSales);
+    let sum = 0;
+    filteredSales.forEach(e => {
+      sum += e.total;
+      console.log(e);
     });
     setTotal(sum);
   };
@@ -142,16 +214,56 @@ function SalesList(props: SalesListProps): React.JSX.Element {
 
   useEffect(() => {
     //setSales(salesList.sort((a, b) => b.date - a.date));
+    setFilteredDay(day);
 
     console.log(sales);
-    return (cleanUp = () => {});
-  }, [sales]);
+    return () => {};
+  }, []);
 
   return (
     <>
-      <Picker onValueChange={() => {}} style={styles.pickerStyle}>
-        {}
-      </Picker>
+      {filter === 'day' ? (
+        <Picker
+          selectedValue={day}
+          onValueChange={setFilteredDay}
+          style={styles.pickerStyle}>
+          {daysArray.map((item, index) => (
+            <Picker.Item
+              key={index}
+              label={item.toString()}
+              value={item.toString()}
+            />
+          ))}
+        </Picker>
+      ) : null}
+      {filter === 'week' ? (
+        <Picker
+          selectedValue={week}
+          onValueChange={setFilteredWeek}
+          style={styles.pickerStyle}>
+          {weeksArray.map((item, index) => (
+            <Picker.Item
+              key={index}
+              label={
+                item.start.toLocaleDateString() +
+                '  -  ' +
+                item.end.toLocaleDateString()
+              }
+              value={index.toString()}
+            />
+          ))}
+        </Picker>
+      ) : null}
+      {filter === 'month' ? (
+        <Picker
+          selectedValue={month}
+          onValueChange={setFilteredMonth}
+          style={styles.pickerStyle}>
+          {monthsArray.map((item, index) => (
+            <Picker.Item key={index} label={item} value={index.toString()} />
+          ))}
+        </Picker>
+      ) : null}
       <View style={styles.rowContent}>
         <PeriodButton
           title={''}
@@ -188,7 +300,13 @@ function SalesList(props: SalesListProps): React.JSX.Element {
                 service={item.services}
                 paymentMethod={item.paymentMethod}
                 date={
-                  item.date.toDate().toLocaleDateString() +
+                  weekDaysArray[item.date.toDate().getDay()].substring(0, 3) +
+                  ' ' +
+                  item.date.toDate().getDate().toString().padStart(2, '0') +
+                  ' ' +
+                  monthsArray[item.date.toDate().getMonth()].substring(0, 3) +
+                  ' ' +
+                  item.date.toDate().getFullYear() +
                   ' ' +
                   item.date.toDate().toTimeString()
                 }

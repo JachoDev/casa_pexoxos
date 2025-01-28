@@ -14,14 +14,9 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import RNPrint from 'react-native-print';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {
   clientsList,
-  salesList,
-  cutsList,
   addSale,
-  updateCutState,
-  updateCutsList,
   updateSalesList,
   updateLodgingState,
   updateLodgingList,
@@ -41,6 +36,15 @@ const createStyles = () =>
       backgroundColor: '#03bdbfdf',
     },
     textInput: {
+      borderColor: '#03bdbf',
+      borderRadius: 4,
+      paddingTop: 8,
+      paddingLeft: 10,
+      color: 'white',
+      width: 300,
+      height: 40,
+    },
+    textInputB: {
       borderColor: '#03bdbf',
       borderRadius: 4,
       paddingTop: 8,
@@ -193,16 +197,6 @@ function LodgingSaleForm(props: LodgingSaleFormProps): React.JSX.Element {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text>Servicios</Text>
-            <TextInput
-              style={styles.textInput}
-              value={props.services}
-              editable={false}
-              placeholder="Corte"
-              placeholderTextColor="gray"
-            />
-          </View>
-          <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Método de pago</Text>
             <Picker
               accessibilityLabel="Disabled Example"
@@ -221,6 +215,17 @@ function LodgingSaleForm(props: LodgingSaleFormProps): React.JSX.Element {
               <Picker.Item label="Transferencia" value="Transferencia" />
             </Picker>
           </View>
+          <View style={styles.inputGroup}>
+            <Text>Servicios</Text>
+            <TextInput
+              style={styles.textInput}
+              value={props.services}
+              editable={false}
+              placeholder="Corte"
+              placeholderTextColor="gray"
+            />
+          </View>
+          
           <View style={styles.inputGroup}>
             <Text>Total</Text>
             <TextInput

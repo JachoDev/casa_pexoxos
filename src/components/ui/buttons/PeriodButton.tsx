@@ -1,4 +1,3 @@
-import {useTheme} from '@react-navigation/native';
 import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -6,14 +5,9 @@ import {
   //SafeAreaView,
   Text,
   View,
-  Image,
   Pressable,
   GestureResponderEvent,
 } from 'react-native';
-import cat from '../../../assets/images/icons/cat.png';
-import dog from '../../../assets/images/icons/dog.png';
-import bird from '../../../assets/images/icons/bird.png';
-import {Picker} from '@react-native-picker/picker';
 
 const createStyles = (
   isDayHovered: boolean,
@@ -46,7 +40,7 @@ const createStyles = (
       flexDirection: 'row',
     },
     periodTextD: {
-      fontSize: isDaySelected ? 22 : isDayHovered ? 22 : 18,
+      fontSize: isDaySelected ? 24 : isDayHovered ? 22 : 18,
       marginHorizontal: isDayHovered ? 3 : 0,
       marginVertical: isDayHovered ? 8 : 6,
       color: '#2e2e2e',
@@ -54,14 +48,15 @@ const createStyles = (
       fontWeight: 'bold',
     },
     periodTextW: {
-      fontSize: isWeekSelected ? 22 : isWeekHovered ? 22 : 18,
+      fontSize: isWeekSelected ? 24 : isWeekHovered ? 22 : 18,
       marginHorizontal: isWeekHovered ? 3 : 0,
       marginVertical: isWeekHovered ? 8 : 6,
       color: '#2e2e2e',
+      opacity: isWeekPressing ? 0.2 : 1,
       fontWeight: 'bold',
     },
     periodTextM: {
-      fontSize: isMonthSelected ? 22 : isMonthHovered ? 22 : 18,
+      fontSize: isMonthSelected ? 24 : isMonthHovered ? 22 : 18,
       marginHorizontal: isMonthHovered ? 3 : 0,
       marginVertical: isMonthHovered ? 8 : 6,
       color: '#2e2e2e',
@@ -84,26 +79,20 @@ const createStyles = (
 
 type PeriodButtonProps = PropsWithChildren<{
   title: string;
+  isMonth?: boolean;
   onPressDay?: null | ((event: GestureResponderEvent) => void) | undefined;
   onPressWeek?: null | ((event: GestureResponderEvent) => void) | undefined;
   onPressMonth?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function PeriodButton(props: PeriodButtonProps): React.JSX.Element {
-  const now = new Date();
-  const daysInMonth = new Date(
-    now.getFullYear(),
-    now.getMonth() + 1,
-    0,
-  ).getDate();
-  const daysArray = Array.from({length: daysInMonth}, (_, i) => i + 1);
   const [isDayHovered, setIsDayHovered] = useState(false);
   const [isDayPressing, setIsDayPressing] = useState(false);
-  const [isDaySelected, setIsDaySelected] = useState(true);
+  const [isDaySelected, setIsDaySelected] = useState(props.isMonth ? !props.isMonth : true);
   const [isWeekHovered, setIsWeekHovered] = useState(false);
   const [isWeekPressing, setIsWeekPressing] = useState(false);
   const [isWeekSelected, setIsWeekSelected] = useState(false);
-  const [isMonthHovered, setIsMonthHovered] = useState(false);
+  const [isMonthHovered, setIsMonthHovered] = useState(props.isMonth ?? false);
   const [isMonthPressing, setIsMonthPressing] = useState(false);
   const [isMonthSelected, setIsMonthSelected] = useState(false);
   const styles = createStyles(
@@ -152,15 +141,21 @@ function PeriodButton(props: PeriodButtonProps): React.JSX.Element {
           onHoverOut={() => {
             setIsDayHovered(false);
           }}
-          onPressIn={() => {}}
-          onPressOut={() => {}}>
+          onPressIn={() => {
+            setIsDayPressing(true);
+          }}
+          onPressOut={() => {
+            setIsDayPressing(false);
+          }}>
           <View style={styles.periodBox}>
             <Text style={styles.periodTextD}>Día</Text>
           </View>
         </Pressable>
 
         <Pressable
-          onPress={() => {}}
+          onPress={() => {
+            onWeekPress();
+          }}
           onHoverIn={() => {
             setIsWeekHovered(true);
           }}
@@ -171,7 +166,7 @@ function PeriodButton(props: PeriodButtonProps): React.JSX.Element {
             setIsWeekPressing(true);
           }}
           onPressOut={() => {
-            setIsWeekHovered(false);
+            setIsWeekPressing(false);
           }}>
           <View style={styles.periodBox}>
             <Text style={styles.periodTextW}>Semana</Text>
@@ -180,7 +175,7 @@ function PeriodButton(props: PeriodButtonProps): React.JSX.Element {
 
         <Pressable
           onPress={() => {
-            //onMonthPress();
+            onMonthPress();
           }}
           onHoverIn={() => {
             setIsMonthHovered(true);

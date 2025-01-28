@@ -29,14 +29,15 @@ const createStyles = () =>
     container: {
       alignSelf: 'auto',
       width: '100%',
+      height: '100%',
       alignContent: 'center',
       justifyContent: 'center',
-      flex: 1,
       backgroundColor: 'white',
     },
     imageBackgorund: {
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       height: '100%',
+      width: '100%',
     },
     salesListView: {
       width: '90%',
@@ -54,7 +55,15 @@ const createStyles = () =>
       fontSize: 16,
       alignSelf: 'flex-end',
       borderRadius: 5,
-      marginVertical: 10,
+    },
+    selectionButton: {
+      width: 150,
+      height: 40,
+      marginLeft: 180,
+      fontSize: 24,
+      alignSelf: 'flex-start',
+      borderRadius: 5,
+      marginTop: 15,
     },
     flyer: {
       width: 700,
@@ -77,22 +86,6 @@ function Sales({title}: SalesProps): React.JSX.Element {
   const [showSaleFlyout, setShowSaleFlyout] = useState(false);
   const [showExpenseFlyout, setShowExpenseFlyout] = useState(false);
   const [isSales, setIsSales] = useState(true);
-  //\Users\javie\OneDrive\Documentos\1.pdf
-  //src/views/1.pdf
-
-  const printRemotePDF = async () => {
-    const doc = new jsPDF();
-
-    doc.text('Hello world!', 10, 10);
-    doc.text('This is client-side Javascript, pumping out a PDF.', 10, 20);
-
-    //.save('a4.pdf');
-    console.log('PDF created: ', doc.save());
-    // await RNPrint.print({
-    //   filePath:
-    //     'data:application/pdf',
-    // });
-  };
 
   return (
     <>
@@ -129,7 +122,15 @@ function Sales({title}: SalesProps): React.JSX.Element {
           resizeMode="cover"
           style={styles.imageBackgorund}>
           <Navbar title="" />
-
+          <View style={styles.selectionButton}>
+                <Button
+                  title={isSales ? 'Ver Egresos' : 'Ver Ingresos'}
+                  color={'#2e2e2e'}
+                  onPress={() => {
+                    setIsSales(!isSales);
+                  }}
+                />
+              </View>
           {isSales ? (
             <>
               <View style={styles.button}>

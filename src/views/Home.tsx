@@ -42,7 +42,7 @@ const createStyles = () =>
       alignItems: 'flex-start',
     },
     imageBackgorund: {
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       width: '100%',
       height: '100%',
     },

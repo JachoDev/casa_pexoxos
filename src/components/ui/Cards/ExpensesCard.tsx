@@ -18,7 +18,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: isHovered ? 1310 : 1300,
+      width: isHovered ? 1210 : 1200,
       height: isHovered ? 40 : 35,
       alignContent: 'flex-start',
       justifyContent: 'center',

@@ -142,8 +142,8 @@ function ReminderCard(props: ReminderCardProps): React.JSX.Element {
             <Text style={styles.pageTitle}>{pet.name}</Text>
             <Text style={styles.pageTitle}>{pet.specie}</Text>
             <Text style={styles.pageTitle}>{props.grooming}</Text>
-            <Text style={styles.pageTitle}>{props.checkIn.toDate().toDateString()}</Text>
-            
+            <Text style={styles.pageTitle}>{props.checkIn.toDate().toLocaleDateString()}</Text>
+
           </ScrollView>
         </View>
       </Pressable>

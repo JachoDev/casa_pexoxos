@@ -165,16 +165,6 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
             />
           </View>
           <View style={styles.inputGroup}>
-            <Text>Servicios</Text>
-            <TextInput
-              style={styles.textInput}
-              value={props.services}
-              editable={false}
-              placeholder="Corte"
-              placeholderTextColor="gray"
-            />
-          </View>
-          <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Método de pago</Text>
             <Picker
               accessibilityLabel="Disabled Example"
@@ -193,6 +183,17 @@ function CutSaleForm(props: CutSaleFormProps): React.JSX.Element {
               <Picker.Item label="Transferencia" value="Transferencia" />
             </Picker>
           </View>
+          <View style={styles.inputGroup}>
+            <Text>Servicios</Text>
+            <TextInput
+              style={styles.textInput}
+              value={props.services}
+              editable={false}
+              placeholder="Corte"
+              placeholderTextColor="gray"
+            />
+          </View>
+          
           <View style={styles.inputGroup}>
             <Text>Total</Text>
             <TextInput

@@ -30,7 +30,7 @@ const createStyles = () =>
       backgroundColor: 'white',
     },
     imageBackgorund: {
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       alignContent: 'center',
       alignItems: 'center',
       height: '100%',
@@ -111,13 +111,6 @@ function User({title}: UserProps): React.JSX.Element {
           resizeMode="cover"
           style={styles.imageBackgorund}>
           <Navbar title="" />
-          <View style={styles.addButton}>
-            <Button
-              title="Agregar producto"
-              onPress={printRemotePDF}
-              color={'#e94b57'}
-            />
-          </View>
           <View style={styles.addButton}>
             <Button
               title="Agregar producto"

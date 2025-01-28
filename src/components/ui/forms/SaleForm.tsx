@@ -244,9 +244,9 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
               onValueChange={(itemValue, itemIndex) => {
                 setClient(itemValue);
                 setClientName(
-                  clientListO.find(e => e.id == itemValue)?.name +
+                  clientListO.find(e => e.id === itemValue)?.name +
                     ' ' +
-                    clientListO.find(e => e.id == itemValue)?.lastname,
+                    clientListO.find(e => e.id === itemValue)?.lastname,
                 );
               }}
               itemStyle={{color: 'white'}}>
@@ -254,7 +254,7 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
                 <Picker.Item
                   value={item.id}
                   label={
-                    item.name != '' || item.lastname != ''
+                    item.name !== '' || item.lastname !== ''
                       ? item.name + ' ' + item.lastname
                       : item.phone
                   }
@@ -263,7 +263,6 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
               ))}
             </Picker>
           </View>
-
           <View style={styles.inputGroup}>
             <Text>Método de pago</Text>
             <Picker
@@ -310,7 +309,6 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
               />
             </View>
           </View>
-
           <View style={styles.itemList}>
             <FlatList data={inputs} renderItem={renderItem} />
           </View>

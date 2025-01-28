@@ -20,6 +20,7 @@ import NavButton from '../ui/buttons/NavButton';
 const createStyles = () =>
   StyleSheet.create({
     container: {
+      marginTop: 50,
       alignSelf: 'center',
       width: '80%',
       height: '10%',

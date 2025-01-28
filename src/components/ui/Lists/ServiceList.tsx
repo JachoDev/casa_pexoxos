@@ -1,13 +1,12 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useEffect, useState, useMemo } from 'react';
+import {useTheme} from '@react-navigation/native';
+import React, {useEffect, useState, useMemo} from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, FlatList} from 'react-native';
 import ServiceCard from '../Cards/ServiceCard';
-import { cutsList, petList } from '../../../services/firebase/firestore/firestoreService';
+import {
+  cutsList,
+  petList,
+} from '../../../services/firebase/firestore/firestoreService';
 import DayItem from '../items/DayItem';
 import PetButton from '../buttons/PetButton';
 
@@ -23,9 +22,9 @@ const createStyles = () =>
       alignItems: 'center',
       borderRadius: 10,
       borderWidth: 6,
-      borderColor: '#2e2e2e'
+      borderColor: '#2e2e2e',
     },
-    daysBar:{
+    daysBar: {
       flexDirection: 'row',
       width: '100%',
       height: 70,
@@ -50,45 +49,71 @@ const createStyles = () =>
     },
   });
 
-  const days = Array.from({ length: 28 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() + i);
-    return {
-      id: i + 1,
-      name: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'][date.getDay()],
-      date: date.toISOString().split('T')[0],
-    };
-  });
+const days = Array.from({length: 28}, (_, i) => {
+  const date = new Date();
+  date.setDate(date.getDate() + i);
+  return {
+    id: i + 1,
+    name: [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miercoles',
+      'Jueves',
+      'Viernes',
+      'Sabado',
+    ][date.getDay()],
+    date: date.toISOString().split('T')[0],
+  };
+});
 
-  console.log(days);
+console.log(days);
 
 type ServiceListProps = PropsWithChildren<{
   title: string;
 }>;
 
-function ServiceList({ title }: ServiceListProps): React.JSX.Element {
+function ServiceList({title}: ServiceListProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const today = useMemo(() => new Date(), []);
   const [cuts, setCuts] = useState(cutsList);
-  const filteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
-  const filterByState = filteredData.filter((e) => e.state != "Cobrado" && e.state != "Cancelado")
-  const [services, setServices] = useState(filterByState.sort((a, b) => b.checkIn - a.checkIn));
+  const filteredData = cutsList.filter(
+    e => e.checkIn.toDate().toDateString() <= today.toDateString(),
+  );
+  const filterByState = filteredData.filter(
+    e => e.state != 'Cobrado' && e.state != 'Cancelado',
+  );
+  const [services, setServices] = useState(
+    filterByState.sort((a, b) => b.checkIn - a.checkIn),
+  );
   const [selectedDay, setSelectedDay] = useState();
 
-  const renderItem = ({item}: {id: string, name: string, date: string}) => {
+  const renderItem = ({item}: {id: string; name: string; date: string}) => {
     const isSelected = selectedDay === item.id;
-    const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${item.date.split('-')[1]}`;
+    const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${
+      item.date.split('-')[1]
+    }`;
 
     return (
-      <DayItem day={day} onPress={() => onSelectDay(item.id, item.date)} isSelected={isSelected}/>
+      <DayItem
+        day={day}
+        onPress={() => onSelectDay(item.id, item.date)}
+        isSelected={isSelected}
+      />
     );
   };
 
   const onSelectDay = (day: string, date: string) => {
     setSelectedDay(day);
-    const updatedFilteredData = cutsList.filter((e) => e.checkIn.toDate().toLocaleDateString() == new Date(date).toLocaleDateString());
-    const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
+    const updatedFilteredData = cutsList.filter(
+      e =>
+        e.checkIn.toDate().toLocaleDateString() ==
+        new Date(date).toLocaleDateString(),
+    );
+    const updatedFilterByState = updatedFilteredData.filter(
+      e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
+    );
     setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
     console.log(day);
     console.log(date);
@@ -100,8 +125,12 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   };
 
   useEffect(() => {
-    const updatedFilteredData = cutsList.filter((e) => e.checkIn.toDate().toDateString() <= today.toDateString());
-    const updatedFilterByState = updatedFilteredData.filter((e) => e.state !== "Cobrado" && e.state !== "Cancelado")
+    const updatedFilteredData = cutsList.filter(
+      e => e.checkIn.toDate().toDateString() == today.toDateString(),
+    );
+    const updatedFilterByState = updatedFilteredData.filter(
+      e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
+    );
     setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
     return () => {
       // cleanup code here if needed
@@ -111,7 +140,7 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
   return (
     <>
       <PetButton title={''} />
-			<View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
             <FlatList
@@ -124,22 +153,24 @@ function ServiceList({ title }: ServiceListProps): React.JSX.Element {
         </View>
         <FlatList
           data={services}
-          renderItem={({item}) =>
-            <ServiceCard name={petList.find((e) => e.id == item.petId).name}
-            serviceId={item.id}
-            service={item.groomming}
-            recomendations={item.recomendations}
-            date={item.checkIn.toDate().toLocaleDateString()}
-            time={item.checkIn.toDate().toTimeString()}
-            color={item.color}
-            petImage={item.petImage} petId={item.petId}
-            onReset={update}
+          renderItem={({item}) => (
+            <ServiceCard
+              name={petList.find(e => e.id == item.petId).name}
+              serviceId={item.id}
+              service={item.groomming}
+              recomendations={item.recomendations}
+              date={item.checkIn.toDate().toLocaleDateString()}
+              time={item.checkIn.toDate().toTimeString()}
+              color={item.color}
+              petImage={item.petImage}
+              petId={item.petId}
+              onReset={update}
             />
-          }
+          )}
           numColumns={3}
         />
-			</View>
-		</>
+      </View>
+    </>
   );
 }
 
