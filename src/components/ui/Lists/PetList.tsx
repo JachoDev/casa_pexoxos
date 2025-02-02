@@ -116,7 +116,7 @@ function PetList(props: PetListProps): React.JSX.Element {
           data={filteredPets}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
-            <PetCard petId={item.id} name={item.name} image={''} onReset={update}/>
+            <PetCard petId={item.id} name={item.name} image={item.petImage} onReset={update}/>
           )}
           numColumns={4}
         />

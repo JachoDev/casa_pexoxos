@@ -15,7 +15,9 @@ import {Flyout} from 'react-native-windows';
 import PetForm from '../forms/PetForm';
 import {
   clientsList,
+  deletePet,
   petList,
+  updatePetList,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
@@ -67,7 +69,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
 type PetCardProps = PropsWithChildren<{
   petId: string;
   name: string;
-  image: string;
+  image?: string;
   onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
@@ -77,6 +79,7 @@ function PetCard(props: PetCardProps): React.JSX.Element {
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const [showFlyout, setShowFlyout] = useState(false);
+  const specie = pet.specie;
 
   const onLongPress = () => {
     Alert.alert(
@@ -87,6 +90,8 @@ function PetCard(props: PetCardProps): React.JSX.Element {
           text: 'Sí',
           onPress: () => {
             try {
+              deletePet(props.petId);
+              updatePetList();
               props.onReset?.({} as GestureResponderEvent);
             } catch (e) {
               console.log(e);
@@ -136,7 +141,14 @@ function PetCard(props: PetCardProps): React.JSX.Element {
           <View>
             <Image
               style={styles.image}
-              source={require('../../../assets/images/icons/dog.png')}
+              source={
+                (props.image ) ? {uri: props.image} :
+                (specie === 'Perro'
+                  ? require('../../../assets/images/icons/dog.png')
+                  : specie === 'Gato'
+                  ? require('../../../assets/images/icons/cat.png')
+                  : require('../../../assets/images/icons/bird.png'))
+              }
               resizeMode="stretch"
             />
             <Text style={styles.pageTitle}>{props.name}</Text>

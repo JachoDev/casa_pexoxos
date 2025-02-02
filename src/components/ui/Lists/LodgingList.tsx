@@ -1,17 +1,11 @@
-import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   StyleSheet,
-  //SafeAreaView,
-  Text,
   View,
   FlatList,
 } from 'react-native';
-import ServiceCard from '../Cards/ServiceCard';
 import LodgingCard from '../Cards/LodgingCard';
-import {collection, getDocs, Timestamp} from 'firebase/firestore';
-import {db} from '../../../../firebaseConfig';
 import {
   lodgingList,
   petList,
@@ -72,7 +66,12 @@ const days = Array.from({length: 28}, (_, i) => {
       'Viernes',
       'Sabado',
     ][date.getDay()],
-    date: date.toISOString().split('T')[0],
+    date:
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' +
+      date.getDate().toString().padStart(2, '0'),
   };
 });
 
@@ -81,23 +80,23 @@ type LodgingListProps = PropsWithChildren<{
 }>;
 
 function LodgingList(props: LodgingListProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
+  const styles = createStyles();
   const [selectedDay, setSelectedDay] = useState();
+  const [filter, setFilter] = useState('none');
   const today = new Date();
   const filteredData = lodgingList.filter(
     e => e.checkIn.toDate().toDateString() <= today.toDateString(),
   );
   const filterByState = filteredData.filter(
-    e => e.state != 'Cobrado' && e.state != 'Cancelado',
+    e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
   );
   const [lodging, setLodging] = useState(
     filterByState.sort((a, b) => a.checkIn - b.checkIn),
   );
+  const [list, setList] = useState(lodgingList);
 
   const renderItem = ({item}: {id: string; name: string; date: string}) => {
     const isSelected = selectedDay === item.id;
-
     const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${
       item.date.split('-')[1]
     }`;
@@ -120,14 +119,49 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     const updatedFilterByState = updatedFilteredData.filter(
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
     );
-    setLodging(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
-    console.log(day);
-    console.log(date);
-    console.log(new Date(date).toLocaleDateString());
+    setList(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
+    if (filter !== 'none') {
+      const updatedFilteredBySpecie = updatedFilterByState.filter(e => {
+        const pet = petList.find(i => i.id === e.petId[0]);
+        const _specie = pet ? pet.specie : 'Perro';
+        if (_specie === filter) {
+          return e;
+        }
+      });
+      setLodging(updatedFilteredBySpecie.sort((a, b) => b.checkIn - a.checkIn));
+    } else {
+      setLodging(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
+    }
+  };
+
+  const onSelectSpecie = (specie: string) => {
+    if (specie !== filter) {
+      setFilter(specie);
+    }
+    console.log(specie)
+    const updatedFilteredData = list.filter(e => {
+      const pet = petList.find(i => i.id === e.petId[0]);
+      const _specie = pet ? pet.specie : 'Perro';
+      if (_specie === specie) {
+        return e;
+      }
+    });
+    setLodging(updatedFilteredData.sort((a, b) => b.checkIn - a.checkIn));
+  };
+
+  const onDeselect = () => {
+    setFilter('none');
+    const updatedFilteredData = lodgingList.filter(
+      e => e.checkIn.toDate().toDateString() === today.toDateString(),
+    );
+    const updatedFilterByState = updatedFilteredData.filter(
+      e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
+    );
+    setLodging(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
   };
 
   const update = () => {
-    setLodging([]);
+    //setLodging([]);
   };
 
   useEffect(() => {
@@ -138,14 +172,20 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
     );
     setLodging(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
-    console.log(lodging);
+    setList(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
 
-    return (cleanUp = () => {});
+    return () => {};
   }, []);
 
   return (
     <>
-      <PetButton title={''} />
+      <PetButton
+        title={''}
+        onSelectDog={() => onSelectSpecie('Perro')}
+        onSelectCat={() => onSelectSpecie('Gato')}
+        onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
+        onDeselectFilter={() => onDeselect()}
+      />
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
@@ -192,10 +232,10 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
                 lodgingId={item.id}
                 inDate={formattedCheckInDate}
                 outDate={formattedCheckOutDate}
-                time={checkInDate.toTimeString()}
+                time={checkInDate.toTimeString().split(' ')[0]}
                 petId={item.petId[0]}
                 color={''}
-                petImage={''}
+                petImage={pet.petImage }
                 onReset={update}
               />
             );

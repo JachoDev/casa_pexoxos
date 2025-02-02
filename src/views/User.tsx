@@ -7,6 +7,8 @@ import {
   Button,
   View,
   ImageBackground,
+  Image,
+  Alert,
 } from 'react-native';
 import Navbar from '../components/sections/Navbar';
 import background from '../assets/images/Red_Background.png';
@@ -14,6 +16,11 @@ import InventoryList from '../components/ui/Lists/InventoryList';
 import RNPrint from 'react-native-print';
 import {Flyout} from 'react-native-windows';
 import InventoryForm from '../components/ui/forms/InventoryForm';
+import {getUrl, testRef} from '../services/firebase/storage/storageService';
+import NewPasswordForm from '../components/ui/forms/NewPasswordForm';
+import {userLogged} from '../services/firebase/firestore/firestoreService';
+import {useNavigation} from '@react-navigation/native';
+//import { multiply } from '../../modules/react-native-file/src';
 
 type UserProps = PropsWithChildren<{
   title: string;
@@ -35,16 +42,17 @@ const createStyles = () =>
       alignItems: 'center',
       height: '100%',
     },
-    salesListView: {
+    inventoryListView: {
       width: 500,
       height: 400,
       marginTop: 15,
       backgroundColor: '#',
       alignSelf: 'center',
     },
-    addButton: {
+    inventoryAddButton: {
       marginTop: 40,
       width: 250,
+      alignSelf: 'center',
     },
     flyer: {
       width: 700,
@@ -60,35 +68,55 @@ const createStyles = () =>
     textStyle: {
       color: 'black',
     },
+    image: {
+      width: 150,
+      height: 150,
+    },
+    rowContainer: {
+      flexDirection: 'row',
+    },
+    profileContainer: {
+      width: 350,
+      height: 400,
+      alignSelf: 'center',
+      justifyContent: 'center',
+      alignContent: 'center',
+
+      marginHorizontal: 80,
+      marginVertical: 100,
+    },
   });
 
 function User({title}: UserProps): React.JSX.Element {
   const styles = createStyles();
   const [showFlyout, setShowFlyout] = useState(false);
-  //nuevo
-  const printRemotePDF = async () => {
-    const url =
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
-    const file = '\\\\1.pdf';
-    const now = new Date();
-    const results = await RNPrint.printTicket({
-      name: 'Casa Pexoxos',
-      date: now.toDateString(),
-      time: now.toTimeString(),
-      items: [
-        {name: 'Corte', price: '100.00'},
-        {name: 'Baño', price: '250.00'},
-        {name: 'Corte de uñas', price: '150.00'},
-        {name: 'Vacunas', price: '200.00'},
-        {name: 'Desparasitación', price: '100.00'},
-        {name: 'Medicamentos', price: '200.00'},
-        {name: 'Alimento', price: '300.00'},
-        {name: 'Accesorios', price: '100.00'},
+  const navigation = useNavigation();
+
+  const onLogOut = () => {
+    Alert.alert(
+      'Cerrar Serión',
+      '¿Estás seguro de que quieres cerrar sesión?',
+      [
+        {
+          text: 'Sí',
+          onPress: () => {
+            try {
+              userLogged.pop();
+              navigation.navigate('LogIn');
+            } catch (e) {
+              console.log(e);
+            }
+            console.log('Yes pressed');
+          },
+        },
+        {
+          text: 'No',
+          onPress: () => {
+            console.log('No pressed');
+          },
+        },
       ],
-      total: '1600.00',
-      paymentMethod: 'Efectivo',
-    });
-    console.log(results);
+    );
   };
 
   return (
@@ -111,17 +139,31 @@ function User({title}: UserProps): React.JSX.Element {
           resizeMode="cover"
           style={styles.imageBackgorund}>
           <Navbar title="" />
-          <View style={styles.addButton}>
-            <Button
-              title="Agregar producto"
-              onPress={() => {
-                setShowFlyout(true);
-              }}
-              color={'#e94b57'}
-            />
-          </View>
-          <View style={styles.salesListView}>
-            <InventoryList title="" />
+          <View style={styles.rowContainer}>
+            <View style={styles.profileContainer}>
+              <NewPasswordForm />
+              <View style={styles.inventoryAddButton}>
+                <Button
+                  title="Cerrar Sesión"
+                  onPress={() => {onLogOut()}}
+                  color={'#b53a43'}
+                />
+              </View>
+            </View>
+            <View>
+              <View style={styles.inventoryAddButton}>
+                <Button
+                  title="Agregar producto"
+                  onPress={() => {
+                    setShowFlyout(true);
+                  }}
+                  color={'#e94b57'}
+                />
+              </View>
+              <View style={styles.inventoryListView}>
+                <InventoryList title="" />
+              </View>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>

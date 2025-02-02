@@ -20,6 +20,7 @@ import {
   addSale,
   updateSalesList,
   updateSale,
+  userLogged,
 } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = () =>
@@ -116,21 +117,6 @@ const createStyles = () =>
     },
   });
 
-const cuts = [
-  'Corte tipo Schnauzer',
-  'Corte tipo Scottish',
-  'Corte completo con 10',
-  'Corte completo con 7',
-  'Corte completo con 5',
-  'Corte completo con 4',
-  'Corte completo con 3 1/2',
-  'Rebaje con 10',
-  'Rebaje con 7',
-  'Rebaje con 5',
-  'Rebaje con 4',
-  'Rebaje con 3 1/2',
-];
-
 type SaleFormProps = PropsWithChildren<{
   id?: string;
   isNew?: boolean;
@@ -176,8 +162,9 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
     const now = new Date();
     await RNPrint.printTicket({
       name: 'Casa Pexoxos',
+      user: userLogged[0].username,
       date: now.toLocaleDateString(),
-      time: now.toTimeString(),
+      time: now.toTimeString().split(' ')[0],
       client: clientName,
       items: inputs,
       total: finalSum.toFixed(2).toString(),
@@ -208,7 +195,8 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
     }
     try {
       if (isNew) {
-        await addSale(finalSum, pickerValue, client, '', [services]);
+        const list = inputs.map(i => i.name);
+        await addSale(finalSum, pickerValue, client, '', list);
         await updateSalesList();
         await printRec();
       } else {
@@ -294,7 +282,7 @@ function SaleForm(props: SaleFormProps): React.JSX.Element {
               <Text>Precio:</Text>
               <TextInput
                 style={styles.textInputB}
-                onChangeText={e => setTotal(e)}
+                onChangeText={setTotal}
                 value={total}
                 placeholder="$00.00"
                 inputMode="decimal"

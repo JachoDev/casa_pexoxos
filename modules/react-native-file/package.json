@@ -1,0 +1,30 @@
+{
+  "name": "react-native-file",
+  "version": "0.0.0",
+  "description": "..",
+  "main": "src/index",
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme",
+  "devDependencies": {
+    "react-native-windows": "0.76.0"
+  },
+  "codegenConfig": {
+    "windows": {
+      "namespace": "ReactNativeFileCodegen",
+      "outputDirectory": "windows/ReactNativeFile/codegen",
+      "separateDataTypes": true
+    }
+  },
+  "peerDependencies": {
+    "react-native": ">=0.8.0 || 0.8.0-rc || 0.8.0-rc.2 || 0.9.0-rc || 0.10.1",
+    "react-native-windows": ">=0.62"
+  },
+  "react-native-windows": {
+    "init-windows": {
+      "name": "ReactNativeFile",
+      "namespace": "ReactNativeFile",
+      "template": "cpp-lib"
+    }
+  }
+}

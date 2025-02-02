@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import CutSaleForm from '../forms/CutSaleForm';
 import {Flyout} from 'react-native-windows';
-import {petList} from '../../../services/firebase/firestore/firestoreService';
+import {deleteCut, petList, updateCutsList} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -115,6 +115,8 @@ function ServiceCard(props: ServiceProps): React.JSX.Element {
   const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const clientId = petList.find(e => e.id == props.petId).clientId;
+  const pet = petList.find(e => e.id == props.petId);
+  const specie = pet.specie;
 
   const onLongPress = () => {
     Alert.alert(
@@ -125,6 +127,8 @@ function ServiceCard(props: ServiceProps): React.JSX.Element {
           text: 'Sí',
           onPress: () => {
             try {
+              deleteCut(props.serviceId);
+              updateCutsList();
               props.onReset?.({} as GestureResponderEvent);
             } catch (e) {
               console.log(e);
@@ -182,7 +186,15 @@ function ServiceCard(props: ServiceProps): React.JSX.Element {
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
-                source={require('../../../assets/images/icons/dog.png')}
+                source={
+                  props.petImage
+                    ? {uri: props.petImage}
+                    : specie === 'Perro'
+                    ? require('../../../assets/images/icons/dog.png')
+                    : specie === 'Gato'
+                    ? require('../../../assets/images/icons/cat.png')
+                    : require('../../../assets/images/icons/bird.png')
+                }
                 resizeMode="stretch"
               />
             </View>

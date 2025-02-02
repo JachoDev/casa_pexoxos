@@ -297,7 +297,7 @@ function SalesList(props: SalesListProps): React.JSX.Element {
                     ? clientsList.find(e => e.id == item.clientId).phone
                     : ''
                 }
-                service={item.services}
+                service={item.services.map( (e, i) => ("" + e + ",") ).join(' ')}
                 paymentMethod={item.paymentMethod}
                 date={
                   weekDaysArray[item.date.toDate().getDay()].substring(0, 3) +

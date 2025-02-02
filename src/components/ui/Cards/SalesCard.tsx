@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Flyout} from 'react-native-windows';
 import SaleForm from '../forms/SaleForm';
-import {salesList} from '../../../services/firebase/firestore/firestoreService';
+import {deleteSale, salesList, updateSalesList} from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -98,6 +98,8 @@ function SalesCard(props: SalesCardProps): React.JSX.Element {
           text: 'Sí',
           onPress: () => {
             try {
+              deleteSale(props.id);
+              updateSalesList();
               props.onReset?.({} as GestureResponderEvent);
             } catch (e) {
               console.log(e);

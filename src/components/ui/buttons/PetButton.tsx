@@ -8,6 +8,7 @@ import {
   View,
   Image,
   Pressable,
+  GestureResponderEvent,
 } from 'react-native';
 import cat from '../../../assets/images/icons/cat.png';
 import dog from '../../../assets/images/icons/dog.png';
@@ -70,7 +71,7 @@ const createStyles = (
       opacity: isBirdPressing ? 0.2 : 1,
     },
     dogButton: {
-      backgroundColor: !isDogSelected ? '#cbc5c5' : '#cc519c',
+      backgroundColor: !isDogSelected ? '#cbc5c5' : '#dd4881',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isDogSelected ? 10 : 0,
@@ -84,7 +85,7 @@ const createStyles = (
       borderColor: '#2e2e2e',
     },
     catButton: {
-      backgroundColor: !isCatSelected ? '#cbc5c5' : '#38a8ff',
+      backgroundColor: !isCatSelected ? '#cbc5c5' : '#295fb1',
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: isCatSelected ? 10 : 0,
@@ -115,12 +116,16 @@ const createStyles = (
 
 type PetButtonsProps = PropsWithChildren<{
   title: string;
+  onSelectDog?: null | ((event: GestureResponderEvent) => void) | undefined;
+  onSelectCat?: null | ((event: GestureResponderEvent) => void) | undefined;
+  onSelectBird?: null | ((event: GestureResponderEvent) => void) | undefined;
+  onDeselectFilter?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
 function PetButton(props: PetButtonsProps): React.JSX.Element {
   const [isDogHovered, setIsDogHovered] = useState(false);
   const [isDogPressing, setIsDogPressing] = useState(false);
-  const [isDogSelected, setIsDogSelected] = useState(true);
+  const [isDogSelected, setIsDogSelected] = useState(false);
   const [isCatHovered, setIsCatHovered] = useState(false);
   const [isCatPressing, setIsCatPressing] = useState(false);
   const [isCatSelected, setIsCatSelected] = useState(false);
@@ -139,24 +144,38 @@ function PetButton(props: PetButtonsProps): React.JSX.Element {
     isBirdSelected,
   );
   const onDogPress = () => {
-    setIsDogSelected(true);
+    if (!isDogSelected) {
+      props.onSelectDog?.({} as GestureResponderEvent);
+    } else {
+      props.onDeselectFilter?.({} as GestureResponderEvent);
+    }
+    setIsDogSelected(!isDogSelected);
     setIsCatSelected(false);
     setIsBirdSelected(false);
     //Select dog filter
   };
   const onCatPress = () => {
-    if (isCatSelected == false) {
-      setIsDogSelected(false);
-      setIsCatSelected(true);
-      setIsBirdSelected(false);
+    if (!isCatSelected) {
+      props.onSelectCat?.({} as GestureResponderEvent);
+    } else {
+      props.onDeselectFilter?.({} as GestureResponderEvent);
     }
+      setIsDogSelected(false);
+      setIsCatSelected(!isCatSelected);
+      setIsBirdSelected(false);
+
 
     //Select cat filter
   };
   const onBirdPress = () => {
+    if (!isBirdSelected) {
+      props.onSelectBird?.({} as GestureResponderEvent);
+    } else {
+      props.onDeselectFilter?.({} as GestureResponderEvent);
+    }
     setIsDogSelected(false);
     setIsCatSelected(false);
-    setIsBirdSelected(true);
+    setIsBirdSelected(!isBirdSelected);
     //Select bird filter
   };
 

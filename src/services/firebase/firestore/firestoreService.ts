@@ -21,6 +21,7 @@ export const inventory = [];
 export const dogBoxes = [];
 export const catBoxes = [];
 export const users = [];
+export const userLogged = [];
 
 //Firebase Firestore fast functions
 //Read data from Firestore Section
@@ -39,7 +40,7 @@ export const getPets = async () => {
           recomenations: doc.data().recomenations,
           sex: doc.data().Sex,
           specie: doc.data().Specie,
-          petImage: '../../../assets/images/pexoxo1.jpg',
+          petImage: doc.data().Image,
         };
         petList.push(_doc);
       }
@@ -438,6 +439,10 @@ export const clearInventory = () => {
   inventory.splice(0, inventory.length);
 };
 
+export const clearUsers = () => {
+  users.splice(0, users.length);
+};
+
 export const clearAll = () => {
   clearPetList();
   clearClientsList();
@@ -448,6 +453,7 @@ export const clearAll = () => {
   clearDogBoxes();
   clearCatBoxes();
   clearInventory();
+  clearUsers();
 };
 
 //Update functions to Firestore Section
@@ -495,6 +501,12 @@ export const updateCatBoxes = async () => {
 export const updateInventory = async () => {
   clearInventory();
   await getInventory();
+};
+
+export const updateUsers = async () => {
+  clearUsers();
+  await getUsers();
+
 };
 
 export const updateLists = async () => {

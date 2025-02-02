@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Flyout} from 'react-native-windows';
 import ExpenseForm from '../forms/ExpenseForm';
+import { deleteExpense, updateExpensesList } from '../../../services/firebase/firestore/firestoreService';
 
 const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
@@ -95,6 +96,8 @@ function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
           text: 'Sí',
           onPress: () => {
             try {
+              deleteExpense(props.id);
+              updateExpensesList();
               props.onReset?.({} as GestureResponderEvent);
             } catch (e) {
               console.log(e);

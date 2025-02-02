@@ -14,7 +14,7 @@ import {
 import Svg, {Path, SvgXml} from 'react-native-svg';
 import arrow from '../../../assets/images/arrow.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {petList} from '../../../services/firebase/firestore/firestoreService';
+import {deleteLodging, petList, updateLodgingList} from '../../../services/firebase/firestore/firestoreService';
 import CutSaleForm from '../forms/CutSaleForm';
 import LodgingSaleForm from '../forms/lodgingSaleForm';
 import {Flyout} from 'react-native-windows';
@@ -120,6 +120,8 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
   const [showFlyout, setShowFlyout] = useState(false);
   const styles = createStyles(isHovered, isPressing);
   const clientId = petList.find(e => e.id == props.petId).clientId;
+  const pet = petList.find(e => e.id == props.petId);
+  const specie = pet.specie;
 
   const onLongPress = () => {
     Alert.alert(
@@ -130,6 +132,8 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
           text: 'Sí',
           onPress: () => {
             try {
+              deleteLodging(props.lodgingId);
+              updateLodgingList();
               props.onReset?.({} as GestureResponderEvent);
             } catch (e) {
               console.log(e);
@@ -187,7 +191,15 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
             <View style={styles.imageCircle}>
               <Image
                 style={styles.image}
-                source={require('../../../assets/images/icons/dog.png')}
+                source={
+                  props.petImage
+                    ? {uri: props.petImage}
+                    : specie === 'Perro'
+                    ? require('../../../assets/images/icons/dog.png')
+                    : specie === 'Gato'
+                    ? require('../../../assets/images/icons/cat.png')
+                    : require('../../../assets/images/icons/bird.png')
+                }
                 resizeMode="stretch"
               />
             </View>

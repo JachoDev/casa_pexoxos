@@ -63,21 +63,24 @@ const days = Array.from({length: 28}, (_, i) => {
       'Viernes',
       'Sabado',
     ][date.getDay()],
-    date: date.toISOString().split('T')[0],
+    date:
+      date.getFullYear().toString() +
+      '-' +
+      (date.getMonth() + 1).toString().padStart(2, '0') +
+      '-' +
+      date.getDate().toString().padStart(2, '0'),
   };
 });
-
-console.log(days);
 
 type ServiceListProps = PropsWithChildren<{
   title: string;
 }>;
 
 function ServiceList({title}: ServiceListProps): React.JSX.Element {
-  const {colors} = useTheme();
-  const styles = createStyles(colors);
+  const styles = createStyles();
   const today = useMemo(() => new Date(), []);
   const [cuts, setCuts] = useState(cutsList);
+  const [filter, setFilter] = useState('none');
   const filteredData = cutsList.filter(
     e => e.checkIn.toDate().toDateString() <= today.toDateString(),
   );
@@ -94,7 +97,6 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
     const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${
       item.date.split('-')[1]
     }`;
-
     return (
       <DayItem
         day={day}
@@ -106,18 +108,53 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
 
   const onSelectDay = (day: string, date: string) => {
     setSelectedDay(day);
+    const filteredDate = new Date(date);
     const updatedFilteredData = cutsList.filter(
       e =>
-        e.checkIn.toDate().toLocaleDateString() ==
-        new Date(date).toLocaleDateString(),
+        e.checkIn.toDate().toLocaleDateString() ===
+        filteredDate.toLocaleDateString(),
+    );
+    const updatedFilterByState = updatedFilteredData.filter(
+      e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
+    );
+    setCuts(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
+    if (filter !== 'none') {
+      const updatedFilteredBySpecie = updatedFilterByState.filter(e => {
+        const pet = petList.find(i => i.id === e.petId);
+        const _specie = pet ? pet.specie : 'Perro';
+        if (_specie === filter) {
+          return e;
+        }
+      });
+      setServices(updatedFilteredBySpecie.sort((a, b) => b.checkIn - a.checkIn));
+    } else {
+      setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
+    }
+  };
+
+  const onSelectSpecie = (specie: string) => {
+    if (specie !== filter) {
+      setFilter(specie);
+    }
+    const updatedFilteredData = cuts.filter(e => {
+      const pet = petList.find(i => i.id === e.petId);
+      const _specie = pet ? pet.specie : 'Perro';
+      if (_specie === specie) {
+        return e;
+      }
+    });
+    setServices(updatedFilteredData.sort((a, b) => b.checkIn - a.checkIn));
+  };
+
+  const onDeselect = () => {
+    setFilter('none');
+    const updatedFilteredData = cuts.filter(
+      e => e.checkIn.toDate().toDateString() === today.toDateString(),
     );
     const updatedFilterByState = updatedFilteredData.filter(
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
     );
     setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
-    console.log(day);
-    console.log(date);
-    console.log(services);
   };
 
   const update = () => {
@@ -126,12 +163,14 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
 
   useEffect(() => {
     const updatedFilteredData = cutsList.filter(
-      e => e.checkIn.toDate().toDateString() == today.toDateString(),
+      e => e.checkIn.toDate().toDateString() === today.toDateString(),
     );
     const updatedFilterByState = updatedFilteredData.filter(
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
     );
     setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
+    setCuts(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
+
     return () => {
       // cleanup code here if needed
     };
@@ -139,7 +178,13 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
 
   return (
     <>
-      <PetButton title={''} />
+      <PetButton
+        title={''}
+        onSelectDog={() => onSelectSpecie('Perro')}
+        onSelectCat={() => onSelectSpecie('Gato')}
+        onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
+        onDeselectFilter={() => onDeselect()}
+      />
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
@@ -160,9 +205,9 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
               service={item.groomming}
               recomendations={item.recomendations}
               date={item.checkIn.toDate().toLocaleDateString()}
-              time={item.checkIn.toDate().toTimeString()}
+              time={item.checkIn.toDate().toTimeString().split(' ')[0]}
               color={item.color}
-              petImage={item.petImage}
+              petImage={petList.find(e => e.id == item.petId).petImage}
               petId={item.petId}
               onReset={update}
             />

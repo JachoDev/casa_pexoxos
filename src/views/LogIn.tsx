@@ -6,21 +6,20 @@ import {
   Text,
   View,
   Image,
-  ScrollView,
   TextInput,
-  useColorScheme,
   StyleSheet,
   Button,
   ImageBackground,
   Alert,
 } from 'react-native';
 import {useTheme, useIsFocused, useNavigation} from '@react-navigation/native';
-import Navbar from '../components/sections/Navbar';
 import loginImage from '../assets/images/image_banner.png';
 import logo from '../assets/images/image_logo.png';
 import background from '../assets/images/Login_Background.png';
-import Home from './Home';
-import {users} from '../services/firebase/firestore/firestoreService';
+import RNPrint from 'react-native-print';
+
+import {userLogged, users} from '../services/firebase/firestore/firestoreService';
+//import { multiply } from '../../modules/react-native-file/src';
 
 type LogInProps = PropsWithChildren<{
   title: string;
@@ -30,7 +29,6 @@ const createStyles = () =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-
       width: '100%',
       flex: 1,
     },
@@ -130,13 +128,16 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
       u => u.username === user && u.password === password,
     );
     if (matchedUser) {
+      userLogged.push(matchedUser);
       navigation.navigate('Home');
     } else {
       Alert.alert('Error', 'Usuario o contraseña incorrectos');
     }
   };
 
-  const onPress = () => {navigation.navigate('Home');};
+  const onPress = async () => {
+  await  RNPrint.getFile();
+  };
 
   return (
     <>
@@ -187,7 +188,7 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
                 <Text style={styles.textInputTitle}>Recordar Usuario</Text>
               </View>
               <View style={styles.button}>
-                <Button title="Entrar" color="#ffa0b5" onPress={onPress} />
+                <Button title="Entrar" color="#ffa0b5" onPress={onLogin} />
               </View>
             </View>
             <View>
