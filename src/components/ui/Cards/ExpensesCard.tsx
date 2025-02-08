@@ -97,8 +97,7 @@ function ExpensesCard(props: ExpensesCardProps): React.JSX.Element {
           onPress: () => {
             try {
               deleteExpense(props.id);
-              updateExpensesList();
-              props.onReset?.({} as GestureResponderEvent);
+              updateExpensesList().then(() => props.onReset?.({} as GestureResponderEvent));
             } catch (e) {
               console.log(e);
             }

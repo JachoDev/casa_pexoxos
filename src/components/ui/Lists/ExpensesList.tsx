@@ -98,6 +98,7 @@ type ExpensesListProps = PropsWithChildren<{
 
 function ExpensesList(props: ExpensesListProps): React.JSX.Element {
   const styles = createStyles();
+  const [updateLisFlag, setUpdateLisFlag] = useState(expensesList);
   const now = new Date();
   const [expenses, setExpenses] = useState(
     expensesList.sort((a, b) => b.date - a.date),
@@ -156,7 +157,7 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
   };
 
   const update = () => {
-    setExpenses([]);
+    setUpdateLisFlag([]);
   };
 
   const setFilteredDay = item => {
@@ -221,7 +222,7 @@ function ExpensesList(props: ExpensesListProps): React.JSX.Element {
     setFilteredMonth(month);
     console.log(expenses);
     return () => {};
-  }, []);
+  }, [updateLisFlag]);
 
   return (
     <>

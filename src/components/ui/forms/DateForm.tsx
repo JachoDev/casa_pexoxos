@@ -10,6 +10,7 @@ import {
   Button,
   TextInput,
   GestureResponderEvent,
+  Alert,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
@@ -75,7 +76,7 @@ type DateFormProps = PropsWithChildren<{
   onSend?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
-function DateForm( props : DateFormProps): React.JSX.Element {
+function DateForm(props: DateFormProps): React.JSX.Element {
   const {colors} = useTheme();
   const styles = createStyles(colors);
   const today = new Date(Date.now() - 18000000);
@@ -93,10 +94,21 @@ function DateForm( props : DateFormProps): React.JSX.Element {
   const [cut, setCut] = useState();
 
   const onSend = async () => {
-    
+    if (!pet) {
+      Alert.alert('Error', 'Seleccion una mascota');
+      //alert('Seleccione un método de pago');
+      return;
+    }
+    if (!cut) {
+      Alert.alert('Error', 'Seleccion un tipo de corte');
+      //alert('Seleccione un método de pago');
+      return;
+    }
     console.log(date.toISOString().split('T')[0]);
     console.log(time.toTimeString());
-    const checkIn = new Date(date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1]);
+    const checkIn = new Date(
+      date.toISOString().split('T')[0] + 'T' + time.toISOString().split('T')[1],
+    );
     console.log(checkIn.toUTCString());
     try {
       await addCut(new Date(checkIn.getTime() + 18000000), cut, pet, recs);

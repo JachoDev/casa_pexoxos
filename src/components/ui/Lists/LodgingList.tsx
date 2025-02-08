@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, FlatList, Text} from 'react-native';
 import LodgingCard from '../Cards/LodgingCard';
 import {
   lodgingList,
@@ -12,6 +8,8 @@ import {
 } from '../../../services/firebase/firestore/firestoreService';
 import DayItem from '../items/DayItem';
 import PetButton from '../buttons/PetButton';
+import { availableCatRooms, availableDogRooms, getAvailableRooms } from '../../../services/local/rooms/roomsServices';
+import RoomItem from '../items/roomItem';
 
 const createStyles = () =>
   StyleSheet.create({
@@ -50,11 +48,29 @@ const createStyles = () =>
       justifyContent: 'center',
       alignSelf: 'center',
     },
+    row: {
+      flexDirection: 'row',
+      alignSelf: 'flex-start',
+    },
+    availables: {
+      width: 'auto',
+      height: 'auto',
+      alignSelf: 'center',
+      marginHorizontal: 50,
+      alignContent: 'center',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    text: {
+      color: '#2e2e2e',
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
   });
 
 const days = Array.from({length: 28}, (_, i) => {
   const date = new Date();
-  date.setDate(date.getDate() + i);
+  date.setDate(date.getDate() + i + 1);
   return {
     id: i + 1,
     name: [
@@ -71,7 +87,7 @@ const days = Array.from({length: 28}, (_, i) => {
       '-' +
       (date.getMonth() + 1).toString().padStart(2, '0') +
       '-' +
-      date.getDate().toString().padStart(2, '0'),
+      date.toString().split(' ')[2],
   };
 });
 
@@ -81,9 +97,12 @@ type LodgingListProps = PropsWithChildren<{
 
 function LodgingList(props: LodgingListProps): React.JSX.Element {
   const styles = createStyles();
+  const [updateLisFlag, setUpdateLisFlag] = useState(lodgingList);
   const [selectedDay, setSelectedDay] = useState();
   const [filter, setFilter] = useState('none');
   const today = new Date();
+  const [dogRoom, setDogRoom] = useState(availableDogRooms);
+  const [catRoom, setCatRoom] = useState(availableCatRooms);
   const filteredData = lodgingList.filter(
     e => e.checkIn.toDate().toDateString() <= today.toDateString(),
   );
@@ -97,9 +116,9 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
 
   const renderItem = ({item}: {id: string; name: string; date: string}) => {
     const isSelected = selectedDay === item.id;
-    const day = `${item.name.substring(0, 3)} ${item.date.split('-')[2]}/${
-      item.date.split('-')[1]
-    }`;
+    const day = `${item.name.substring(0, 3)} ${(item.date.split('-')[2] - 1)
+      .toString()
+      .padStart(2, '0')}/${item.date.split('-')[1]}`;
     return (
       <DayItem
         day={day}
@@ -113,8 +132,8 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     setSelectedDay(day);
     const updatedFilteredData = lodgingList.filter(
       e =>
-        new Date(e.checkIn.toDate()).toLocaleDateString() ===
-        new Date(date).toLocaleDateString(),
+        new Date(e.checkIn.toDate()).toDateString() ===
+        new Date(date).toDateString(),
     );
     const updatedFilterByState = updatedFilteredData.filter(
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
@@ -138,7 +157,7 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
     if (specie !== filter) {
       setFilter(specie);
     }
-    console.log(specie)
+    console.log(specie);
     const updatedFilteredData = list.filter(e => {
       const pet = petList.find(i => i.id === e.petId[0]);
       const _specie = pet ? pet.specie : 'Perro';
@@ -161,31 +180,48 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
   };
 
   const update = () => {
-    //setLodging([]);
+    setUpdateLisFlag([]);
   };
 
   useEffect(() => {
-    const updatedFilteredData = lodgingList.filter(
-      e => e.checkIn.toDate().toDateString() === today.toDateString(),
-    );
-    const updatedFilterByState = updatedFilteredData.filter(
+    // const updatedFilteredData = lodgingList.filter(
+    //   e => e.checkIn.toDate().toDateString() === today.toDateString(),
+    // );
+    const updatedFilterByState = lodgingList.filter(
       e => e.state !== 'Cobrado' && e.state !== 'Cancelado',
     );
     setLodging(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
     setList(updatedFilterByState.sort((a, b) => a.checkIn - b.checkIn));
+    getAvailableRooms();
+    setDogRoom(availableDogRooms);
+    setCatRoom(availableCatRooms);
 
     return () => {};
-  }, []);
+  }, [updateLisFlag]);
 
   return (
     <>
-      <PetButton
-        title={''}
-        onSelectDog={() => onSelectSpecie('Perro')}
-        onSelectCat={() => onSelectSpecie('Gato')}
-        onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
-        onDeselectFilter={() => onDeselect()}
-      />
+      <View style={styles.row}>
+        <PetButton
+          title={''}
+          onSelectDog={() => onSelectSpecie('Perro')}
+          onSelectCat={() => onSelectSpecie('Gato')}
+          onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
+          onDeselectFilter={() => onDeselect()}
+        />
+        <View style={styles.availables}>
+          <Text style={styles.text}>Perros</Text>
+          <FlatList data={dogRoom} horizontal={true} renderItem={({item}) => (
+            <RoomItem size={item.size} available={item.availables} total={item.total} />
+          )}/>
+        </View>
+        <View style={styles.availables}>
+        <Text style={styles.text}>Gatos</Text>
+          <FlatList data={catRoom} horizontal={true} renderItem={({item}) => (
+            <RoomItem size={item.size} available={item.availables} total={item.total} />
+          )}/>
+        </View>
+      </View>
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>
@@ -234,8 +270,9 @@ function LodgingList(props: LodgingListProps): React.JSX.Element {
                 outDate={formattedCheckOutDate}
                 time={checkInDate.toTimeString().split(' ')[0]}
                 petId={item.petId[0]}
+                size={item.size}
                 color={''}
-                petImage={pet.petImage }
+                petImage={pet.petImage}
                 onReset={update}
               />
             );

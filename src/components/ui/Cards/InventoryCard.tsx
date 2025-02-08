@@ -93,8 +93,7 @@ function InventoryCard(props: InventoryCardProps): React.JSX.Element {
           onPress: () => {
             try {
               deleteInventoryItem(props.id);
-              updateInventory();
-              props.onReset?.({} as GestureResponderEvent);
+              updateInventory().then(() => props.onReset?.({} as GestureResponderEvent));
             } catch (e) {
               console.log(e);
             }

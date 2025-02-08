@@ -128,8 +128,7 @@ function ServiceCard(props: ServiceProps): React.JSX.Element {
           onPress: () => {
             try {
               deleteCut(props.serviceId);
-              updateCutsList();
-              props.onReset?.({} as GestureResponderEvent);
+              updateCutsList().then(() => props.onReset?.({} as GestureResponderEvent));
             } catch (e) {
               console.log(e);
             }

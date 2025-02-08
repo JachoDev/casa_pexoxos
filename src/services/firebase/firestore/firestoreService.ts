@@ -37,7 +37,7 @@ export const getPets = async () => {
           name: doc.data().Name,
           breed: doc.data().Breed,
           clientId: doc.data().ClientID,
-          recomenations: doc.data().recomenations,
+          recomenations: doc.data().Recomenations,
           sex: doc.data().Sex,
           specie: doc.data().Specie,
           petImage: doc.data().Image,

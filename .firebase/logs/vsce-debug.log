@@ -5582,3 +5582,6 @@ Generated sources: package.json [634B] README.md [11250B] index.d.ts [2541B] esm
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0202 08:50:44.688144    2652 dev.go:95] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
 [debug] [2025-02-02T14:50:45.573Z] I0202 08:50:45.572879    2652 engine.go:148] [/emulator/casa_pexoxos ccb3] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0202 08:50:45.572879    2652 engine.go:148] [/emulator/casa_pexoxos ccb3] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[warn] !  dataconnect: Fatal error occurred: 
+   Data Connect Emulator has exited with code: 3221225786, 
+   stopping all running emulators {"metadata":{"emulator":{"name":"dataconnect"},"message":"Fatal error occurred: \n   Data Connect Emulator has exited with code: 3221225786, \n   stopping all running emulators"}}

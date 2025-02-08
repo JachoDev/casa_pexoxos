@@ -53,7 +53,7 @@ const createStyles = () =>
       color: 'white',
       paddingTop: 8,
       paddingLeft: 10,
-      width: 300,
+      width: 250,
       height: 40,
     },
     inputGroup: {
@@ -61,10 +61,18 @@ const createStyles = () =>
       paddingBottom: 2,
       marginBottom: 2,
       alignItems: 'flex-start',
+      marginHorizontal: 10,
     },
     titleText: {
       color: 'white',
       fontSize: 16,
+    },
+    rowGroup: {
+      flexDirection: 'row',
+      height: 'auto',
+      paddingBottom: 2,
+      marginBottom: 2,
+      alignItems: 'flex-start',
     },
   });
 
@@ -116,69 +124,97 @@ function PetForm(props: PetFormProps): React.JSX.Element {
     <>
       <View style={styles.container}>
         <View>
-          <Button color="#03bdbf" title="Agregar imagen" onPress={onSend} />
-          <View style={styles.inputGroup}>
-            <Text>Buscar Cliente</Text>
-            <Picker
-              accessibilityLabel="Disabled Example"
-              style={{height: 50, width: 200, margin: 5, color: 'white'}}
-              enabled={isNew}
-              prompt="this prompt"
-              mode="dialog"
-              selectedValue={client}
-              onValueChange={setClient}
-              itemStyle={{color: 'white'}}>
-              {clientListO.map(item => (
-                <Picker.Item
-                  value={item.id}
-                  label={
-                    item.name != '' || item.lastname != ''
-                      ? item.name + ' ' + item.lastname
-                      : item.phone
-                  }
-                  key={item.id}
-                />
-              ))}
-            </Picker>
+          <View style={styles.rowGroup}>
+            <View style={styles.inputGroup}>
+              <Text>Nombre </Text>
+              <TextInput
+                style={styles.textInput}
+                multiline={true}
+                value={name}
+                onChangeText={setName}
+                placeholder="Nombre"
+                placeholderTextColor="gray"
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text>Cliente</Text>
+              <Picker
+                accessibilityLabel="Disabled Example"
+                style={{height: 50, width: 200, margin: 5, color: 'white'}}
+                enabled={isNew}
+                prompt="this prompt"
+                mode="dialog"
+                selectedValue={client}
+                onValueChange={setClient}
+                itemStyle={{color: 'white'}}>
+                {clientListO.map(item => (
+                  <Picker.Item
+                    value={item.id}
+                    label={
+                      item.name != '' || item.lastname != ''
+                        ? item.name + ' ' + item.lastname
+                        : item.phone
+                    }
+                    key={item.id}
+                  />
+                ))}
+              </Picker>
+            </View>
           </View>
-          <View style={styles.inputGroup}>
-            <Text>Nombre </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={name}
-              onChangeText={setName}
-              placeholder="Nombre"
-              placeholderTextColor="gray"
-            />
+          <View style={styles.rowGroup}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.titleText}>Especie</Text>
+              <Picker
+                accessibilityLabel="Disabled Example"
+                style={{height: 50, width: 200, margin: 5, color: 'white'}}
+                enabled={true}
+                selectedValue={specie}
+                onValueChange={setSpecie}
+                prompt="this prompt"
+                mode="dialog"
+                itemStyle={{color: 'white'}}>
+                {species.map((e, i) => (
+                  <Picker.Item key={i} label={e} value={e} />
+                ))}
+              </Picker>
+            </View>
+            <View style={styles.inputGroup}>
+              <Text>Teléfono </Text>
+              <TextInput
+                style={styles.textInput}
+                editable={false}
+                value={_client?.phone || ''}
+                onChangeText={setName}
+                placeholder="Telefono"
+                placeholderTextColor="gray"
+              />
+            </View>
           </View>
-          <View style={styles.inputGroup}>
-            <Text style={styles.titleText}>Especie</Text>
-            <Picker
-              accessibilityLabel="Disabled Example"
-              style={{height: 50, width: 200, margin: 5, color: 'white'}}
-              enabled={true}
-              selectedValue={specie}
-              onValueChange={setSpecie}
-              prompt="this prompt"
-              mode="dialog"
-              itemStyle={{color: 'white'}}>
-              {species.map((e, i) => (
-                <Picker.Item key={i} label={e} value={e} />
-              ))}
-            </Picker>
+          <View style={styles.rowGroup}>
+            <View style={styles.inputGroup}>
+              <Text>Raza </Text>
+              <TextInput
+                style={styles.textInput}
+                multiline={true}
+                value={breed}
+                onChangeText={setBreed}
+                placeholder="Raza"
+                placeholderTextColor="gray"
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text>Dirección </Text>
+              <TextInput
+                style={styles.textInput}
+                editable={false}
+                value={_client?.address || ''}
+                onChangeText={setBreed}
+                placeholder="Dirección"
+                placeholderTextColor="gray"
+              />
+            </View>
           </View>
-          <View style={styles.inputGroup}>
-            <Text>Raza </Text>
-            <TextInput
-              style={styles.textInput}
-              multiline={true}
-              value={breed}
-              onChangeText={setBreed}
-              placeholder="Raza"
-              placeholderTextColor="gray"
-            />
-          </View>
+
           <View style={styles.inputGroup}>
             <Text style={styles.titleText}>Sexo</Text>
             <Picker
@@ -206,7 +242,11 @@ function PetForm(props: PetFormProps): React.JSX.Element {
               placeholderTextColor="gray"
             />
           </View>
-          <Button color="#627489" title={isNew ? 'Crear' : 'Modificar'} onPress={onSend} />
+          <Button
+            color="#627489"
+            title={isNew ? 'Crear' : 'Modificar'}
+            onPress={onSend}
+          />
         </View>
       </View>
     </>

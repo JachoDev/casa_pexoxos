@@ -22,6 +22,7 @@ import ServiceList from '../components/ui/Lists/ServiceList';
 import { Flyout } from 'react-native-windows';
 import DateForm from '../components/ui/forms/DateForm';
 import LodgingForm from '../components/ui/forms/LodgingForm';
+import { getAvailableRooms } from '../services/local/rooms/roomsServices';
 
 type ScheduleProps = PropsWithChildren<{
   title: string;
@@ -144,7 +145,7 @@ function Schedule({children, title}: ScheduleProps): React.JSX.Element {
               <Text style={styles.scheduleSectionTitle}>Hospedaje y Estancias</Text>
               <Text style={styles.scheduleSectionText}>Seleccione la hora de llegada del pexoxo</Text>
               <View style={styles.scheduleButton}>
-                <Button  color='#3ab549' title='Agendar Hospedaje' onPress={() => setShowFlyout2(true)}/>
+                <Button  color='#3ab549' title='Agendar Hospedaje' onPress={() => setShowFlyout2(true)}/> 
               </View>
             </View>
           </View>

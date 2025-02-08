@@ -1,7 +1,7 @@
 import {useTheme} from '@react-navigation/native';
 import React, {useEffect, useState, useMemo} from 'react';
 import type {PropsWithChildren} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, Image} from 'react-native';
 import ServiceCard from '../Cards/ServiceCard';
 import {
   cutsList,
@@ -47,6 +47,16 @@ const createStyles = () =>
       justifyContent: 'center',
       alignSelf: 'center',
     },
+    row: {
+      flexDirection: 'row',
+      alignSelf: 'flex-start',
+
+    },
+    image: {
+      width: 300,
+      height: 200,
+      marginLeft: 100,
+    },
   });
 
 const days = Array.from({length: 28}, (_, i) => {
@@ -78,6 +88,7 @@ type ServiceListProps = PropsWithChildren<{
 
 function ServiceList({title}: ServiceListProps): React.JSX.Element {
   const styles = createStyles();
+  const [updateLisFlag, setUpdateLisFlag] = useState(cutsList);
   const today = useMemo(() => new Date(), []);
   const [cuts, setCuts] = useState(cutsList);
   const [filter, setFilter] = useState('none');
@@ -126,7 +137,9 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
           return e;
         }
       });
-      setServices(updatedFilteredBySpecie.sort((a, b) => b.checkIn - a.checkIn));
+      setServices(
+        updatedFilteredBySpecie.sort((a, b) => b.checkIn - a.checkIn),
+      );
     } else {
       setServices(updatedFilterByState.sort((a, b) => b.checkIn - a.checkIn));
     }
@@ -158,7 +171,7 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
   };
 
   const update = () => {
-    //setServices([]);
+    setUpdateLisFlag([]);
   };
 
   useEffect(() => {
@@ -174,17 +187,20 @@ function ServiceList({title}: ServiceListProps): React.JSX.Element {
     return () => {
       // cleanup code here if needed
     };
-  }, []);
+  }, [updateLisFlag, today]);
 
   return (
     <>
-      <PetButton
-        title={''}
-        onSelectDog={() => onSelectSpecie('Perro')}
-        onSelectCat={() => onSelectSpecie('Gato')}
-        onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
-        onDeselectFilter={() => onDeselect()}
-      />
+      <View style={styles.row}>
+        <PetButton
+          title={''}
+          onSelectDog={() => onSelectSpecie('Perro')}
+          onSelectCat={() => onSelectSpecie('Gato')}
+          onSelectBird={() => onSelectSpecie('Razas Pequeñas')}
+          onDeselectFilter={() => onDeselect()}
+        />
+        <Image source={require('../../../assets/images/image_banner.png')} style={styles.image} resizeMode='contain'/>
+      </View>
       <View style={styles.container}>
         <View style={styles.daysBar}>
           <View style={styles.daysList}>

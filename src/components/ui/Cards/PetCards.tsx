@@ -24,8 +24,8 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
   StyleSheet.create({
     container: {
       alignSelf: 'center',
-      width: isHovered ? 150 : 120,
-      height: isHovered ? 160 : 125,
+      width: isHovered ? 160 : 120,
+      height: isHovered ? 240 : 180,
       alignContent: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#eeeeee',
@@ -41,6 +41,7 @@ const createStyles = (isHovered: boolean, _isPressing: boolean) =>
     image: {
       width: isHovered ? 130 : 100,
       height: isHovered ? 130 : 100,
+      borderRadius: 8,
     },
     pageTitle: {
       // https://github.com/microsoft/WinUI-Gallery/blob/c3cf8db5607c71f5df51fd4eb45d0ce6e932d338/WinUIGallery/HomePage.xaml#L82
@@ -75,6 +76,7 @@ type PetCardProps = PropsWithChildren<{
 
 function PetCard(props: PetCardProps): React.JSX.Element {
   const pet = petList.find(e => e.id == props.petId);
+  const client = clientsList.find(e => pet.clientId === e.id)
   const [isHovered, setIsHovered] = useState(false);
   const [isPressing, setIsPressing] = useState(false);
   const styles = createStyles(isHovered, isPressing);
@@ -91,8 +93,7 @@ function PetCard(props: PetCardProps): React.JSX.Element {
           onPress: () => {
             try {
               deletePet(props.petId);
-              updatePetList();
-              props.onReset?.({} as GestureResponderEvent);
+              updatePetList().then(() => props.onReset?.({} as GestureResponderEvent));
             } catch (e) {
               console.log(e);
             }
@@ -149,9 +150,11 @@ function PetCard(props: PetCardProps): React.JSX.Element {
                   ? require('../../../assets/images/icons/cat.png')
                   : require('../../../assets/images/icons/bird.png'))
               }
-              resizeMode="stretch"
+              resizeMode="cover"
             />
             <Text style={styles.pageTitle}>{props.name}</Text>
+            <Text style={styles.pageTitle}>Cliente: {(client?.name || '') + ' ' + (client?.lastname || '')}</Text>
+            <Text style={styles.pageTitle}>Num: {client?.phone || ''}</Text>
           </View>
         </View>
       </Pressable>

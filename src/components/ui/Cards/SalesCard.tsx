@@ -99,8 +99,7 @@ function SalesCard(props: SalesCardProps): React.JSX.Element {
           onPress: () => {
             try {
               deleteSale(props.id);
-              updateSalesList();
-              props.onReset?.({} as GestureResponderEvent);
+              updateSalesList().then(() => props.onReset?.({} as GestureResponderEvent));
             } catch (e) {
               console.log(e);
             }

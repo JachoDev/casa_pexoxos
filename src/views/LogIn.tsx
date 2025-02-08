@@ -19,6 +19,7 @@ import background from '../assets/images/Login_Background.png';
 import RNPrint from 'react-native-print';
 
 import {userLogged, users} from '../services/firebase/firestore/firestoreService';
+import { getAvailableRooms } from '../services/local/rooms/roomsServices';
 //import { multiply } from '../../modules/react-native-file/src';
 
 type LogInProps = PropsWithChildren<{
@@ -133,10 +134,6 @@ function LogIn({children, title}: LogInProps): React.JSX.Element {
     } else {
       Alert.alert('Error', 'Usuario o contraseña incorrectos');
     }
-  };
-
-  const onPress = async () => {
-  await  RNPrint.getFile();
   };
 
   return (

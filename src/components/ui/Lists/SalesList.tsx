@@ -93,6 +93,7 @@ type SalesListProps = PropsWithChildren<{
 
 function SalesList(props: SalesListProps): React.JSX.Element {
   const styles = createStyles();
+  const [updateLisFlag, setUpdateLisFlag] = useState(salesList);
   const now = new Date();
   const [sales, setSales] = useState(
     salesList
@@ -209,7 +210,7 @@ function SalesList(props: SalesListProps): React.JSX.Element {
   };
 
   const update = () => {
-    setSales([]);
+    setUpdateLisFlag([]);
   };
 
   useEffect(() => {
@@ -218,7 +219,7 @@ function SalesList(props: SalesListProps): React.JSX.Element {
 
     console.log(sales);
     return () => {};
-  }, []);
+  }, [updateLisFlag]);
 
   return (
     <>

@@ -27,7 +27,7 @@ const createStyles = (
 ) =>
   StyleSheet.create({
     container: {
-      alignSelf: 'stretch',
+      alignSelf: 'flex-end',
       width: 400,
       height: 150,
       alignItems: 'center',

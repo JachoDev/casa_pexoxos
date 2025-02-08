@@ -111,6 +111,7 @@ type LodgingCardProps = PropsWithChildren<{
   time: string;
   petImage: string;
   color: string;
+  size?: string;
   onReset?: null | ((event: GestureResponderEvent) => void) | undefined;
 }>;
 
@@ -133,8 +134,8 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
           onPress: () => {
             try {
               deleteLodging(props.lodgingId);
-              updateLodgingList();
-              props.onReset?.({} as GestureResponderEvent);
+              updateLodgingList().then(() => props.onReset?.({} as GestureResponderEvent));
+              
             } catch (e) {
               console.log(e);
             }
@@ -170,7 +171,7 @@ function LodgingCard(props: LodgingCardProps): React.JSX.Element {
           <LodgingSaleForm
             title={''}
             clientId={clientId}
-            services={'Hospedaje'}
+            services={'Hospedaje ' + props.size}
             pets={props.name}
             onSend={onSend}
             serviceId={props.lodgingId}
